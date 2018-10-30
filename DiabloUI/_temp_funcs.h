@@ -10,7 +10,7 @@ void __cdecl    Font_Init             ();
 void __cdecl    Font_Init_All         ();
 
 void __fastcall Font_Deallocate       ( FONT* );
-  
+
 void __cdecl    Font_Deallocate_All   ();
 
 BOOL __cdecl    Font_Load_All         ();
@@ -24,7 +24,7 @@ int __fastcall  Font_Calc_Line_Width  ( CSTRING );
 int __fastcall  Font_Find_Linebreak   ( CSTRING );
 
 void __cdecl    Font_Delete_Operator  ( HANDLE );
-void __fastcall Font_Print_String     ( CSTRING, DRAW_SURFACE*, int, int );
+void __fastcall Font_Print_Text       ( CSTRING, DRAW_SURFACE*, int, int );
 
 //----------------------------------------------------------------------------//
 

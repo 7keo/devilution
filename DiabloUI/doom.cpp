@@ -82,7 +82,7 @@ void __fastcall Doom_PrintStrWithSpin(HWND hWnd, BOOL a2)
 		}
 		v9  = v4[1] - v14 - 1;
 		v10 = Font_Line_Height();
-		Font_Print_String(v5, (DRAW_SURFACE*)v4, v9 / 2, (v4[2] - v10) / 2);
+		Font_Print_Text(v5, (DRAW_SURFACE*)v4, v9 / 2, (v4[2] - v10) / 2);
 		InvalidateRect(hWnd, 0, 0);
 	}
 }
@@ -224,7 +224,7 @@ void __fastcall Doom_PrintStrWithSpn2(HWND hWnd, int justify_type)
 		} else {
 			v5 = 0;
 		}
-		Font_Print_String(v4, (DRAW_SURFACE*)v3, v5, 0);
+		Font_Print_Text(v4, (DRAW_SURFACE*)v3, v5, 0);
 		InvalidateRect(hWnd, 0, 0);
 	}
 }
@@ -327,7 +327,7 @@ void __fastcall Doom_PrintTextMsg403(HWND hWnd)
 		if (v12)
 			String[v14 - 1] = 124; // *(&v9 + v14) = 124;
 		v8                  = Font_Line_Height();
-		Font_Print_String(i, (DRAW_SURFACE*)pWidthBin, v4, (*((_DWORD *)pWidthBin + 2) - v8) / 2);
+		Font_Print_Text(i, (DRAW_SURFACE*)pWidthBin, v4, (*((_DWORD *)pWidthBin + 2) - v8) / 2);
 	}
   
 }
