@@ -69,6 +69,7 @@ int __cdecl DiabloUI_GetSpawned()
 {
 	return sgbIsSpawn;
 }
+
 // 1002972C: using guessed type int sgbIsSpawn;
 
 // ref: 0x10005C30
@@ -101,7 +102,7 @@ void __cdecl UiInitialize()
 {
 	sgbUiIsInitialized = 1;
 	TitleSnd_InitSoundFunc();
-	artfont_InitAllFonts();
+	Font_Load_All();
 	Connect_LoadGFXAndStuff();
 	local_LoadArtCursor();
 	bn_prof_100021C4();

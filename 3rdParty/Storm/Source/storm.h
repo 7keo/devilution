@@ -51,6 +51,21 @@ typedef struct _WSIZE
   WORD  cy;
 } WSIZE, *PWSIZE;
 
+typedef struct _RECT {
+  
+  int left;
+  int top;
+  int right;
+  int bottom;  
+  
+} IRECT, RECTI;
+
+struct DRAW_SURFACE {  /// DDSD_LPSURFACE
+  HANDLE pixels;  /// handle to the texture
+  int    width;   /// size should probably be unsigned
+  int    height;  /// size should probably be unsigned
+};
+
 
 
 // Game states
@@ -790,13 +805,13 @@ BOOL STORMAPI Ordinal393(char *pszString, int, int);
  *  Returns a pointer to the allocated memory. This pointer does NOT include
  *  the additional storm header.
  */
-void*
+BYTE*  /// HANDLE
 STORMAPI
 SMemAlloc(
-    size_t amount,
-    char  *logfilename,
-    int   logline,
-    char  defaultValue = 0);
+  size_t amount,
+  char*  logfilename,  /// change to const CSTRING  // char* logfilename,
+  int    logline,
+  char   defaultValue = 0 );
 
 #define SMAlloc(amount) SMemAlloc((amount), __FILE__, __LINE__)
 
@@ -816,10 +831,10 @@ SMemAlloc(
 BOOL
 STORMAPI
 SMemFree(
-    void *location,
-    char *logfilename,
-    int  logline,
-    char defaultValue = 0);
+  HANDLE location,
+  char*  logfilename,  // char* logfilename,   /// change to const CSTRING
+  int    logline,
+  char   defaultValue = 0 );
 
 #define SMFree(loc) SMemFree((loc), __FILE__, __LINE__)
 
@@ -878,8 +893,14 @@ BOOL STORMAPI SRegDeleteValue(const char *keyname, const char *valuename, BYTE f
 #define SREG_EXCLUDE_CURRENT_USER   0x00000004  // excludes checking the HKEY_CURRENT_USER hive
 #define SREG_ABSOLUTE               0x00000010  // specifies that the key is not a relative key
 
-BOOL STORMAPI STransBlt(void *lpSurface, int x, int y, int width, HANDLE hTrans);
-BOOL STORMAPI STransBltUsingMask(void *lpDest, void *lpSource, int pitch, int width, HANDLE hTrans);
+BOOL STORMAPI STransBlt ( 
+  HANDLE lpSurface, 
+  int    x, 
+  int    y, 
+  int    width, 
+  HANDLE hTrans );
+
+BOOL STORMAPI STransBltUsingMask( HANDLE lpDest, HANDLE lpSource, int pitch, int width, HANDLE hTrans);
 
 BOOL STORMAPI STransDelete(HANDLE hTrans);
 
@@ -892,8 +913,23 @@ BOOL STORMAPI STransSetDirtyArrayInfo(int width, int height, int depth, int bits
 BOOL STORMAPI STransPointInMask(HANDLE hTrans, int x, int y); // Name is a pure guess
 BOOL STORMAPI STransCombineMasks(HANDLE hTransA, HANDLE hTransB, int left, int top, int flags, HANDLE * phTransResult);
 
-BOOL STORMAPI STransCreateE(void *pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE *phTransOut);
-BOOL STORMAPI STransCreateI(void *pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE *phTransOut);
+BOOL STORMAPI STransCreateE( 
+  HANDLE  pBuffer, 
+  int     width, 
+  int     height, 
+  int     bpp, 
+  HANDLE  rect, 
+  int     bufferSize, 
+  HANDLE* phTransOut );
+  
+BOOL STORMAPI STransCreateI( 
+  HANDLE  pBuffer, 
+  int     width, 
+  int     height, 
+  int     bpp, 
+  _RECT*  rect, 
+  int     bufferSize, 
+  HANDLE* phTransOut );
 
 BOOL STORMAPI SVidDestroy();
 BOOL STORMAPI SVidGetSize(HANDLE video, int width, int height, int zero);

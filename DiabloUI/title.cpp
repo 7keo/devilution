@@ -28,7 +28,14 @@ void __fastcall Title_BlitTitleBuffer(HWND hWnd)
 			    v2[1],
 			    0,
 			    0xCC0020u);
-			STransBlt(*(void **)v4, 0, 0, *((_DWORD *)v4 + 1), (HANDLE)titlePHTrans[titleTransIdx]);
+
+			STransBlt( 
+        (HANDLE)( *(HANDLE*)v4 ), 
+        0,  /// x
+        0,  /// y 
+        *((_DWORD*)v4 + 1),  /// w
+        (HANDLE)titlePHTrans[titleTransIdx] );
+
 			InvalidateRect(hWnda, 0, 0);
 		}
 	}
@@ -104,7 +111,7 @@ void __fastcall Title_LoadTitleImage(HWND hWnd, const char *pszFileName)
 
 	v3      = 0;
 	pBuffer = 0;
-	local_LoadArtImage(pszFileName, &pBuffer, (DWORD *)data);
+	local_LoadArtImage(pszFileName, &pBuffer, (_SIZE*)data);
 	v4 = (unsigned int *)GetPropA(hWnd, "TITLE_BUFFER");
 	v5 = v4;
 	if (pBuffer) {
@@ -119,7 +126,7 @@ void __fastcall Title_LoadTitleImage(HWND hWnd, const char *pszFileName)
 					a5[2] = v5[1] - 1;
 					a5[1] = v3 * v5[2];
 					a5[3] = v5[2] + a5[1] - 1;
-					STransCreateI(pBuffer, v5[1], v5[2], 8, (int)a5, 16777466, phTransOut);
+					STransCreateI(pBuffer, v5[1], v5[2], 8, (_RECT*)a5, 16777466, phTransOut);
 					++phTransOut;
 					++v3;
 				} while (v3 < v6);
@@ -169,7 +176,7 @@ BOOL __stdcall UiTitleDialog(int a1)
 {
 	int v1; // eax
 
-	artfont_LoadAllFonts();
+	Font_Load_All();
 	v1 = (int)SDrawGetFrameWindow();
 	SDlgDialogBoxParam(ghUiInst, "TITLESCREEN_DIALOG", v1, Title_MainProc, a1);
 	return 1;

@@ -1,17 +1,32 @@
-void __fastcall artfont_SetArtFont(int nFont);
-void __cdecl artfont_InitAllFonts();
-void __cdecl artfont_FreeAllFonts();
-void __fastcall artfont_FreeArtFont(FontStruct *pFont);
-BOOL __cdecl artfont_LoadAllFonts();
-void __fastcall artfont_LoadArtFont(FontStruct *pFont, const char *pszBinFile, const char *pszFileName);
-int __cdecl artfont_GetFontMaxHeight();
-int __cdecl artfont_GetFontDefWidth();
-int __fastcall artfont_GetFontWidth(char *str);
-void __cdecl j_artfont_cpp_init();
+
+//----------------------------------------------------------------------------//
+
+/// put these inside a artfont.h ?
 void __cdecl artfont_cpp_init();
-int __fastcall artfont_GetFontBreak(char *str);
-void __cdecl artfont_delete_operator(void *ptr);
-void __fastcall artfont_PrintFontStr(char *str, DWORD **pSurface, int sx, int sy);
+void __cdecl j_artfont_cpp_init();
+
+void __cdecl    Font_Init             ();
+
+void __cdecl    Font_Init_All         ();
+
+void __fastcall Font_Deallocate       ( FONT* );
+  
+void __cdecl    Font_Deallocate_All   ();
+
+BOOL __cdecl    Font_Load_All         ();
+void __fastcall Font_Load_From_File   ( FONT*, CSTRING, CSTRING );
+
+void __fastcall Font_Set_Current      ( int );
+
+int __cdecl     Font_Line_Height      ();
+int __cdecl     Font_Default_Width    ();  /// probably whitespace
+int __fastcall  Font_Calc_Line_Width  ( CSTRING );
+int __fastcall  Font_Find_Linebreak   ( CSTRING );
+
+void __cdecl    Font_Delete_Operator  ( HANDLE );
+void __fastcall Font_Print_String     ( CSTRING, DRAW_SURFACE*, int, int );
+
+//----------------------------------------------------------------------------//
 
 signed int bn_prof_100014E8();
 //const char *UiProfileGetString();
@@ -250,36 +265,38 @@ void __fastcall Focus_SetFocusTimer(HWND hWnd, const char *pszFileName);
 void __stdcall Focus_SetFocusAndBlit(int hWnd, int a2, int a3, int a4);
 void __fastcall Focus_KillFocusTimer(HWND hWnd);
 
-void __cdecl local_InitUiPalette();
-void __cdecl local_DelUiPalette();
-tagPALETTEENTRY *__fastcall local_GetArtPalEntry(int entry);
-void __fastcall local_ClearPalette(PALETTEENTRY *pPal);
-void __cdecl local_ClearSurface();
-BOOL __fastcall local_LoadArtImage(const char *pszFileName, BYTE **pBuffer, DWORD *pdwSize);
-BOOL __fastcall local_LoadArtWithPal(HWND hWnd, int a2, char *src, int mask, int flags, const char *pszFileName, BYTE **pBuffer, DWORD *pdwSize, BOOL a9);
-void __fastcall local_AdjustRectSize(tagRECT *pRect, int a2, int a3);
-BOOL __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, DWORD *pdwSize);
-void __cdecl j_local_cpp_init();
-void __cdecl local_cpp_init();
-BOOL __fastcall local_SetButtonBmp(HWND hWnd, int flags, int a7, void *pBuffer, DWORD *pdwSize);
-void __fastcall local_FitButtonDlg(HWND hWnd, int *a2, void *pBuffer, DWORD *pdwSize);
-void __fastcall local_SetWhiteText(HDC hdc);
-BOOL __fastcall local_GetBottomRect(HWND hWnd1, HWND hWnd2, int width, int height);
-void __fastcall local_DlgDoPaint(HWND hWnd);
-void __fastcall local_DoUiWndProc(HWND hWnd, DWORD *pdwMsgTbl);
-LRESULT __stdcall local_PostUiWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-void __fastcall local_DoUiWndProc2(HWND hWnd, DWORD *pdwMsgTbl);
-LRESULT __stdcall local_PostUiWndProc2(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-BOOL __fastcall local_DisableKeyWaitMouse(HWND hWnd);
-DWORD *__cdecl local_AllocWndLongData();
-void __fastcall local_FreeMemPtr(void **p);
-void __fastcall local_SetWndLongStr(int WndLongData, const char *pszStr);
-void __cdecl local_LoadArtCursor();
-void __cdecl local_InitArtCursor();
-void __cdecl local_FreeArtCursor();
-void __cdecl local_SetCursorArt();
-void __cdecl local_SetCursorDefault();
-void __fastcall local_SetDiabloCursor(HWND hWnd);
+
+void             __cdecl    local_InitUiPalette();
+void             __cdecl    local_DelUiPalette();
+tagPALETTEENTRY* __fastcall local_GetArtPalEntry(int entry);
+void             __fastcall local_ClearPalette(PALETTEENTRY *pPal);
+void             __cdecl    local_ClearSurface();
+BOOL             __fastcall local_LoadArtImage( const char* _filename, BYTE** pBuffer, _SIZE* pdwSize );
+BOOL             __fastcall local_LoadArtWithPal(HWND hWnd, int a2, char *src, int mask, int flags, const char *pszFileName, BYTE **pBuffer, DWORD *pdwSize, BOOL a9);
+void             __fastcall local_AdjustRectSize(tagRECT *pRect, int a2, int a3);
+BOOL             __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, DWORD *pdwSize);
+void             __cdecl    j_local_cpp_init();
+void             __cdecl    local_cpp_init();
+BOOL             __fastcall local_SetButtonBmp(HWND hWnd, int flags, int a7, void *pBuffer, DWORD *pdwSize);
+void             __fastcall local_FitButtonDlg(HWND hWnd, int *a2, void *pBuffer, DWORD *pdwSize);
+void             __fastcall local_SetWhiteText(HDC hdc);
+BOOL             __fastcall local_GetBottomRect(HWND hWnd1, HWND hWnd2, int width, int height);
+void             __fastcall local_DlgDoPaint(HWND hWnd);
+void             __fastcall local_DoUiWndProc(HWND hWnd, DWORD *pdwMsgTbl);
+LRESULT          __stdcall  local_PostUiWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+void             __fastcall local_DoUiWndProc2(HWND hWnd, DWORD *pdwMsgTbl);
+LRESULT          __stdcall  local_PostUiWndProc2(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+BOOL             __fastcall local_DisableKeyWaitMouse(HWND hWnd);
+DWORD*           __cdecl    local_AllocWndLongData();
+void             __fastcall local_FreeMemPtr(void **p);
+void             __fastcall local_SetWndLongStr(int WndLongData, const char *pszStr);
+void             __cdecl    local_LoadArtCursor();
+void             __cdecl    local_InitArtCursor();
+void             __cdecl    local_FreeArtCursor();
+void             __cdecl    local_SetCursorArt();
+void             __cdecl    local_SetCursorDefault();
+void             __fastcall local_SetDiabloCursor(HWND hWnd);
+
 
 void __cdecl j_MainMenu_cpp_init();
 void __cdecl MainMenu_cpp_init();

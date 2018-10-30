@@ -1,3 +1,6 @@
+
+const BYTE BITS_PER_PIXEL_8 = 8;  /// needs to be moved
+
 //rdata
 ProfileStruct bnprofiles[4] = {
 	{ "profile\\sex", '\x01', 1128, 8 },
@@ -5,6 +8,7 @@ ProfileStruct bnprofiles[4] = {
 	{ "profile\\location", '\x01', 1132, 40 },
 	{ "profile\\description", '\x01', 1134, 200 }
 };
+
 int profilemsg1[6]           = { 1125, 1127, 1129, 1131, 1133, 0 };
 int profilemsg2[6]           = { 1126, 1128, 1130, 1132, 1134, 0 };
 int Connect_cpp_float_value  = 2139095040; // weak
@@ -115,15 +119,18 @@ int titlemsgtbl[2]           = { 1067, 0 };
 
 //data+bss
 int artfont_cpp_float = 0; // weak
-FontStruct font42g;
-FontStruct *sgpCurrFont;
-FontStruct font30g;
-FontStruct font16s;
-FontStruct font24s;
-FontStruct font16g;
-FontStruct font24g;
-FontStruct font30s;
-FontStruct font42y;
+
+/// should make this into an array and remove switch from Font_Set_Current
+FONT  font42g;  /// 42px gold   tint
+FONT* sgpCurrFont;
+FONT  font30g;  /// 31px gold   tint
+FONT  font16s;  /// 16px silver tint
+FONT  font24s;  /// 26px silver tint
+FONT  font16g;  /// 16px gold   tint
+FONT  font24g;  /// 26px gold   tint
+FONT  font30s;  /// 31px silver tint
+FONT  font42y;  /// 42px silver tint
+
 LPARAM dword_10029400;                                          // idb
 int dword_10029404;                                             // weak
 int dword_10029408;                                             // weak

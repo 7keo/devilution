@@ -112,9 +112,9 @@ BOOL __fastcall Focus_DoBlitSpinIncFrame(HWND hWnd1, HWND hWnd2)
 	ScreenToClient(hWnd1, (LPPOINT)&Rect);
 	ScreenToClient(hWnd1, (LPPOINT)&Rect.right);
 	if (SpinnerTransOut[sgnSpinnerFrame]) {
-		v7 = ((signed int)v5[2] - focus_spin_height) / 2;
-		STransBlt(*v5, 0, v7, (int)v5[1], SpinnerTransOut[sgnSpinnerFrame]);
-		STransBlt(*v5, (int)v5[1] - focus_spin_width, v7, (int)v5[1], SpinnerTransOut[sgnSpinnerFrame]);
+		v7 = ((int)v5[2] - focus_spin_height) / 2;
+		STransBlt( (HANDLE)(*v5), 0, v7, (int)v5[1], SpinnerTransOut[sgnSpinnerFrame]);
+		STransBlt( (HANDLE)(*v5), (int)v5[1] - focus_spin_width, v7, (int)v5[1], SpinnerTransOut[sgnSpinnerFrame]);
 		Focus_CenterSpinFromSide(hWnd2);
 	}
 	if (++sgnSpinnerFrame >= 8)
@@ -178,7 +178,7 @@ void __fastcall Focus_LoadSpinner(const char *pszFileName)
 		pBuffer        = 0;
 		dword_10029CAC = 0;
 		dword_10029CA8 = 0;
-		local_LoadArtImage(pszFileName, &pBuffer, data);
+		local_LoadArtImage(pszFileName, &pBuffer, (_SIZE*)data);
 		v1 = SpinnerTransOut;
 		memset(SpinnerTransOut, 0, 0x20u);
 		if (pBuffer) {
@@ -192,7 +192,7 @@ void __fastcall Focus_LoadSpinner(const char *pszFileName)
 				a5[1] = v4 * v3;
 				a5[0] = 0;
 				a5[3] = v3 + v4 * v3 - 1;
-				STransCreateI(pBuffer, v2, v3, 8, (int)a5, 16777466, v1);
+				STransCreateI(pBuffer, v2, v3, 8, (_RECT*)a5, 16777466, (HANDLE*)v1);
 				++v1;
 				++v4;
 				if ((signed int)v1 >= (signed int)&SpinnerTransOut[8])

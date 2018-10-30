@@ -251,3 +251,18 @@ int8 __OFSUB__(T x, U y)
 #include <limits>
 #define INFINITY std::numeric_limits<float>::infinity()
 #endif
+
+
+/// these are defined in iso646.h and should include that instead if possible
+/// https://en.wikipedia.org/wiki/C_alternative_tokens
+#define and	&&
+#define and_eq	&=
+#define bitand	&
+#define bitor	|
+#define compl	~
+#define not	!
+#define not_eq	!=
+#define or	||
+#define or_eq	|=
+#define xor	^
+#define xor_eq	^=

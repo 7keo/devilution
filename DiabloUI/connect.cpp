@@ -39,10 +39,10 @@ BOOL __cdecl Connect_LoadGFXAndStuff()
 
 	a2 = 0;
 	if (!connect_data1 && !connect_trans[0]) {
-		local_LoadArtImage("ui_art\\heroport.pcx", &connect_data1, heroport_data);
+		local_LoadArtImage("ui_art\\heroport.pcx", &connect_data1, (_SIZE*)heroport_data);
 		local_LoadArtImage("ui_art\\spwnport.pcx", &connect_data2, 0);
-		local_LoadArtImage("ui_art\\heronum.pcx", &a2, heronum_data);
-		local_LoadArtImage("ui_art\\special.pcx", &connect_data3, special_data);
+		local_LoadArtImage("ui_art\\heronum.pcx", &a2, (_SIZE*)heronum_data);
+		local_LoadArtImage("ui_art\\special.pcx", &connect_data3, (_SIZE*)special_data);
 		connect_draw_height = 14;
 		heronum_frames      = (signed int)heronum_data[1] / 10;
 		special_frames      = (signed int)special_data[1] / 8;
@@ -58,7 +58,7 @@ BOOL __cdecl Connect_LoadGFXAndStuff()
 				a5[2] = heronum_data[0] - 1;
 				a5[1] = v1 * heronum_frames;
 				a5[3] = heronum_frames + v1 * heronum_frames - 1;
-				STransCreateI(a2, heronum_data[0], heronum_frames, 8, (int)a5, 16777455, v0);
+				STransCreateI(a2, heronum_data[0], heronum_frames, 8, (_RECT*)a5, 16777455, v0);
 				++v0;
 				++v1;
 			} while ((signed int)v0 < (signed int)&connect_trans[10]);
@@ -639,19 +639,31 @@ BOOL __stdcall UiDrawDescCallback(int arg0, COLORREF color, LPCSTR lpString, cha
 			    0xCC0020u);
 		}
 		v26 = heroinfo.level / 10;
-		if (v26)
+		if (v26){
+
+      HANDLE temp_handle = (char*)connect_data4 
+                         + heroport_data[0] * 4
+                         + heroport_data[0] 
+                         + 14;
 			STransBlt(
-			    (char *)connect_data4 + 4 * heroport_data[0] + heroport_data[0] + 14,
+			    temp_handle,
 			    0,
 			    0,
 			    heroport_data[0],
 			    connect_trans[v26]);
+
+    }
+
+    HANDLE temp_handle = (char*)connect_data4 
+                       + 4 * (heroport_data[0] + 4) 
+                       + heroport_data[0] + 4;
 		STransBlt(
-		    (char *)connect_data4 + 4 * (heroport_data[0] + 4) + heroport_data[0] + 4,
+		    temp_handle,
 		    0,
 		    0,
 		    heroport_data[0],
-		    connect_trans[heroinfo.level % 10]);
+		    connect_trans[heroinfo.level % 10] );
+
 		SetRect(&rc, 0, 0, heroport_data[0] - 1, connect_draw_height - 1);
 		SDlgBltToWindowI(
 		    (HWND)v8[5],

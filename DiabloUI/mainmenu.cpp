@@ -14,14 +14,14 @@ BOOL __stdcall UiMainMenuDialog(char *name, int *pdwResult, void(__stdcall *fnSo
 
 	menu_item_timer = a4;
 	TitleSnd_SetSoundFunction(fnSound);
-	artfont_LoadAllFonts();
+	Font_Load_All();
 	menu_version_str[0] = 0;
 	if (name)
 		strncpy(menu_version_str, name, 0x40u);
 	v4 = (int)SDrawGetFrameWindow();
 	v5 = SDlgDialogBoxParam(ghUiInst, "MAINMENU_DIALOG", v4, MainMenu_WndProc, 0);
 	if (v5 == 5)
-		artfont_FreeAllFonts();
+		Font_Deallocate_All();
 	if (pdwResult)
 		*pdwResult = v5;
 	return 1;

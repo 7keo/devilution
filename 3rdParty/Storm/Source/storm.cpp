@@ -73,12 +73,12 @@ BOOL STORMAPI SFileDdaInitialize(HANDLE directsound) rBool;
 BOOL STORMAPI SFileDdaSetVolume(HANDLE directsound, signed int bigvolume, signed int volume) rBool;
 BOOL STORMAPI SFileDestroy() rBool;
 
-BOOL STORMAPI SFileGetFileArchive(HANDLE hFile, HANDLE archive) rBool;
-LONG STORMAPI SFileGetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh) rInt;
-BOOL STORMAPI SFileOpenArchive(const char *szMpqName, DWORD dwPriority, DWORD dwFlags, HANDLE *phMpq) rBool;
-BOOL STORMAPI SFileOpenFile(const char *filename, HANDLE *phFile) rBool;
-BOOL STORMAPI SFileOpenFileEx(HANDLE hMpq, const char *szFileName, DWORD dwSearchScope, HANDLE *phFile) rBool;
-BOOL STORMAPI SFileReadFile(HANDLE hFile, void *buffer, DWORD nNumberOfBytesToRead, DWORD *read, LONG lpDistanceToMoveHigh) rBool;
+BOOL  STORMAPI SFileGetFileArchive(HANDLE hFile, HANDLE archive) rBool;
+LONG STORMAPI SFileGetFileSize ( HANDLE hFile, LPDWORD lpFileSizeHigh ) rInt;
+BOOL  STORMAPI SFileOpenArchive(const char *szMpqName, DWORD dwPriority, DWORD dwFlags, HANDLE *phMpq) rBool;
+BOOL  STORMAPI SFileOpenFile(const char *filename, HANDLE *phFile) rBool;
+BOOL  STORMAPI SFileOpenFileEx(HANDLE hMpq, const char *szFileName, DWORD dwSearchScope, HANDLE *phFile) rBool;
+BOOL  STORMAPI SFileReadFile(HANDLE hFile, void *buffer, DWORD nNumberOfBytesToRead, DWORD *read, LONG lpDistanceToMoveHigh) rBool;
 
 void STORMAPI SFileSetLocale(LCID lcLocale) rVoid;
 
@@ -96,7 +96,15 @@ BOOL STORMAPI SBltROP3Tiled(void *lpDstBuffer, RECT *lpDstRect, POINT *lpDstPt, 
 
 BOOL STORMAPI SBmpDecodeImage(DWORD dwImgType, void *pSrcBuffer, DWORD dwSrcBuffersize, PALETTEENTRY *pPalette, void *pDstBuffer, DWORD dwDstBuffersize, DWORD *pdwWidth, DWORD *pdwHeight, DWORD *pdwBpp) rBool;
 
-BOOL STORMAPI SBmpLoadImage(const char *pszFileName, PALETTEENTRY *pPalette, void *pBuffer, DWORD dwBuffersize, DWORD *pdwWidth, DWORD *dwHeight, DWORD *pdwBpp) rBool;
+BOOL STORMAPI SBmpLoadImage (
+	const char*   pszFileName, 
+	PALETTEENTRY* pPalette, 
+	HANDLE        pBuffer, 
+	DWORD         dwBuffersize, 
+	DWORD*        pdwWidth, 
+	DWORD*        dwHeight, 
+	DWORD*        pdwBpp
+) rBool;
 
 BOOL   STORMAPI SBmpSaveImage(const char*, PALETTEENTRY*, void*, DWORD, DWORD, DWORD) rBool;
 HANDLE STORMAPI SBmpAllocLoadImage(const char *fileName, PALETTEENTRY *palette, void **buffer, int *width, int *height, int unused6, int unused7, void *(STORMAPI *allocFunction)(DWORD)) rPVoid;
@@ -134,9 +142,17 @@ BOOL STORMAPI SGdiSetPitch(int pitch) rBool;
 
 BOOL STORMAPI Ordinal393(char *string, int, int) rBool;
 
-void* STORMAPI SMemAlloc(size_t amount, char *logfilename, int logline, char defaultValue) rPVoid;
+BYTE* STORMAPI SMemAlloc ( 
+  size_t amount, 
+  char*  logfilename,  /// change to const CSTRING
+  int    logline, 
+  char   defaultValue ) rPVoid;
 
-BOOL STORMAPI SMemFree(void *location, char *logfilename, int logline, char defaultValue) rBool;
+BOOL STORMAPI SMemFree( 
+  HANDLE location, 
+  char*  logfilename,   /// change to const CSTRING
+  int    logline, 
+  char   defaultValue ) rBool;
 
 void* STORMAPI SMemReAlloc(void *location, size_t amount, char *logfilename, int logline, char defaultValue) rPVoid;
 
@@ -149,8 +165,14 @@ BOOL STORMAPI SRegSaveValue(const char *keyname, const char *valuename, BYTE fla
 
 BOOL STORMAPI SRegDeleteValue(const char *keyname, const char *valuename, BYTE flags) rBool;
 
-BOOL STORMAPI STransBlt(void *lpSurface, int x, int y, int width, HANDLE hTrans) rBool;
-BOOL STORMAPI STransBltUsingMask(void *lpSurface, void *lpSource, int pitch, int width, HANDLE hTrans) rBool;
+BOOL STORMAPI STransBlt ( 
+  HANDLE lpSurface, 
+  int    x, 
+  int    y, 
+  int    width, 
+  HANDLE hTrans ) rBool;
+  
+BOOL STORMAPI STransBltUsingMask( HANDLE lpSurface, void *lpSource, int pitch, int width, HANDLE hTrans) rBool;
 
 BOOL STORMAPI STransDelete(HANDLE hTrans) rBool;
 
@@ -164,7 +186,14 @@ BOOL STORMAPI STransPointInMask(HANDLE hTrans, int x, int y) rBool;
 BOOL STORMAPI STransCombineMasks(HANDLE hTransA, HANDLE hTransB, int left, int top, int flags, HANDLE * phTransResult) rBool;
 
 BOOL STORMAPI STransCreateE(void *pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE *phTransOut) rBool;
-BOOL STORMAPI STransCreateI(void *pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE *phTransOut) rBool;
+BOOL STORMAPI STransCreateI(
+  HANDLE  pBuffer, 
+  int     width, 
+  int     height, 
+  int     bpp, 
+  _RECT*  rect, 
+  int     bufferSize, 
+  HANDLE* phTransOut ) rBool;
 
 BOOL STORMAPI SVidDestroy() rBool;
 BOOL STORMAPI SVidGetSize(HANDLE video, int width, int height, int zero) rBool;

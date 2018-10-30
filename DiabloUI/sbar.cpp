@@ -174,9 +174,9 @@ void __fastcall Sbar_LoadScrBarGFX(HWND hWnd, int nIDDlgItem)
 			v2[1] = (DWORD)v4;
 			if (v4) {
 				SDlgSetBitmapI(hWnda, 0, &nullcharacter, -1, 1, v4, 0, v2[2], v2[3], -1);
-				local_LoadArtImage("ui_art\\sb_bg.pcx", (BYTE **)v2 + 4, v2 + 5);
-				local_LoadArtImage("ui_art\\sb_thumb.pcx", (BYTE **)v2 + 7, v2 + 8);
-				local_LoadArtImage("ui_art\\sb_arrow.pcx", (BYTE **)v2 + 10, v2 + 11);
+				local_LoadArtImage("ui_art\\sb_bg.pcx", (BYTE **)v2 + 4, (_SIZE*)(v2 + 5) );
+				local_LoadArtImage("ui_art\\sb_thumb.pcx", (BYTE **)v2 + 7, (_SIZE*)(v2 + 8) );
+				local_LoadArtImage("ui_art\\sb_arrow.pcx", (BYTE **)v2 + 10, (_SIZE*)(v2 + 11) );
 			}
 		}
 	}

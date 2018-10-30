@@ -218,7 +218,7 @@ BOOL __stdcall UiSelHeroMultDialog(BOOL(__stdcall *fninfo)(BOOL(__stdcall *fninf
 	int v7; // eax
 	int v8; // eax
 
-	artfont_LoadAllFonts();
+	Font_Load_All();
 	selhero_fninfo     = fninfo;
 	selhero_fncreate   = fncreate;
 	selhero_fnremove   = fnremove;
@@ -634,7 +634,7 @@ void __fastcall SelHero_LoadHeroGFX(HWND hWnd)
 		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\selhero.pcx", (BYTE **)v12, v12 + 1, 0);
 		Fade_NoInputAndArt(hWnd, 1);
 	}
-	local_LoadArtImage("ui_art\\heros.pcx", &selhero_buffer, selhero_sizedata);
+	local_LoadArtImage("ui_art\\heros.pcx", &selhero_buffer, (_SIZE*)selhero_sizedata);
 	SetActiveWindow(hWnd);
 	Title_LoadImgSetTimer(hWnd, "ui_art\\smlogo.pcx");
 	Doom_ParseWndProc3(hWnd, selhero_msgtbl_string, 5);
@@ -704,12 +704,20 @@ BOOL __stdcall SelHero_GetHeroInfo(_uiheroinfo *pInfo)
 // 1002A428: using guessed type int selhero_numheroesleft;
 
 // ref: 0x1000C57A
-BOOL __stdcall UiSelHeroSingDialog(BOOL(__stdcall *fninfo)(BOOL(__stdcall *fninfofunc)(_uiheroinfo *)), BOOL(__stdcall *fncreate)(_uiheroinfo *), BOOL(__stdcall *fnremove)(_uiheroinfo *), BOOL(__stdcall *fnstats)(unsigned int, _uidefaultstats *), int *dlgresult, char *name, int *difficulty)
-{
+BOOL __stdcall  UiSelHeroSingDialog ( 
+  FNINFO   fninfo, 
+  FNCREATE fncreate, 
+  FNREMOVE fnremove, 
+  FNSTATS  fnstats, 
+  int*     dlgresult, 
+  char*    name, 
+  int*     difficulty 
+){
+
 	int v7; // eax
 	int v8; // edi
 
-	artfont_LoadAllFonts();
+	Font_Load_All();
 	selhero_fninfo   = fninfo;
 	selhero_fncreate = fncreate;
 	selhero_fnremove = fnremove;
@@ -725,7 +733,7 @@ BOOL __stdcall UiSelHeroSingDialog(BOOL(__stdcall *fninfo)(BOOL(__stdcall *fninf
 	if (difficulty)
 		*difficulty = selhero_difficulty;
 	if (v8 != 4)
-		artfont_FreeAllFonts();
+		Font_Deallocate_All();
 	return 1;
 }
 // 10010382: using guessed type _DWORD __stdcall SDrawGetFrameWindow();

@@ -31,7 +31,7 @@ void __fastcall Doom_GetSetWndText(HWND hWnd, int msg, int nFont, int a4)
 	if (msg) {
 		Doom_AllocAndSetBMP(hWnd, msg, 1521);
 		Doom_GetWindowROP3(v5, v4);
-		artfont_SetArtFont(nFont);
+		Font_Set_Current(nFont);
 		Doom_PrintStrWithSpin(v4, a4);
 		GetWindowTextA(v4, String, 255);
 		if (strlen(String)) {
@@ -45,6 +45,8 @@ void __fastcall Doom_GetSetWndText(HWND hWnd, int msg, int nFont, int a4)
 // ref: 0x1000663F
 void __fastcall Doom_PrintStrWithSpin(HWND hWnd, BOOL a2)
 {
+  
+  
 	_DWORD *v3;       // eax
 	_DWORD *v4;       // esi
 	char *v5;         // ebx
@@ -64,7 +66,7 @@ void __fastcall Doom_PrintStrWithSpin(HWND hWnd, BOOL a2)
 		v5 = String;
 		if (!strlen(String))
 			v5 = (char *)(v4 + 4);
-		v14    = artfont_GetFontWidth(v5);
+		v14    = Font_Calc_Line_Width(v5);
 		if (a2) {
 			v6 = v4[1] - 2 * Focus_GetSpinWidthOrZero();
 			v7 = strlen(v5);
@@ -72,15 +74,15 @@ void __fastcall Doom_PrintStrWithSpin(HWND hWnd, BOOL a2)
 				for (i = &v5[v7];; i = v12) {
 					v12  = i - 1;
 					*v12 = 0;
-					v14  = artfont_GetFontWidth(v5);
+					v14  = Font_Calc_Line_Width(v5);
 					if (v14 <= v6)
 						break;
 				}
 			}
 		}
 		v9  = v4[1] - v14 - 1;
-		v10 = artfont_GetFontMaxHeight();
-		artfont_PrintFontStr(v5, (DWORD **)v4, v9 / 2, (v4[2] - v10) / 2);
+		v10 = Font_Line_Height();
+		Font_Print_String(v5, (DRAW_SURFACE*)v4, v9 / 2, (v4[2] - v10) / 2);
 		InvalidateRect(hWnd, 0, 0);
 	}
 }
@@ -149,7 +151,7 @@ void __fastcall Doom_GetSetWndTxt2(HWND hWnd, int msg, int nFont, int a4)
 	v4 = (HWND)msg;
 	if (msg) {
 		Doom_GetWindowROP3(hWnd, (HWND)msg);
-		artfont_SetArtFont(nFont);
+		Font_Set_Current(nFont);
 		Doom_PrintStrWithSpin(v4, a4);
 		GetWindowTextA(v4, String, 255);
 		if (strlen(String)) {
@@ -186,7 +188,7 @@ void __fastcall Doom_GetSetWndTxt3(HWND hWnd, int msg, int nFont)
 	if (msg) {
 		Doom_AllocAndSetBMP(hWnd, msg, 1);
 		Doom_GetWindowROP3(v4, v3);
-		artfont_SetArtFont(nFont);
+		Font_Set_Current(nFont);
 		v5 = GetWindowLongA(v3, -16);
 		Doom_PrintStrWithSpn2(v3, v5);
 		GetWindowTextA(v3, String, 255);
@@ -201,6 +203,7 @@ void __fastcall Doom_GetSetWndTxt3(HWND hWnd, int msg, int nFont)
 // ref: 0x1000695D
 void __fastcall Doom_PrintStrWithSpn2(HWND hWnd, int justify_type)
 {
+  
 	_DWORD *v2;       // eax
 	_DWORD *v3;       // esi
 	char *v4;         // edi
@@ -215,13 +218,13 @@ void __fastcall Doom_PrintStrWithSpn2(HWND hWnd, int justify_type)
 		if (!strlen(String))
 			v4 = (char *)(v3 + 4);
 		if (justify_type & 2) {
-			v5 = v3[1] - artfont_GetFontWidth(v4) - 1;
+			v5 = v3[1] - Font_Calc_Line_Width(v4) - 1;
 		} else if (justify_type & 1) {
-			v5 = (v3[1] - artfont_GetFontWidth(v4) - 1) / 2;
+			v5 = (v3[1] - Font_Calc_Line_Width(v4) - 1) / 2;
 		} else {
 			v5 = 0;
 		}
-		artfont_PrintFontStr(v4, (DWORD **)v3, v5, 0);
+		Font_Print_String(v4, (DRAW_SURFACE*)v3, v5, 0);
 		InvalidateRect(hWnd, 0, 0);
 	}
 }
@@ -249,7 +252,7 @@ void __fastcall Doom_GetSetWndTxt4(HWND hWnd, int msg, int nFont)
 	v3 = (HWND)msg;
 	if (msg) {
 		Doom_GetWindowROP3(hWnd, (HWND)msg);
-		artfont_SetArtFont(nFont);
+		Font_Set_Current(nFont);
 		v4 = GetWindowLongA(v3, -16);
 		Doom_PrintStrWithSpn2(v3, v4);
 		GetWindowTextA(v3, String, 255);
@@ -282,7 +285,7 @@ void __fastcall Doom_GetSetWndTxt5(HWND hWnd, int msg, int nFont)
 	if (msg) {
 		Doom_AllocAndSetBMP(hWnd, msg, 1);
 		Doom_GetWindowROP3(hWnd, v3);
-		artfont_SetArtFont(nFont);
+		Font_Set_Current(nFont);
 		Doom_PrintTextMsg403(v3);
 	}
 }
@@ -304,28 +307,29 @@ void __fastcall Doom_PrintTextMsg403(HWND hWnd)
 	BYTE *pWidthBin;     // [esp+118h] [ebp-8h]
 	size_t v14;          // [esp+11Ch] [ebp-4h]
 
-	v2        = (BYTE *)GetWindowLongA(hWnd, -21);
+  v2        = (BYTE *)GetWindowLongA(hWnd, -21);
 	pWidthBin = v2;
 	if (v2 && *(_DWORD *)v2) {
 		GetWindowTextA(hWnd, String, 255);
 		v14 = strlen(String);
 		v3  = Focus_GetSpinWidthOrZero();
-		v4  = artfont_GetFontDefWidth() + v3;
+		v4  = Font_Default_Width() + v3;
 		GetClientRect(hWnd, &Rect);
 		v5  = Focus_GetSpinWidthOrZero();
-		v6  = Rect.right - 2 * (artfont_GetFontDefWidth() + v5);
+		v6  = Rect.right - 2 * (Font_Default_Width() + v5);
 		v12 = SendMessageA(hWnd, 0x403u, 0, 0);
 		if (v12 == 1)
 			String[v14 - 1] = 0; // *(&v9 + v14) = 0;
 		for (i = String; *i; ++i) {
-			if (artfont_GetFontWidth(i) <= v6)
+			if (Font_Calc_Line_Width(i) <= v6)
 				break;
 		}
 		if (v12)
 			String[v14 - 1] = 124; // *(&v9 + v14) = 124;
-		v8                  = artfont_GetFontMaxHeight();
-		artfont_PrintFontStr(i, (DWORD **)pWidthBin, v4, (*((_DWORD *)pWidthBin + 2) - v8) / 2);
+		v8                  = Font_Line_Height();
+		Font_Print_String(i, (DRAW_SURFACE*)pWidthBin, v4, (*((_DWORD *)pWidthBin + 2) - v8) / 2);
 	}
+  
 }
 
 // ref: 0x10006C08
@@ -348,7 +352,7 @@ void __fastcall Doom_GetSetWndTxt6(HWND hWnd, int msg, int nFont)
 	v3 = (HWND)msg;
 	if (msg) {
 		Doom_GetWindowROP3(hWnd, (HWND)msg);
-		artfont_SetArtFont(nFont);
+		Font_Set_Current(nFont);
 		Doom_PrintTextMsg403(v3);
 	}
 }

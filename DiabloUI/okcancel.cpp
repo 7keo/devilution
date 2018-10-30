@@ -173,7 +173,7 @@ BOOL __fastcall OkCancel_LoadOkCancGFX(HWND hWnd, DWORD *lParam)
 	if ((HWND)SDrawGetFrameWindow() == v7)
 		Fade_SetInputWindow(hWnd);
 	v8 = pBuffer + 1;
-	local_LoadArtImage("ui_art\\but_sml.pcx", pBuffer + 1, data);
+	local_LoadArtImage("ui_art\\but_sml.pcx", pBuffer + 1, (_SIZE*)data);
 	local_FitButtonDlg(hWnd, &a2a, *v8, data);
 	v9      = GetDlgItem(hWnd, 1026);
 	v10     = (const CHAR *)lParam[1];

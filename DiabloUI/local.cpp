@@ -59,31 +59,64 @@ void __cdecl local_ClearSurface()
 }
 // 1001043C: using guessed type int __stdcall SDrawClearSurface(_DWORD);
 
-// ref: 0x100078BE
-BOOL __fastcall local_LoadArtImage(const char *pszFileName, BYTE **pBuffer, DWORD *pdwSize)
-{
-	BYTE *v4;       // eax
-	DWORD v5;       // ecx
-	DWORD dwHeight; // [esp+10h] [ebp-8h]
-	DWORD dwWidth;  // [esp+14h] [ebp-4h]
 
-	*pBuffer = 0;
-	if (!SBmpLoadImage(pszFileName, 0, 0, 0, &dwWidth, &dwHeight, 0))
+
+// ref: 0x100078BE
+BOOL __fastcall local_LoadArtImage (
+  const char*  _filename, 
+        BYTE** _buffer, 
+        _SIZE* _size 
+){
+
+  (*_buffer) = NULL;
+
+	DWORD width; 
+	DWORD height;
+  
+	if ( not SBmpLoadImage( _filename, 0, 0, 0, &width, &height, 0) )
 		return 0;
-	v4       = (BYTE *)SMemAlloc(dwHeight * dwWidth, "C:\\Src\\Diablo\\DiabloUI\\local.cpp", 93, 0);
-	v5       = dwWidth;
-	*pBuffer = v4;
-	if (!SBmpLoadImage(pszFileName, 0, v4, dwHeight * v5, 0, 0, 0)) {
-		SMemFree(*pBuffer, "C:\\Src\\Diablo\\DiabloUI\\local.cpp", 95, 0);
-		*pBuffer = 0;
-		return 0;
+    
+  char* const this_file = "C:\\Src\\Diablo\\DiabloUI\\local.cpp";
+  const DWORD this_line = 93;
+  
+  const DWORD size  = ( width * height );  
+  
+  (*_buffer) = SMemAlloc( size, this_file, this_line, 0x00 );
+  
+  
+  PALETTEENTRY* const			         pallete = NULL;  /// PALLETE_ENTRY = PIXEL, PALLETE = PIXEL*
+  DWORD*        const  width_result_handle = NULL;
+  DWORD*        const height_result_handle = NULL;
+  DWORD*        const    bpp_result_handle = NULL;
+  
+  if ( not SBmpLoadImage (
+    _filename, 
+    pallete, 
+    (HANDLE)*_buffer, 
+    size, 
+     width_result_handle, 
+    height_result_handle, 
+       bpp_result_handle 
+  ) ){
+  
+    const DWORD this_line = 95;
+    SMemFree( *_buffer, this_file, this_line, 0x00 );
+    
+    (*_buffer) = NULL;
+    return false;
+    
+  }
+  
+	if ( _size != NULL ){
+		_size->w = width;
+		_size->h = height;
 	}
-	if (pdwSize) {
-		*pdwSize   = dwWidth;
-		pdwSize[1] = dwHeight;
-	}
-	return 1;
+  
+	return true;
+  
 }
+
+
 
 // ref: 0x10007944
 BOOL __fastcall local_LoadArtWithPal(HWND hWnd, int a2, char *src, int mask, int flags, const char *pszFileName, BYTE **pBuffer, DWORD *pdwSize, BOOL a9)
