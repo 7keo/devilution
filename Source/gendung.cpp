@@ -8,17 +8,17 @@ char nTransTable[2049];
 //int dword_52D204;
 int dMonster[MAXDUNX][MAXDUNY];
 char dungeon[40][40];
-char dObject[MAXDUNX][MAXDUNY];
+char dObject[MAXDUNX][MAXDUNY];  /// which object is occupying each tile
 void *pSpeedCels;
 int nlevel_frames; // weak
 char pdungeon[40][40];
-char dDead[MAXDUNX][MAXDUNY];
+char dDead[MAXDUNX][MAXDUNY];   /// which player corpse is occupying each tile
 short dpiece_defs_map_1[16][MAXDUNX][MAXDUNY];
 char dTransVal2[MAXDUNX][MAXDUNY];
 char TransVal; // weak
 int dword_5A5594;
 char dflags[40][40];
-int dPiece[MAXDUNX][MAXDUNY];
+int dPiece[MAXDUNX][MAXDUNY];   /// which block type is occupying each tile ?
 char dTransVal[MAXDUNX][MAXDUNY];
 int setloadflag_2; // weak
 int tile_defs[2048];
@@ -32,13 +32,13 @@ char nTrapTable[2049];
 BYTE leveltype;
 unsigned char currlevel; // idb
 char TransList[256];
-BYTE nSolidTable[2049];
+BYTE nSolidTable[2049];  /// seems to be just bools 
 int level_frame_count[2048];
 ScrollStruct ScrollInfo;
 void *pDungeonCels;
 int speed_cel_frame_num_from_light_index_frame_num[16][128];
 THEME_LOC themeLoc[MAXTHEMES];
-char dPlayer[MAXDUNX][MAXDUNY];
+char dPlayer[MAXDUNX][MAXDUNY];  /// which player is occupying each tile
 int dword_5C2FF8;   // weak
 int dword_5C2FFC;   // weak
 int scr_pix_width;  // weak
@@ -47,7 +47,7 @@ char dArch[MAXDUNX][MAXDUNY];
 char nBlockTable[2049];
 void *level_special_cel;
 char dFlags[MAXDUNX][MAXDUNY];
-char dItem[MAXDUNX][MAXDUNY];
+char dItem[MAXDUNX][MAXDUNY];  /// which item is occupying each tile
 BYTE setlvlnum;
 int level_frame_sizes[2048];
 char nMissileTable[2049];
@@ -64,7 +64,7 @@ int setpc_x;     // idb
 int ViewX;       // idb
 int ViewY;       // idb
 int setpc_y;     // idb
-char dMissile[MAXDUNX][MAXDUNY];
+char dMissile[MAXDUNX][MAXDUNY];  /// which missile is occupying each tile
 int dminx; // weak
 int dminy; // weak
 short dpiece_defs_map_2[16][MAXDUNX][MAXDUNY];
