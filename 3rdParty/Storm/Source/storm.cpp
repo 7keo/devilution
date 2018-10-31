@@ -51,7 +51,7 @@ HGDIOBJ STORMAPI SDlgDefDialogProc(HWND hDlg, signed int DlgType, HDC textLabel,
 
 HANDLE STORMAPI SDlgDialogBoxIndirectParam(HMODULE hModule, LPCSTR lpName, HWND hWndParent, LPVOID lpParam, LPARAM lParam) rPVoid;
 
-BOOL STORMAPI SDlgEndDialog(HWND hDlg, HANDLE nResult) rBool;
+BOOL STORMAPI SDlgEndDialog ( HWND hDlg, HANDLE nResult ) rBool;
 
 BOOL STORMAPI SDlgSetControlBitmaps(HWND parentwindow, int *id, int a3, char *buffer2, char *buffer, int flags, int mask) rBool;
 
@@ -97,12 +97,12 @@ BOOL STORMAPI SBltROP3Tiled(void *lpDstBuffer, RECT *lpDstRect, POINT *lpDstPt, 
 BOOL STORMAPI SBmpDecodeImage(DWORD dwImgType, void *pSrcBuffer, DWORD dwSrcBuffersize, PALETTEENTRY *pPalette, void *pDstBuffer, DWORD dwDstBuffersize, DWORD *pdwWidth, DWORD *pdwHeight, DWORD *pdwBpp) rBool;
 
 BOOL STORMAPI SBmpLoadImage (
-	const char*   pszFileName, 
-	PALETTEENTRY* pPalette, 
-	HANDLE        pBuffer, 
-	DWORD         dwBuffersize, 
-	DWORD*        pdwWidth, 
-	DWORD*        dwHeight, 
+	const char*   pszFileName,
+	PALETTEENTRY* pPalette,
+	HANDLE        pBuffer,
+	DWORD         dwBuffersize,
+	DWORD*        pdwWidth,
+	DWORD*        dwHeight,
 	DWORD*        pdwBpp
 ) rBool;
 
@@ -142,16 +142,16 @@ BOOL STORMAPI SGdiSetPitch(int pitch) rBool;
 
 BOOL STORMAPI Ordinal393(char *string, int, int) rBool;
 
-BYTE* STORMAPI SMemAlloc ( 
-  size_t amount, 
+BYTE* STORMAPI SMemAlloc (
+  size_t amount,
   char*  logfilename,  /// change to const CSTRING
-  int    logline, 
+  int    logline,
   char   defaultValue ) rPVoid;
 
-BOOL STORMAPI SMemFree( 
-  HANDLE location, 
+BOOL STORMAPI SMemFree(
+  HANDLE location,
   char*  logfilename,   /// change to const CSTRING
-  int    logline, 
+  int    logline,
   char   defaultValue ) rBool;
 
 void* STORMAPI SMemReAlloc(void *location, size_t amount, char *logfilename, int logline, char defaultValue) rPVoid;
@@ -165,13 +165,13 @@ BOOL STORMAPI SRegSaveValue(const char *keyname, const char *valuename, BYTE fla
 
 BOOL STORMAPI SRegDeleteValue(const char *keyname, const char *valuename, BYTE flags) rBool;
 
-BOOL STORMAPI STransBlt ( 
-  HANDLE lpSurface, 
-  int    x, 
-  int    y, 
-  int    width, 
+BOOL STORMAPI STransBlt (
+  HANDLE lpSurface,
+  int    x,
+  int    y,
+  int    width,
   HANDLE hTrans ) rBool;
-  
+
 BOOL STORMAPI STransBltUsingMask( HANDLE lpSurface, void *lpSource, int pitch, int width, HANDLE hTrans) rBool;
 
 BOOL STORMAPI STransDelete(HANDLE hTrans) rBool;
@@ -187,12 +187,12 @@ BOOL STORMAPI STransCombineMasks(HANDLE hTransA, HANDLE hTransB, int left, int t
 
 BOOL STORMAPI STransCreateE(void *pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE *phTransOut) rBool;
 BOOL STORMAPI STransCreateI(
-  HANDLE  pBuffer, 
-  int     width, 
-  int     height, 
-  int     bpp, 
-  _RECT*  rect, 
-  int     bufferSize, 
+  HANDLE  pBuffer,
+  int     width,
+  int     height,
+  int     bpp,
+  _RECT*  rect,
+  int     bufferSize,
   HANDLE* phTransOut ) rBool;
 
 BOOL STORMAPI SVidDestroy() rBool;

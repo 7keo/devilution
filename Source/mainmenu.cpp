@@ -1,85 +1,145 @@
+
+//----------------------------------------------------------------------------//
+
 //HEADER_GOES_HERE
 
 #include "../types.h"
 
+//----------------------------------------------------------------------------//
+
 static float mainmenu_cpp_init_value = INFINITY;
-char chr_name_str[16];
-
+       char  chr_name_str[16];
 /* data */
+       int   menu_music_track_id = 5;
 
-int menu_music_track_id = 5;
+//----------------------------------------------------------------------------//
 
 void __cdecl mainmenu_refresh_music()
 {
-	music_start(menu_music_track_id);
+
+	music_start (menu_music_track_id );
+
 	do {
-		menu_music_track_id++;
-		if (menu_music_track_id == 6)
+
+    menu_music_track_id += 1;
+
+		if ( menu_music_track_id == 6 )
 			menu_music_track_id = 0;
-	} while (!menu_music_track_id || menu_music_track_id == 1);
+
+  } while ( menu_music_track_id == 0
+    or      menu_music_track_id == 1 );
+
 }
 
-void __stdcall mainmenu_create_hero(char *name_1, char *name_2)
-{
-	if (UiValidPlayerName(name_1))
-		pfile_create_save_file(name_1, name_2);
+//----------------------------------------------------------------------------//
+
+void __stdcall mainmenu_create_hero(
+  char* _name_1,
+  char* _name_2
+){
+
+	if ( not UiValidPlayerName( _name_1 ) )
+    return;
+
+  pfile_create_save_file( _name_1, _name_2 );
+
 }
+
+//----------------------------------------------------------------------------//
 
 int __stdcall mainmenu_select_hero_dialog(
-    const struct _SNETPROGRAMDATA *u1,
-    const struct _SNETPLAYERDATA *u2,
-    const struct _SNETUIDATA *u3,
-    const struct _SNETVERSIONDATA *u4,
-    DWORD mode,
-    char *cname, DWORD clen,
-    char *cdesc, DWORD cdlen,
-    BOOL *multi)
-{
-	int a6 = 1;
-	int a5 = 0;
-	if (gbMaxPlayers == 1) {
-		if (!UiSelHeroSingDialog(
-		        pfile_ui_set_hero_infos,
-		        pfile_ui_save_create,
-		        pfile_delete_save,
-		        pfile_ui_set_class_stats,
-		        &a5,
-		        chr_name_str,
-		        &gnDifficulty))
-			TermMsg("Unable to display SelHeroSing");
+  const struct _SNETPROGRAMDATA* _u1,
+  const struct _SNETPLAYERDATA*  _u2,
+  const struct _SNETUIDATA*      _u3,
+  const struct _SNETVERSIONDATA* _u4,
+        DWORD                    _mode,  /// provider ?
+        char*                    _player_name,
+        DWORD                    _player_name_length,
+        char*                    _player_description,
+        DWORD                    _player_description_length,
+        BOOL*                    _multi
+){
 
-		if (a5 == 2)
-			dword_5256E8 = TRUE;
+
+	int selhero_is_created = 1;
+	int dialog_result      = 0;
+
+  //--------------------------------------------------------------------------//
+
+	if ( gbMaxPlayers == 1 ){
+
+		if ( not UiSelHeroSingDialog(
+      pfile_ui_set_hero_infos,
+      pfile_ui_save_create,
+      pfile_delete_save,
+      pfile_ui_set_class_stats,
+      &dialog_result,
+      chr_name_str,
+      &gnDifficulty
+    ) )
+			TermMsg( "Unable to display SelHeroSing" );
+
+		if  ( dialog_result == 2 )
+      dword_5256E8 = TRUE;
 		else
-			dword_5256E8 = FALSE;
+      dword_5256E8 = FALSE;
 
-	} else if (!UiSelHeroMultDialog(
-	               pfile_ui_set_hero_infos,
-	               pfile_ui_save_create,
-	               pfile_delete_save,
-	               pfile_ui_set_class_stats,
-	               &a5,
-	               &a6,
-	               chr_name_str)) {
-		TermMsg("Can't load multiplayer dialog");
 	}
-	if (a5 == 4) {
-		SErrSetLastError(1223);
+
+  else
+  if ( not UiSelHeroMultDialog(
+    pfile_ui_set_hero_infos,
+	  pfile_ui_save_create,
+	  pfile_delete_save,
+	  pfile_ui_set_class_stats,
+	  &dialog_result,
+	  &selhero_is_created,
+	  chr_name_str
+  ) )
+		TermMsg( "Can't load multiplayer dialog" );
+
+  //--------------------------------------------------------------------------//
+
+	if ( dialog_result == 4 ){
+		SErrSetLastError( 1223 );
 		return 0;
 	}
 
-	pfile_create_player_description(cdesc, cdlen);
-	if (multi) {
-		if (mode == 'BNET')
-			*multi = a6 || !plr[myplr].pBattleNet;
+  //--------------------------------------------------------------------------//
+
+	pfile_create_player_description(
+    _player_description,
+    _player_description_length
+  );
+
+  //--------------------------------------------------------------------------//
+
+	if ( _multi != NULL ){
+
+		if ( _mode == 'BNET' )
+			*_multi = ( selhero_is_created or not plr[myplr].pBattleNet );
 		else
-			*multi = a6;
+			*_multi = selhero_is_created;
+
 	}
-	if (cname && clen)
-		SStrCopy(cname, chr_name_str, clen);
+
+  //--------------------------------------------------------------------------//
+
+	if ( _player_name        != NULL
+  and  _player_name_length != 0 )
+		SStrCopy(
+      _player_name,
+      chr_name_str,
+      _player_name_length
+    );
+
+  //--------------------------------------------------------------------------//
 
 	return 1;
+
 }
+
+//----------------------------------------------------------------------------//
 
 void __cdecl mainmenu_loop()
 {

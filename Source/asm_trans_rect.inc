@@ -1,3 +1,22 @@
+
+/// safeguard for iso646
+#ifdef _ISO646
+	#define _ISO_646_RESTORE
+	#undef _ISO646
+	#undef and
+	#undef and_eq
+	#undef bitand
+	#undef bitor
+	#undef compl
+	#undef not
+	#undef not_eq
+	#undef or
+	#undef or_eq
+	#undef xor
+	#undef xor_eq
+#endif 
+
+
 /*  Draws a half-transparent rectangle by blacking out odd pixels on odd lines,
  *  even pixels on even lines.
  *
@@ -82,3 +101,9 @@ x2loop:
 #undef TRANS_RECT_X
 #undef TRANS_RECT_WIDTH
 #undef TRANS_RECT_HEIGHT
+
+
+/// safeguard for iso646
+#ifdef _ISO_646_RESTORE	
+  #include <iso646.h>
+#endif

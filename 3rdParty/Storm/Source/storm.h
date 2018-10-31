@@ -52,12 +52,12 @@ typedef struct _WSIZE
 } WSIZE, *PWSIZE;
 
 typedef struct _RECT {
-  
+
   int left;
   int top;
   int right;
-  int bottom;  
-  
+  int bottom;
+
 } IRECT, RECTI;
 
 struct DRAW_SURFACE {  /// DDSD_LPSURFACE
@@ -805,8 +805,7 @@ BOOL STORMAPI Ordinal393(char *pszString, int, int);
  *  Returns a pointer to the allocated memory. This pointer does NOT include
  *  the additional storm header.
  */
-BYTE*  /// HANDLE
-STORMAPI
+BYTE* STORMAPI
 SMemAlloc(
   size_t amount,
   char*  logfilename,  /// change to const CSTRING  // char* logfilename,
@@ -893,11 +892,11 @@ BOOL STORMAPI SRegDeleteValue(const char *keyname, const char *valuename, BYTE f
 #define SREG_EXCLUDE_CURRENT_USER   0x00000004  // excludes checking the HKEY_CURRENT_USER hive
 #define SREG_ABSOLUTE               0x00000010  // specifies that the key is not a relative key
 
-BOOL STORMAPI STransBlt ( 
-  HANDLE lpSurface, 
-  int    x, 
-  int    y, 
-  int    width, 
+BOOL STORMAPI STransBlt (
+  HANDLE lpSurface,
+  int    x,
+  int    y,
+  int    width,
   HANDLE hTrans );
 
 BOOL STORMAPI STransBltUsingMask( HANDLE lpDest, HANDLE lpSource, int pitch, int width, HANDLE hTrans);
@@ -913,22 +912,22 @@ BOOL STORMAPI STransSetDirtyArrayInfo(int width, int height, int depth, int bits
 BOOL STORMAPI STransPointInMask(HANDLE hTrans, int x, int y); // Name is a pure guess
 BOOL STORMAPI STransCombineMasks(HANDLE hTransA, HANDLE hTransB, int left, int top, int flags, HANDLE * phTransResult);
 
-BOOL STORMAPI STransCreateE( 
-  HANDLE  pBuffer, 
-  int     width, 
-  int     height, 
-  int     bpp, 
-  HANDLE  rect, 
-  int     bufferSize, 
+BOOL STORMAPI STransCreateE(
+  HANDLE  pBuffer,
+  int     width,
+  int     height,
+  int     bpp,
+  HANDLE  rect,
+  int     bufferSize,
   HANDLE* phTransOut );
-  
-BOOL STORMAPI STransCreateI( 
-  HANDLE  pBuffer, 
-  int     width, 
-  int     height, 
-  int     bpp, 
-  _RECT*  rect, 
-  int     bufferSize, 
+
+BOOL STORMAPI STransCreateI(
+  HANDLE  pBuffer,
+  int     width,
+  int     height,
+  int     bpp,
+  _RECT*  rect,
+  int     bufferSize,
   HANDLE* phTransOut );
 
 BOOL STORMAPI SVidDestroy();

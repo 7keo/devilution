@@ -458,7 +458,7 @@ void __fastcall SelHero_DoSelLoad(HWND hWnd);
 void __fastcall SelHero_DoSelDiff(HWND hWnd);
 void __fastcall SelHero_DeleteAndFree(HWND hWnd);
 void __fastcall SelHero_FreeAllHeroes(_uiheroinfo *pInfo);
-void __fastcall SelHero_DoHeroEndFade(HWND hWnd, int a2);
+void __fastcall SelHero_DoHeroEndFade ( HWND hWnd, HANDLE _result );
 void __fastcall SelHero_LoadHeroGFX(HWND hWnd);
 void __fastcall SelHero_SelectHeroRegion(HWND hWnd);
 BOOL __stdcall SelHero_GetHeroInfo(_uiheroinfo *pInfo);
