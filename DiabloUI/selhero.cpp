@@ -268,8 +268,8 @@ BOOL __stdcall UiSelHeroMultDialog (
 
 
 
-	HWND frame_window       = SDrawGetFrameWindow();
-	BOOL temp_dialog_result = SDlgDialogBoxParam(
+        HWND frame_window       = SDrawGetFrameWindow();
+	const BOOL temp_dialog_result = SDlgDialogBoxParam(
     ghUiInst,
     "SELHERO_DIALOG",
     (int)frame_window,

@@ -70,7 +70,7 @@ int __stdcall mainmenu_Select_Hero_Dialog (
 
 	if ( gbMaxPlayers == 1 ){
 
-		if ( not UiSelHeroSingDialog(
+		if ( not UiSelHeroSingDialog(  /// returns true by default
       pfile_ui_set_hero_infos,
       pfile_ui_save_create,
       pfile_delete_save,
@@ -89,7 +89,7 @@ int __stdcall mainmenu_Select_Hero_Dialog (
 	}
 
   else
-  if ( not UiSelHeroMultDialog(
+  if ( not UiSelHeroMultDialog(  /// returns true by default
     pfile_ui_set_hero_infos,
 	  pfile_ui_save_create,
 	  pfile_delete_save,
