@@ -2201,12 +2201,12 @@ enum _music_id {
 };
 
 enum _mainmenu_selections {
-	MAINMENU_SINGLE_PLAYER = 1,
-	MAINMENU_MULTIPLAYER   = 2,
-	MAINMENU_REPLAY_INTRO  = 3,
-	MAINMENU_SHOW_CREDITS  = 4,
-	MAINMENU_EXIT_DIABLO   = 5,
-	MAINMENU_ATTRACT_MODE  = 6,
+	__mainmenu_single_player = 1,
+	__mainmenu_multiplayer   = 2,
+	__mainmenu_replay_intro  = 3,
+	__mainmenu_show_credits  = 4,
+	__mainmenu_exit_diablo   = 5,
+	__mainmenu_attract_mode  = 6,
 };
 
 enum panel_button_id {

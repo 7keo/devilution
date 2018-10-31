@@ -141,46 +141,77 @@ int __stdcall mainmenu_select_hero_dialog(
 
 //----------------------------------------------------------------------------//
 
-void __cdecl mainmenu_loop()
-{
-	int v1; // eax
-	int a2; // [esp+0h] [ebp-4h]
+void __cdecl mainmenu_loop (){
+
 
 	mainmenu_refresh_music();
-	do {
-		while (1) {
-			a2 = 0;
-			if (!UiMainMenuDialog("Diablo v1.09", &a2, effects_play_sound, 30))
-				TermMsg("Unable to display mainmenu");
-			if (a2 == 1)
-				break;
-			switch (a2) {
-			case MAINMENU_MULTIPLAYER:
-				v1 = mainmenu_multi_player();
-				goto LABEL_15;
-			case MAINMENU_REPLAY_INTRO:
-				goto LABEL_10;
-			case MAINMENU_SHOW_CREDITS:
-				UiCreditsDialog(16);
-				break;
-			case MAINMENU_EXIT_DIABLO:
-				goto LABEL_16;
-			case MAINMENU_ATTRACT_MODE:
-			LABEL_10:
-				if (gbActive)
-					mainmenu_play_intro();
-				break;
+
+
+  int game_mode_running;
+  do {
+
+		while ( true ){
+
+			int dialog_result = 0;
+			if ( not UiMainMenuDialog(
+        gszProductName,
+        &dialog_result,
+        effects_play_sound,
+        30 )  /// magic number
+      )
+				TermMsg( "Unable to display mainmenu" );
+
+      switch ( dialog_result ){
+
+
+        case __mainmenu_single_player:
+          goto Label_Single_Player;
+
+
+        case __mainmenu_multiplayer:
+          game_mode_running = mainmenu_Multi_Player();
+          goto Label_Skip;
+
+
+        case __mainmenu_replay_intro:
+          goto Label_Play_Intro;
+
+
+        case __mainmenu_show_credits:
+          UiCreditsDialog( 16 );  /// magic number
+          break;
+
+
+        case __mainmenu_exit_diablo:
+          goto Label_Exit;
+
+
+        case __mainmenu_attract_mode:
+          Label_Play_Intro:
+          if ( gbActive )
+            mainmenu_play_intro();
+          break;
+
+
 			}
 		}
-		v1 = mainmenu_single_player();
-	LABEL_15:;
-	} while (v1);
-LABEL_16:
+
+		Label_Single_Player:
+    game_mode_running = mainmenu_Single_Player();
+
+    Label_Skip:;
+
+	} while ( game_mode_running );
+
+  Label_Exit:
 	music_stop();
+
 }
 // 634980: using guessed type int gbActive;
 
-BOOL __cdecl mainmenu_single_player()
+//----------------------------------------------------------------------------//
+
+BOOL __cdecl mainmenu_Single_Player()
 {
 	gbMaxPlayers = 1;
 	return mainmenu_init_menu(1);
@@ -201,7 +232,7 @@ BOOL __fastcall mainmenu_init_menu(int type)
 	return success;
 }
 
-BOOL __cdecl mainmenu_multi_player()
+BOOL __cdecl mainmenu_Multi_Player()
 {
 	gbMaxPlayers = MAX_PLRS;
 	return mainmenu_init_menu(3);
