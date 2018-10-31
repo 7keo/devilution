@@ -148,20 +148,23 @@ void __cdecl mainmenu_loop (){
 
 
   int game_mode_running;
-  do {
+	do {
 
 		while ( true ){
 
-			int dialog_result = 0;
+			int dialog_result = 0;  /// magic number
+
 			if ( not UiMainMenuDialog(
         gszProductName,
         &dialog_result,
         effects_play_sound,
-        30 )  /// magic number
+        30  /// magic number
+        )
       )
 				TermMsg( "Unable to display mainmenu" );
 
-      switch ( dialog_result ){
+
+			switch ( dialog_result ){
 
 
         case __mainmenu_single_player:
@@ -193,10 +196,11 @@ void __cdecl mainmenu_loop (){
           break;
 
 
-			}
+      }
+
 		}
 
-		Label_Single_Player:
+    Label_Single_Player:
     game_mode_running = mainmenu_Single_Player();
 
     Label_Skip:;
