@@ -746,17 +746,19 @@ int __fastcall NetInit(int bSinglePlayer, int *pfExitProgram)
 		a2.size = 16;
 		memset(&UiData, 0, 0x50u);
 		UiData.size = 80;
-		UiData.parentwindow = SDrawGetFrameWindow(0);
-		UiData.artcallback = (void(__cdecl *)())UiArtCallback;
-		UiData.createcallback = (void(__cdecl *)())UiCreateGameCallback;
-		UiData.drawdesccallback = (void(__cdecl *)())UiDrawDescCallback;
-		UiData.messageboxcallback = (void(__cdecl *)())UiMessageBoxCallback;
-		UiData.soundcallback = (void(__cdecl *)())UiSoundCallback;
-		UiData.authcallback = (void(__cdecl *)())UiAuthCallback;
-		UiData.getdatacallback = (void(__cdecl *)())UiGetDataCallback;
-		UiData.categorycallback = (void(__cdecl *)())UiCategoryCallback;
-		UiData.selectnamecallback = mainmenu_select_hero_dialog;
-		UiData.changenamecallback = (void(__cdecl *)())mainmenu_create_hero;
+		UiData.parentwindow  = SDrawGetFrameWindow(0);
+
+		UiData.artcallback           = (void(__cdecl *)())UiArtCallback;
+		UiData.createcallback        = (void(__cdecl *)())UiCreateGameCallback;
+		UiData.drawdesccallback      = (void(__cdecl *)())UiDrawDescCallback;
+		UiData.messageboxcallback    = (void(__cdecl *)())UiMessageBoxCallback;
+		UiData.soundcallback         = (void(__cdecl *)())UiSoundCallback;
+		UiData.authcallback          = (void(__cdecl *)())UiAuthCallback;
+		UiData.getdatacallback       = (void(__cdecl *)())UiGetDataCallback;
+		UiData.categorycallback      = (void(__cdecl *)())UiCategoryCallback;
+		UiData.selectnamecallback    = mainmenu_Select_Hero_Dialog;
+		UiData.changenamecallback    = (void(__cdecl *)())mainmenu_Create_Hero;
+
 		UiData.profilebitmapcallback = UiProfileDraw;
 		UiData.profilecallback = UiProfileCallback;
 		UiData.profilefields = UiProfileGetString();

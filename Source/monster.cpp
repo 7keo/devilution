@@ -3315,10 +3315,7 @@ void __fastcall GroupUnity(int i)
 	int v4;           // edi
 	bool v5;          // eax
 	int v6;           // eax
-<<<<<<< HEAD
 	// int v7;           // ecx
-=======
->>>>>>> upstream/nightly
 	unsigned char v8; // al
 	int v9;           // ebp
 	int j;            // edi

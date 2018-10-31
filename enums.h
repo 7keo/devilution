@@ -2228,6 +2228,13 @@ enum _music_id {
 	NUM_MUSIC    = 6,
 };
 
+enum _mainmenu_song_ids {
+  __mainmenu_song_id_min  = 0,
+  __mainmenu_song_id_1    = 1,
+  __mainmenu_song_default = 5,
+  __mainmenu_song_id_max  = 6,
+};
+
 enum _mainmenu_selections {
 	__mainmenu_single_player = 1,
 	__mainmenu_multiplayer   = 2,
@@ -2235,6 +2242,13 @@ enum _mainmenu_selections {
 	__mainmenu_show_credits  = 4,
 	__mainmenu_exit_diablo   = 5,
 	__mainmenu_attract_mode  = 6,
+};
+
+enum _mainmenu_init_types {  /// maybe bit flags ?
+	__mainmenu_init_single_player  = 1,
+	__mainmenu_init_undeciphered_2 = 2,
+	__mainmenu_init_multiplayer    = 3,
+	__mainmenu_init_undeciphered_4 = 4,
 };
 
 enum panel_button_id {

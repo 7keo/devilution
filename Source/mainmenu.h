@@ -16,16 +16,16 @@ void __cdecl    mainmenu_cpp_init ();
 
 //----------------------------------------------------------------------------//
 
-void __cdecl    mainmenu_refresh_music ();
+void __cdecl    mainmenu_Refresh_Music ();
 //----------------------------------------------------------------------------//
 
-void __stdcall  mainmenu_create_hero (
+void __stdcall  mainmenu_Create_Hero (
   char* name_1,
   char* name_2
 );
 //----------------------------------------------------------------------------//
 
-int  __stdcall  mainmenu_select_hero_dialog (
+int  __stdcall  mainmenu_Select_Hero_Dialog (
   const struct _SNETPROGRAMDATA* u1,
   const struct _SNETPLAYERDATA*  u2,
   const struct _SNETUIDATA*      u3,
@@ -40,7 +40,7 @@ int  __stdcall  mainmenu_select_hero_dialog (
 
 //----------------------------------------------------------------------------//
 
-void __cdecl    mainmenu_loop();
+void __cdecl    mainmenu_Loop();
 
 //----------------------------------------------------------------------------//
 
@@ -48,7 +48,7 @@ BOOL __cdecl    mainmenu_Single_Player ();
 
 //----------------------------------------------------------------------------//
 
-BOOL __fastcall mainmenu_init_menu ( int a1 );
+BOOL __fastcall mainmenu_Init_Menu ( int _type );
 
 //----------------------------------------------------------------------------//
 

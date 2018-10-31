@@ -10,30 +10,32 @@
 static float mainmenu_cpp_init_value = INFINITY;
        char  chr_name_str[16];
 /* data */
-       int   menu_music_track_id = 5;
+       int   menu_music_track_id = __mainmenu_song_default;
 
 //----------------------------------------------------------------------------//
 
-void __cdecl mainmenu_refresh_music()
-{
+void __cdecl mainmenu_Refresh_Music (){
 
-	music_start (menu_music_track_id );
 
-	do {
+	music_start( menu_music_track_id );
+
+	///  queue next song, only play songs 2 to 5
+  do {
 
     menu_music_track_id += 1;
 
-		if ( menu_music_track_id == 6 )
-			menu_music_track_id = 0;
+		if ( menu_music_track_id == __mainmenu_song_id_max )
+			menu_music_track_id = __mainmenu_song_id_min;
 
-  } while ( menu_music_track_id == 0
-    or      menu_music_track_id == 1 );
+  } while ( menu_music_track_id == __mainmenu_song_id_min
+    or      menu_music_track_id == __mainmenu_song_id_1 );
+
 
 }
 
 //----------------------------------------------------------------------------//
 
-void __stdcall mainmenu_create_hero(
+void __stdcall mainmenu_Create_Hero (
   char* _name_1,
   char* _name_2
 ){
@@ -47,7 +49,7 @@ void __stdcall mainmenu_create_hero(
 
 //----------------------------------------------------------------------------//
 
-int __stdcall mainmenu_select_hero_dialog(
+int __stdcall mainmenu_Select_Hero_Dialog (
   const struct _SNETPROGRAMDATA* _u1,
   const struct _SNETPLAYERDATA*  _u2,
   const struct _SNETUIDATA*      _u3,
@@ -100,8 +102,8 @@ int __stdcall mainmenu_select_hero_dialog(
 
   //--------------------------------------------------------------------------//
 
-	if ( dialog_result == 4 ){
-		SErrSetLastError( 1223 );
+	if ( dialog_result == 4 ){  /// magic numer
+		SErrSetLastError( 1223 );  /// magic numer
 		return 0;
 	}
 
@@ -141,10 +143,10 @@ int __stdcall mainmenu_select_hero_dialog(
 
 //----------------------------------------------------------------------------//
 
-void __cdecl mainmenu_loop (){
+void __cdecl mainmenu_Loop (){
 
 
-	mainmenu_refresh_music();
+	mainmenu_Refresh_Music();
 
 
   int game_mode_running;
@@ -215,36 +217,64 @@ void __cdecl mainmenu_loop (){
 
 //----------------------------------------------------------------------------//
 
-BOOL __cdecl mainmenu_Single_Player()
-{
+BOOL __cdecl mainmenu_Single_Player (){
+
 	gbMaxPlayers = 1;
-	return mainmenu_init_menu(1);
+
+	return mainmenu_Init_Menu( __mainmenu_init_single_player );
+
 }
 // 679660: using guessed type char gbMaxPlayers;
 
-BOOL __fastcall mainmenu_init_menu(int type)
-{
-	if (type == 4)
+//----------------------------------------------------------------------------//
+
+BOOL __fastcall mainmenu_Init_Menu (
+  int _type
+){
+
+	if ( _type == __mainmenu_init_undeciphered_4 )
 		return 1;
 
+
 	music_stop();
 
-	int success = diablo_init_menu(type != 2, type != 3);
-	if (success)
-		mainmenu_refresh_music();
 
-	return success;
+	const int result =
+    diablo_init_menu(
+      _type != __mainmenu_init_undeciphered_2,
+      _type != __mainmenu_init_multiplayer
+    );
+
+	if ( result != 0 )
+		mainmenu_Refresh_Music();
+
+	return result;
+
 }
 
-BOOL __cdecl mainmenu_Multi_Player()
-{
+//----------------------------------------------------------------------------//
+
+BOOL __cdecl mainmenu_Multi_Player (){
+
 	gbMaxPlayers = MAX_PLRS;
-	return mainmenu_init_menu(3);
+
+	return mainmenu_Init_Menu( __mainmenu_init_multiplayer );
+
 }
 
-void __cdecl mainmenu_play_intro()
-{
-	music_stop();
-	play_movie("gendata\\diablo1.smk", 1);
-	mainmenu_refresh_music();
+//----------------------------------------------------------------------------//
+
+void __cdecl mainmenu_play_intro (){
+
+  music_stop();
+
+  char* const intro_move_filename = "gendata\\diablo1.smk";
+  const BOOL  allow_skip          = true;
+
+	play_movie( intro_move_filename, allow_skip );
+
+	mainmenu_Refresh_Music();
+
 }
+
+//----------------------------------------------------------------------------//

@@ -1273,22 +1273,23 @@ struct _SNETUIDATA {
 	int size;
 	int uiflags;
 	HWND parentwindow;
-	void(__cdecl *artcallback)();
-	void(__cdecl *authcallback)();
-	void(__cdecl *createcallback)();
-	void(__cdecl *drawdesccallback)();
-	void(__cdecl *selectedcallback)();
-	void(__cdecl *messageboxcallback)();
-	void(__cdecl *soundcallback)();
-	void(__cdecl *statuscallback)();
-	void(__cdecl *getdatacallback)();
-	void(__cdecl *categorycallback)();
-	void(__cdecl *categorylistcallback)();
-	void(__cdecl *newaccountcallback)();
-	void(__cdecl *profilecallback)();
+	void (__cdecl* artcallback         )();
+	void (__cdecl* authcallback        )();
+	void (__cdecl* createcallback      )();
+	void (__cdecl* drawdesccallback    )();
+	void (__cdecl* selectedcallback    )();
+	void (__cdecl* messageboxcallback  )();
+	void (__cdecl* soundcallback       )();
+	void (__cdecl* statuscallback      )();
+	void (__cdecl* getdatacallback     )();
+	void (__cdecl* categorycallback    )();
+	void (__cdecl* categorylistcallback)();
+	void (__cdecl* newaccountcallback  )();
+	void (__cdecl* profilecallback     )();
 	int profilefields;
-	void(__cdecl *profilebitmapcallback)();
-	int(__stdcall *selectnamecallback)(
+	void (__cdecl* profilebitmapcallback )();
+
+	int (__stdcall* selectnamecallback)(
 	    const struct _SNETPROGRAMDATA *,
 	    const struct _SNETPLAYERDATA *,
 	    const struct _SNETUIDATA *,

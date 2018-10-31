@@ -310,7 +310,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		UiTitleDialog(7);
 		BlackPalette();
 #endif
-		mainmenu_loop();
+		mainmenu_Loop();
 		UiDestroy();
 		SaveGamma();
 		if (ghMainWnd) {

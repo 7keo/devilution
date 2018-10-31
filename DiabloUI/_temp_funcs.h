@@ -444,7 +444,17 @@ BOOL __fastcall SelHero_IsNameReserved(char *name);
 void __fastcall SelHero_SetLastNamePos(char *name);
 BOOL __fastcall SelHero_NameHasChar(char *name, char *illegalchrs);
 BOOL __fastcall UiValidPlayerName(char *name);
-BOOL __stdcall UiSelHeroMultDialog(BOOL(__stdcall *fninfo)(BOOL(__stdcall *fninfofunc)(_uiheroinfo *)), BOOL(__stdcall *fncreate)(_uiheroinfo *), BOOL(__stdcall *fnremove)(_uiheroinfo *), BOOL(__stdcall *fnstats)(int, _uidefaultstats *), int *dlgresult, int *a6, char *name);
+
+BOOL __stdcall UiSelHeroMultDialog (
+  FNINFO   _fninfo,
+  FNCREATE _fncreate,
+  FNREMOVE _fnremove,
+  FNSTATS  _fnstats,
+  int*     _dlgresult,
+  int*     _selhero_is_created,
+  char*    _name
+);
+
 LRESULT __stdcall SelHero_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 void __fastcall SelHero_DoStuffWithStrings(HWND hWnd);
 _uiheroinfo *__fastcall SelHero_GetNextHeroFromStr(_uiheroinfo *pInfo, char *name);
