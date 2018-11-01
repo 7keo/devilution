@@ -148,9 +148,9 @@ BOOL __fastcall Progress_10009675(HWND hWnd, const CHAR *a2) { return 0; }
 	v10 = 2;
 	v11 = 0;
 	if ( dword_1002A2F0 )
-		SDlgSetTimer(hWnd, 1, 0x3E8u / dword_1002A2F0, 0);
+		SDlgSetTimer( hWnd, 1, 0x3E8u / dword_1002A2F0, NULL );
 	else
-		SDlgSetTimer(hWnd, 1, 50, 0);
+		SDlgSetTimer( hWnd, 1, 50, NULL );
 	local_10007944((int)v2, 0, &byte_10029448, -1, 1, (int)"ui_art\\spopup.pcx", &dword_1002A318, 0, 0);
 	v3 = GetParent(v2);
 	if ( (HWND)SDrawGetFrameWindow() == v3 )

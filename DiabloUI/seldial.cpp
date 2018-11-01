@@ -311,14 +311,14 @@ HWND USERCALL SelDial_1000B483(HWND hWnd, int a2) { return 0; }
 	v4 = GetWindowLongA(v3, -21);
 	SetWindowLongA(v2, -21, v4);
 	Focus_10007719("ui_art\\focus16.pcx");
-	SDlgSetTimer(v2, 1, 55, 0);
+	SDlgSetTimer( hWnd, 1, 55, NULL );
 	local_10007CB5(v2, (int *)&unk_10022FB0);
 	Doom_100068AB(v2, (int *)&unk_10022F9C, 5);
 	Doom_1000658C(v2, (int *)&unk_10022FA4, 4, 0);
 	Doom_1000658C(v2, (int *)&unk_10022FB0, 0, 1);
 	if ( Modem_1000855D() )
 	{
-		SDlgSetTimer(v2, 2, 2000, 0);
+		SDlgSetTimer( hWnd, 2, 2000, NULL );
 		result = SelDial_1000B354(v2);
 	}
 	else

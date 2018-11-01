@@ -90,7 +90,7 @@ void __fastcall EntName_LoadFocusChkName(HWND hWnd)
 	Doom_ParseWndProcs(hWnd, entname_msgtbl2, 4, 0);
 	Doom_ParseWndProc5(hWnd, entname_msgtbl3, 2);
 	Focus_LoadSpinner("ui_art\\focus.pcx");
-	SDlgSetTimer((int)hWnd, 1, 55, 0);
+	SDlgSetTimer( hWnd, 1, 55, NULL );
 	v4 = GetDlgItem(hWnd, 1065);
 	SendMessageA(v4, 0x401u, 0xFu, 0);
 	if (SelHero_GetHeroIsGood() == 1)

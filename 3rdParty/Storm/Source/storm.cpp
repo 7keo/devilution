@@ -47,7 +47,16 @@ BOOL STORMAPI SNetGetPlayerNames(char **names) rBool;
 int STORMAPI SNetLeagueLogout(char *bnetName) rInt;
 int STORMAPI SNetGetLeaguePlayerName(char *curPlayerLeageName, size_t nameSize) rInt;
 
-HGDIOBJ STORMAPI SDlgDefDialogProc(HWND hDlg, signed int DlgType, HDC textLabel, HWND hWnd) rPVoid;
+//----------------------------------------------------------------------------//
+
+HGDIOBJ STORMAPI SDlgDefDialogProc (
+  HWND  _dialog,
+   int  _dialog_type,
+   HDC  _text_label,
+   HWND _window
+ ) rPVoid;
+
+ //----------------------------------------------------------------------------//
 
 HANDLE STORMAPI SDlgDialogBoxIndirectParam(HMODULE hModule, LPCSTR lpName, HWND hWndParent, LPVOID lpParam, LPARAM lParam) rPVoid;
 
@@ -143,13 +152,13 @@ BOOL STORMAPI SGdiSetPitch(int pitch) rBool;
 BOOL STORMAPI Ordinal393(char *string, int, int) rBool;
 
 BYTE* STORMAPI SMemAlloc (
-  size_t amount,
+  SIZE_T num_bytes,
   char*  logfilename,  /// change to const CSTRING
   int    logline,
   char   defaultValue ) rPVoid;
 
 BOOL STORMAPI SMemFree(
-  HANDLE location,
+  HANDLE pointer,
   char*  logfilename,   /// change to const CSTRING
   int    logline,
   char   defaultValue ) rBool;
@@ -159,7 +168,15 @@ void* STORMAPI SMemReAlloc(void *location, size_t amount, char *logfilename, int
 BOOL STORMAPI SRegLoadData(const char *keyname, const char *valuename, int size, LPBYTE lpData, BYTE flags, LPDWORD lpcbData) rBool;
 BOOL STORMAPI SRegLoadString(const char *keyname, const char *valuename, BYTE flags, char *buffer, size_t buffersize) rBool;
 BOOL STORMAPI SRegLoadValue(const char *keyname, const char *valuename, BYTE flags, int *value) rBool;
-BOOL STORMAPI SRegSaveData(const char *keyname, const char *valuename, int size, BYTE *lpData, DWORD cbData) rBool;
+
+BOOL STORMAPI SRegSaveData(
+  const char* keyname,
+  const char* valuename,
+        int   size,
+        char* string, /// filename?
+        DWORD cbData
+) rBool;
+
 BOOL STORMAPI SRegSaveString(const char *keyname, const char *valuename, BYTE flags, char *string) rBool;
 BOOL STORMAPI SRegSaveValue(const char *keyname, const char *valuename, BYTE flags, DWORD result) rBool;
 
@@ -272,7 +289,14 @@ void __stdcall SDlgBeginPaint(HWND hWnd, char *a2) rVoid;
 void __stdcall SDlgEndPaint(HWND hWnd, char *a2) rVoid;
 void __stdcall SDlgSetSystemCursor(BYTE *a1, BYTE *a2, int *a3, int a4) rVoid;
 void __stdcall SDlgSetCursor(HWND hWnd, HCURSOR a2, int a3, int *a4) rVoid;
-BOOL __stdcall SDlgSetTimer(int a1, int a2, int a3, void (__stdcall *a4)(int, int, int, int)) rBool;
+
+BOOL __stdcall SDlgSetTimer (
+  HWND _window,
+  int  a2,
+  int  a3,  // milliseconds
+  void (__stdcall* _function)( int, int, int, int )
+  ) rBool;
+
 BOOL __stdcall SDlgKillTimer(int a1, int a2) rBool;
 BOOL __stdcall SDlgDrawBitmap(HWND hWnd, int a2, int a3, int a4, int a5, int a6, int a7) rBool;
 BOOL __stdcall SDlgDialogBoxParam(HINSTANCE hInst, char *szDialog, int a3, WNDPROC func, int a5) rBool;

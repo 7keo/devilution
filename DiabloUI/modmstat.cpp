@@ -113,7 +113,7 @@ BOOL UNKCALL ModmStat_10008DE4(HWND hWnd) { return 0; }
 	Doom_100068AB(v1, (int *)&unk_10022CAC, 3);
 	Doom_1000658C(v1, (int *)&unk_10022CB4, 4, 1);
 	Focus_10007719("ui_art\\focus.pcx");
-	SDlgSetTimer(v1, 1, 55, 0);
+	SDlgSetTimer( hWnd, 1, 55, NULL );
 	local_10007DE9(v1, (int *)&unk_10022CB4);
 	byte_1002A264 = 0;
 	dword_1002A258 = 0;

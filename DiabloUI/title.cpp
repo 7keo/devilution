@@ -29,10 +29,10 @@ void __fastcall Title_BlitTitleBuffer(HWND hWnd)
 			    0,
 			    0xCC0020u);
 
-			STransBlt( 
-        (HANDLE)( *(HANDLE*)v4 ), 
+			STransBlt(
+        (HANDLE)( *(HANDLE*)v4 ),
         0,  /// x
-        0,  /// y 
+        0,  /// y
         *((_DWORD*)v4 + 1),  /// w
         (HANDLE)titlePHTrans[titleTransIdx] );
 
@@ -144,7 +144,7 @@ void __fastcall Title_LoadImgSetTimer(HWND hWnd, const char *pszFileName)
 	Title_SetTitleBMP(hWnd);
 	Title_LoadTitleImage(hWnd, pszFileName);
 	Title_BlitTitleBuffer(hWnd);
-	SDlgSetTimer((int)hWnd, 2, 55, Title_BlitTitleBufFnc);
+	SDlgSetTimer( hWnd, 2, 55, Title_BlitTitleBufFnc);
 }
 
 // ref: 0x100100CB
@@ -220,7 +220,7 @@ LRESULT __stdcall Title_MainProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 					Title_KillAndFadeDlg(hWnd);
 			} else if (uMsg == 2024) {
 				if (!Fade_CheckRange5())
-					Fade_SetFadeTimer((int)hWnd);
+					Fade_SetFadeTimer( hWnd );
 				return 0;
 			}
 			return (LRESULT)SDlgDefDialogProc(hWnd, uMsg, (HDC)wParam, (HWND)lParam);
@@ -261,9 +261,9 @@ void __fastcall Title_LoadAllTitleImgs(HWND hWnd, int time)
 	Doom_ParseWndProc3(hWnd, titlemsgtbl, 3);
 	Title_LoadImgSetTimer(hWnd, "ui_art\\logo.pcx");
 	if (time)
-		SDlgSetTimer((int)hWnd, 1, 1000 * time, 0);
+		SDlgSetTimer( hWnd, 1, 1000 * time, NULL );
 	else
-		SDlgSetTimer((int)hWnd, 1, 5000, 0);
+		SDlgSetTimer( hWnd, 1, 5000, NULL );
 }
 
 // ref: 0x100102D7

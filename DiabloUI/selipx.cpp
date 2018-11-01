@@ -63,8 +63,8 @@ LABEL_35:
 		}
 		if ( Msg != 2024 )
 			return SDlgDefDialogProc(hWnd, Msg, wParam, lParam);
-		if ( !Fade_1000739F() )
-			Fade_100073FD(hWnd, v7);
+		if ( !Fade_CheckRange5() )
+			Fade_SetFadeTimer(hWnd, v7);
 		return 0;
 	}
 	if ( Msg == 275 )
@@ -572,7 +572,7 @@ HWND UNKCALL SelIPX_1000CD4A(HWND hWnd) { return 0; }
 	}
 	SNetEnumGames(0, 0, SelIPX_1000CAD5, 0);
 	SelIPX_1000CB83(v1, (const char *)dword_1002A4B4);
-	SDlgSetTimer(v1, 3, 1000, 0);
+	SDlgSetTimer(v1, 3, 1000, NULL );
 	result = Sbar_10009BF1(v1, 1105);
 	if ( dword_1002A4B8 <= 6 )
 	{

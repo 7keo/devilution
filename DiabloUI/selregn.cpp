@@ -46,8 +46,8 @@ int __stdcall SelRegn_1000EF6B(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
 		{
 			if ( Msg != 2024 )
 				return SDlgDefDialogProc(hWnd, Msg, wParam, lParam);
-			if ( !Fade_1000739F() )
-				Fade_100073FD(hWnd, v7);
+			if ( !Fade_CheckRange5() )
+				Fade_SetFadeTimer(hWnd, v7);
 			return 0;
 		}
 LABEL_25:
@@ -284,7 +284,7 @@ signed int SelRegn_1000F2ED() { return 0; }
 			break;
 		*(_DWORD *)v1 = 0;
 		*((_DWORD *)v1 + 1) = i;
-		v3 = BNetGW_10002B21(&unk_10029480, i);
+		v3 = BNetGW_10002B21(&dword_10029480, i);
 		strcpy(v2 + 8, v3);
 		v4 = SelRegn_1000EF56(dword_1002A4EC, v2);
 		++dword_1002A4F4;
@@ -788,7 +788,7 @@ signed int SelRegn_1000F8F6() { return 0; }
 	v2 = *(_DWORD *)(v1 + 12);
 	if ( !v2 )
 		return 0;
-	BNetGW_10002B51(&unk_10029480, *(_DWORD *)(v2 + 4));
+	BNetGW_10002B51(&dword_10029480, *(_DWORD *)(v2 + 4));
 	return 1;
 } */
 

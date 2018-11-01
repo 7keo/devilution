@@ -219,7 +219,7 @@ void __fastcall DiabEdit_SetRestrictTimer(HWND hWnd)
 {
 	unsigned char *v2; // eax
 
-	SDlgSetTimer((int)hWnd, 1, 500, 0);
+	SDlgSetTimer( hWnd, 1, 500, NULL );
 	SetPropA(hWnd, "CURSOR", 0);
 	v2  = (unsigned char *)SMemAlloc(0x100u, "C:\\Src\\Diablo\\DiabloUI\\DiabEdit.cpp", 185, 0);
 	*v2 = 0;

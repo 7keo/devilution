@@ -112,7 +112,7 @@ void __fastcall CreaDung_LoadDungGFX(HWND hWnd)
 		Focus_LoadSpinner("ui_art\\focus16.pcx");
 	else
 		Focus_ResetSpinToZero();
-	SDlgSetTimer((int)hWnd, 1, 55, 0);
+	SDlgSetTimer( hWnd, 1, 55, NULL );
 	v2 = local_AllocWndLongData();
 	if (v2) {
 		SetWindowLongA(hWnd, -21, (LONG)v2);

@@ -87,7 +87,7 @@ LRESULT __stdcall MainMenu_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lP
 		}
 		if (Msg == 2024) {
 			if (!Fade_CheckRange5())
-				Fade_SetFadeTimer((int)hWnd);
+				Fade_SetFadeTimer( hWnd );
 			return 0;
 		}
 	}
@@ -113,7 +113,7 @@ void __fastcall MainMenu_KillAndFreeMenu(HWND hWnd)
 // ref: 0x10008391
 void __fastcall MainMenu_SetMenuTimer(HWND hWnd)
 {
-	SDlgSetTimer((int)hWnd, 3, 1000 * menu_item_timer, 0);
+	SDlgSetTimer( hWnd, 3, 1000 * menu_item_timer, NULL );
 }
 // 1002A118: using guessed type int menu_item_timer;
 
@@ -152,7 +152,7 @@ void __fastcall MainMenu_DoOptions(HWND hWnd, int option, int PlaySelect)
 	if (DiabloUI_GetSpawned() && option == 3) {
 		SelYesNo_SpawnErrDialog(hWnd, 70, 1);
 	LABEL_7:
-		SDlgSetTimer((int)hWnd, 3, 1000 * menu_item_timer, 0);
+		SDlgSetTimer( hWnd, 3, 1000 * menu_item_timer, NULL );
 		return;
 	}
 	if (option == 2 && !MainMenu_CheckEnoughMemory()) {

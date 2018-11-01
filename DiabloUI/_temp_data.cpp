@@ -153,13 +153,18 @@ int dword_10029458;                                             // weak
 int dword_10029460[3];                                          // idb
 int dword_1002946C;                                             // weak
 HGDIOBJ dword_10029470;                                         // idb
-int dword_10029478;                                             // weak
-int dword_10029480;                                             // weak
+
+/// it looks like this region is used as a buffer
+int dword_10029478;  // float                                   // weak
+/// size conflict, 2 bytes overlap
+UNKNOWN_STRUCT_BNetGW dword_10029480;                                          // weak int
+// int dword_10029484;  /// guessed missing                        // weak
 int dword_10029488;                                             // weak
 int dword_1002948C;                                             // weak
 int Connect_cpp_float;                                          // weak
 int special_frames;                                             // weak
 DWORD heroport_data[2];
+
 char connect_categorystr[128];
 char connect_plrinfostr[128];
 int heronum_frames2; // weak
@@ -303,7 +308,9 @@ int Sbar_cpp_float;          // weak
 int Sbar_cpp_float2;         // weak
 int SelClass_cpp_float;      // weak
 int dword_1002A34C;          // idb
-int dword_1002A350;          // weak
+
+int dword_1002A350;          // weak  // float ?
+
 int dword_1002A354;          // weak
 char *dword_1002A358;        // idb
 int dword_1002A35C;          // weak

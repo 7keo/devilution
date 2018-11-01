@@ -807,7 +807,7 @@ BOOL STORMAPI Ordinal393(char *pszString, int, int);
  */
 BYTE* STORMAPI
 SMemAlloc(
-  size_t amount,
+  SIZE_T num_bytes,
   char*  logfilename,  /// change to const CSTRING  // char* logfilename,
   int    logline,
   char   defaultValue = 0 );
@@ -876,11 +876,23 @@ SMemReAlloc(
 BOOL STORMAPI SRegLoadData(const char *keyname, const char *valuename, int size, LPBYTE lpData, BYTE flags, LPDWORD lpcbData);
 BOOL STORMAPI SRegLoadString(const char *keyname, const char *valuename, BYTE flags, char *buffer, size_t buffersize);
 BOOL STORMAPI SRegLoadValue(const char *keyname, const char *valuename, BYTE flags, int *value);
-BOOL STORMAPI SRegSaveData(const char *keyname, const char *valuename, int size, BYTE *lpData, DWORD cbData);
+
+BOOL STORMAPI SRegSaveData (
+  const char* keyname,
+  const char* valuename,
+        int   size,
+        char* string, /// filename?
+        DWORD cbData
+);
+
 BOOL STORMAPI SRegSaveString(const char *keyname, const char *valuename, BYTE flags, char *string);
 BOOL STORMAPI SRegSaveValue(const char *keyname, const char *valuename, BYTE flags, DWORD result);
 
-BOOL STORMAPI SRegDeleteValue(const char *keyname, const char *valuename, BYTE flags);
+BOOL STORMAPI SRegDeleteValue(
+  const char* keyname,
+  const char* valuename,
+        BYTE  flags
+);
 
 // Flags for SReg functions
 
@@ -1340,7 +1352,14 @@ void __stdcall SDlgBeginPaint(HWND hWnd, char *a2);
 void __stdcall SDlgEndPaint(HWND hWnd, char *a2);
 void __stdcall SDlgSetSystemCursor(BYTE *a1, BYTE *a2, int *a3, int a4);
 void __stdcall SDlgSetCursor(HWND hWnd, HCURSOR a2, int a3, int *a4);
-BOOL __stdcall SDlgSetTimer(int a1, int a2, int a3, void (__stdcall *a4)(int, int, int, int));
+
+BOOL __stdcall SDlgSetTimer (
+  HWND _window,
+  int  a2,
+  int  a3,  // milliseconds
+  void (__stdcall* _function)( int, int, int, int )
+);
+
 BOOL __stdcall SDlgKillTimer(int a1, int a2);
 BOOL __stdcall SDlgDrawBitmap(HWND hWnd, int a2, int a3, int a4, int a5, int a6, int a7);
 BOOL __stdcall SDlgDialogBoxParam(HINSTANCE hInst, char *szDialog, int a3, WNDPROC func, int a5);

@@ -53,8 +53,8 @@ int __stdcall DirLink_10005D63(HWND hWnd, UINT Msg, WPARAM wParam, unsigned int 
 				DirLink_10006359(hWnd, (unsigned short)lParam, lParam >> 16);
 				break;
 			case 0x7E8u:
-				if ( !Fade_1000739F() )
-					Fade_100073FD(hWnd, v6);
+				if ( !Fade_CheckRange5() )
+					Fade_SetFadeTimer(hWnd, v6);
 				return 0;
 		}
 		return SDlgDefDialogProc(hWnd, Msg, wParam, lParam);
@@ -173,7 +173,7 @@ int UNKCALL DirLink_10005F7B(HWND hWnd) { return 0; }
 	Doom_1000658C(v1, (int *)&unk_10022A54, 2, 1);
 	DirLink_100062BF(v1, v7, v8, v9);
 	DirLink_10006073(v1);
-	return SDlgSetTimer(v1, 3, 2000, 0);
+	return SDlgSetTimer( hWnd, 3, 2000, NULL );
 } */
 // 10010412: using guessed type int __stdcall SDlgSetTimer(_DWORD, _DWORD, _DWORD, _DWORD);
 

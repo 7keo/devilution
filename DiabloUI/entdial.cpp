@@ -91,7 +91,7 @@ HWND USERCALL EntDial_10006DB8(HWND hWnd, int a2) { return 0; }
 	Doom_1000658C(v2, (int *)&unk_10022B04, 4, 0);
 	Doom_10006AB8(v2, (int *)&unk_10022B10, 2);
 	Focus_10007719("ui_art\\focus.pcx");
-	SDlgSetTimer(v2, 1, 55, 0);
+	SDlgSetTimer( hWnd, 1, 55, NULL );
 	v5 = GetDlgItem(v2, 1116);
 	SendMessageA(v5, 0x401u, 0x1Fu, 0);
 	SendMessageA(v5, 0x404u, 0, (LPARAM)"<>%&?");

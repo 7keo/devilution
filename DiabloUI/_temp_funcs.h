@@ -70,7 +70,9 @@ void UNKCALL bn_prof_10002890(_DWORD *arg);
 
 void UNKCALL BNetGW_100028C2(_DWORD *arg);
 void UNKCALL BNetGW_100029BF(_DWORD *arg, int a2);
-void *UNKCALL BNetGW_10002A07(_DWORD *arg);
+
+HANDLE UNKCALL BNetGW_10002A07 ( _DWORD* _arg );
+
 _DWORD *UNKCALL BNetGW_10002A84(_DWORD *arg, signed int a2);
 signed int BNetGW_10002AE5();
 int UNKCALL BNetGW_10002AF0(_DWORD *arg, char *a2);
@@ -245,7 +247,7 @@ BOOL __cdecl Fade_CheckRange5();
 void __cdecl Fade_Range5SetZero();
 void __fastcall Fade_NoInputAndArt(HWND hWnd, BOOL bShowCurs);
 void __fastcall Fade_SetInputWindow(HWND hWnd);
-void __fastcall Fade_SetFadeTimer(int nTime);
+void __fastcall Fade_SetFadeTimer( HWND _window );
 void __stdcall Fade_TimerFunctionDlg(int a1, int a2, int a3, int a4);
 void __cdecl j_Fade_cpp_init();
 void __cdecl Fade_cpp_init();
@@ -377,8 +379,8 @@ void __fastcall SelClass_CheckClassSpawn(HWND hWnd, int a2);
 void __cdecl j_SelClass_cpp_init();
 void __cdecl SelClass_cpp_init();
 
-void *SelConn_1000A082();
-signed int SelConn_1000A09B();
+void *SelConn_Allocate_1000A082();
+int SelConn_Set_And_Get_dword_1002A350_To_Infinity();
 int __stdcall SelConn_1000A0A6(HWND hWnd, UINT Msg, WPARAM wParam, unsigned int lParam);
 HWND __fastcall SelConn_1000A226(HWND hDlg, int nIDDlgItem);
 HWND UNKCALL SelConn_1000A3E2(HWND hDlg);
@@ -386,7 +388,7 @@ int SelConn_1000A3FF();
 void UNKCALL SelConn_1000A43A(HWND hDlg);
 BOOL __fastcall SelConn_1000A4B9(_DWORD *a1);
 BOOL UNKCALL SelConn_1000A4CD(void *location);
-HWND UNKCALL SelConn_1000A4E4(HWND hWnd, char *a2, int a3);
+HWND UNKCALL SelConn_1000A4E4( HWND hWnd );  // , char *a2, int a3
 signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, int a4);
 int __fastcall SelConn_1000A670(HWND a1, const char *a2);
 void UNKCALL SelConn_1000A6EC(HWND hDlg);

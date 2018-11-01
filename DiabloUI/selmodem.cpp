@@ -210,8 +210,8 @@ LABEL_27:
 		{
 			if ( Msg != 2024 )
 				return SDlgDefDialogProc(hDlg, Msg, wParam, lParam);
-			if ( !Fade_1000739F() )
-				Fade_100073FD(hDlg, v8);
+			if ( !Fade_CheckRange5() )
+				Fade_SetFadeTimer(hDlg, v8);
 			return 0;
 		}
 LABEL_25:

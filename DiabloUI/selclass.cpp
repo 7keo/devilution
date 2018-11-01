@@ -99,7 +99,7 @@ void __fastcall SelClass_LoadClassFocus(HWND hWnd)
 	Doom_ParseWndProcs(v1, selclass_msgtbl2, 4, 0);
 	Doom_ParseWndProcs(v1, selclass_msgtbl3, 2, 1);
 	Focus_LoadSpinner("ui_art\\focus.pcx");
-	SDlgSetTimer((int)v1, 1, 55, 0);
+	SDlgSetTimer( hWnd, 1, 55, NULL );
 }
 
 // ref: 0x10009FA2

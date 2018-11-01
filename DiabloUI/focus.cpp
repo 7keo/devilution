@@ -1,15 +1,26 @@
+
+//----------------------------------------------------------------------------//
+
 // ref: 0x10007458
-void __fastcall Focus_CheckPlayMove(LPARAM lParam)
-{
-	if (sgbSpinnersLoaded && lParam != dword_10029CA8) {
-		if (dword_10029CAC)
-			TitleSnd_PlayMoveSound();
-		dword_10029CA8 = lParam;
-	}
+void __fastcall Focus_CheckPlayMove (
+  LPARAM _lparam
+){
+
+	if ( not sgbSpinnersLoaded
+  or _lparam == dword_10029CA8 )
+    return;
+
+  if ( dword_10029CAC )
+    TitleSnd_PlayMoveSound();
+
+  dword_10029CA8 = _lparam;
+
 }
 // 10029CA4: using guessed type int sgbSpinnersLoaded;
 // 10029CA8: using guessed type int dword_10029CA8;
 // 10029CAC: using guessed type int dword_10029CAC;
+
+//----------------------------------------------------------------------------//
 
 // ref: 0x10007482
 int __cdecl Focus_GetSpinWidthOrZero()
@@ -62,19 +73,28 @@ void __fastcall Focus_BlitSpinner(HWND hWnd1, HWND hWnd2)
 	}
 }
 
-// ref: 0x10007566
-void __fastcall Focus_CenterSpinFromSide(HWND hWnd)
-{
-	struct tagRECT Rect; // [esp+8h] [ebp-10h]
+//----------------------------------------------------------------------------//
 
-	GetClientRect(hWnd, &Rect);
-	--Rect.bottom;
-	Rect.left = --Rect.right - focus_spin_width;
-	InvalidateRect(hWnd, &Rect, 0);
-	Rect.left  = 0;
-	Rect.right = focus_spin_width - 1;
-	InvalidateRect(hWnd, &Rect, 0);
+// ref: 0x10007566
+void __fastcall Focus_CenterSpinFromSide(
+  HWND _window
+){
+
+	struct tagRECT rect; // [esp+8h] [ebp-10h]
+	GetClientRect( _window, &rect );
+
+	rect.bottom -= 1;
+  rect.right  -= 1;
+	rect.left    = ( rect.right - focus_spin_width );
+	InvalidateRect( _window, &rect, false );
+
+	rect.left  = 0;
+	rect.right = ( focus_spin_width - 1 );
+	InvalidateRect( _window, &rect, false );
+
 }
+
+//----------------------------------------------------------------------------//
 
 // ref: 0x100075B7
 void __fastcall Focus_GetAndBlitSpin(HWND hWnd, LPARAM lParam)
@@ -213,10 +233,14 @@ void __fastcall Focus_LoadSpinner(const char *pszFileName)
 // 10029CB0: using guessed type int sgnSpinnerFrame;
 
 // ref: 0x100077E9
-void __fastcall Focus_SetFocusTimer(HWND hWnd, const char *pszFileName)
-{
-	Focus_LoadSpinner(pszFileName);
-	SDlgSetTimer((int)hWnd, 1, 55, Focus_SetFocusAndBlit);
+void __fastcall Focus_SetFocusTimer(
+  HWND hWnd,
+  const char* pszFileName
+){
+
+  Focus_LoadSpinner(pszFileName);
+	SDlgSetTimer( hWnd, 1, 55, Focus_SetFocusAndBlit );
+
 }
 
 // ref: 0x10007804

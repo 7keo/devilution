@@ -160,8 +160,8 @@ int __stdcall Modem_100086DE(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) 
 	}
 	if ( Msg == 2024 )
 	{
-		if ( !Fade_1000739F() )
-			Fade_100073FD(hWnd, v6);
+		if ( !Fade_CheckRange5() )
+			Fade_SetFadeTimer(hWnd, v6);
 		return 0;
 	}
 	if ( Msg == 2 )

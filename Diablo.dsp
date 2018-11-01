@@ -7,20 +7,20 @@
 CFG=Diablo - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "Diablo.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "Diablo.mak" CFG="Diablo - Win32 Debug"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "Diablo - Win32 Release" (based on "Win32 (x86) Application")
 !MESSAGE "Diablo - Win32 Debug" (based on "Win32 (x86) Application")
 !MESSAGE "Diablo - Win32 Release with PDB" (based on "Win32 (x86) Application")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -80,7 +80,6 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib user32.lib gdi32.lib advapi32.lib shell32.lib version.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib version.lib /nologo /subsystem:windows /machine:I386
- /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
 
 !ELSEIF  "$(CFG)" == "Diablo - Win32 Release with PDB"
 
@@ -97,7 +96,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /YX /FD /c
 # SUBTRACT BASE CPP /WX
-# ADD CPP /nologo /MT /W3 /GX /Zi /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Zi /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /FR /YX /FD /c
 # SUBTRACT CPP /WX
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
@@ -110,7 +109,7 @@ LINK32=link.exe
 # ADD BASE LINK32 DiabloUI/WinRel/DiabloUI.lib 3rdParty/Storm/Source/WinRel/Storm.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib version.lib /nologo /subsystem:windows /machine:I386
 # ADD LINK32 DiabloUI/WinRel/DiabloUI.lib 3rdParty/Storm/Source/WinRel/Storm.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib version.lib /nologo /subsystem:windows /debug /machine:I386
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
@@ -326,6 +325,10 @@ SOURCE=.\Source\quests.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Source\render.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Source\restrict.cpp
 # End Source File
 # Begin Source File
@@ -388,10 +391,6 @@ SOURCE=.\Source\trigs.cpp
 
 SOURCE=.\Source\wave.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=.\Source\render.cpp
-# End Source File
 # End Group
 # Begin Group "Resource Files"
 
@@ -408,23 +407,6 @@ SOURCE=.\Diablo.rc
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
-
-# Begin Source File
-
-SOURCE=.\defs.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\enums.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\structs.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\types.h
-# End Source File
 # Begin Source File
 
 SOURCE=.\Source\appfat.h
@@ -456,6 +438,10 @@ SOURCE=.\Source\dead.h
 # Begin Source File
 
 SOURCE=.\Source\debug.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\defs.h
 # End Source File
 # Begin Source File
 
@@ -500,6 +486,10 @@ SOURCE=.\Source\encrypt.h
 # Begin Source File
 
 SOURCE=.\Source\engine.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\enums.h
 # End Source File
 # Begin Source File
 
@@ -635,6 +625,10 @@ SOURCE=.\Source\render.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\resource.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Source\restrict.h
 # End Source File
 # Begin Source File
@@ -660,6 +654,10 @@ SOURCE=.\Source\spells.h
 # Begin Source File
 
 SOURCE=.\Source\stores.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\structs.h
 # End Source File
 # Begin Source File
 
@@ -695,11 +693,11 @@ SOURCE=.\Source\trigs.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\wave.h
+SOURCE=.\types.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\resource.h
+SOURCE=.\Source\wave.h
 # End Source File
 # End Group
 # Begin Group "PKWare"

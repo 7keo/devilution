@@ -210,7 +210,7 @@ int __fastcall SelList_GetNextHeroLong(HWND hWnd)
 void __fastcall SelList_LoadFocus16(HWND hWnd)
 {
 	Focus_LoadSpinner("ui_art\\focus16.pcx");
-	SDlgSetTimer((int)hWnd, 1, 55, 0);
+	SDlgSetTimer( hWnd, 1, 55, NULL );
 }
 
 // ref: 0x1000DA48

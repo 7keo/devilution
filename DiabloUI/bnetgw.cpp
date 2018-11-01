@@ -1,5 +1,8 @@
+
+//----------------------------------------------------------------------------//
+
 // ref: 0x100028C2
-void UNKCALL BNetGW_100028C2(_DWORD *arg) { return; }
+void UNKCALL BNetGW_100028C2( UNKNOWN_STRUCT_BNetGW* arg ){ return; }
 /* {
 	_DWORD *v1; // esi
 	bool v2; // zf
@@ -76,6 +79,8 @@ LABEL_15:
 // 100103C4: using guessed type int __stdcall SMemZero(_DWORD, _DWORD);
 // 100103CA: using guessed type int __stdcall SRegDeleteValue(const char *, const char *, unsigned int);
 
+//----------------------------------------------------------------------------//
+
 // ref: 0x100029BF
 void UNKCALL BNetGW_100029BF(_DWORD *arg, int a2) { return; }
 /* {
@@ -108,42 +113,67 @@ void UNKCALL BNetGW_100029BF(_DWORD *arg, int a2) { return; }
 	BNetGW_10002B51(v2, v5);
 } */
 
-// ref: 0x10002A07
-void *UNKCALL BNetGW_10002A07(_DWORD *arg) { return 0; }
-/* {
-	_DWORD *v1; // esi
-	int v2; // edi
-	_BYTE *v3; // ecx
-	const char *v4; // eax
-	int result; // eax
+//----------------------------------------------------------------------------//
 
-	v1 = arg;
-	if ( arg[1] )
-	{
-		v2 = arg[4];
-		if ( v2 )
-		{
-			v3 = (_BYTE *)(v2 + SStrLen(arg[4]) + 1);
-			*v3 = v1[3] / 10 + 48;
-			v4 = "Override Battle.net gateways";
-			v3[1] = v1[3] % 10 + 48;
-			if ( !v1[7] )
-				v4 = "Battle.net gateways";
-			SRegSaveData("Configuration", v4, 0x82u, (void *)v1[4], v1[5]);
-		}
-	}
-	result = v1[4];
-	if ( result )
-	{
-		result = SMemFree(result, "C:\\Src\\Diablo\\DiabloUI\\BNetGW.cpp", 152, 0);
-		v1[4] = 0;
-		v1[5] = 0;
-	}
+// ref: 0x10002A07
+HANDLE UNKCALL BNetGW_10002A07( UNKNOWN_STRUCT_BNetGW* _arg ) { return 0; }
+/* {
+
+
+	if ( _arg->v1    != 0
+  and _arg->string != NULL ){
+
+    /// 2 digit number to string
+    DWORD offset = SStrLen( _arg->string ) + 1;
+    _arg->string[offset+0] = ( _arg->number / 10 ) + '0';  // 0x...9x
+    _arg->string[offset+1] = ( _arg->number % 10 ) + '0';  // x0...x9
+
+    const int   size    = 0x82u;  // 130
+    char* const keyname = "Configuration";
+    const char* valuename;
+    if ( _arg->override_bnet_gateways )
+      valuename = "Override Battle.net gateways";
+    else
+      valuename = "Battle.net gateways";
+
+    SRegSaveData(
+      keyname,
+      valuename,
+      size,
+      _arg->string,
+      _arg->cbData
+    );
+
+  }
+
+	if ( _arg->string == NULL )
+    return 0;
+
+
+  /// delete string
+  int result = 0;
+
+  char* const this_file = "C:\\Src\\Diablo\\DiabloUI\\BNetGW.cpp";
+  const int   this_line = 152;
+
+  result = SMemFree(
+    _arg->string,
+    this_file,
+    this_line,
+    0x00
+  );
+
+  _arg->string = NULL;
+  _arg->cbData = 0;
+
 	return result;
+
 } */
 // 10010340: using guessed type int __stdcall SMemFree(_DWORD, _DWORD, _DWORD, _DWORD);
 // 100103A0: using guessed type int __stdcall SStrLen(_DWORD);
 // 100103D0: using guessed type int __stdcall SRegSaveData(const char *, const char *, unsigned int, void *, unsigned int);
+
+//----------------------------------------------------------------------------//
 
 // ref: 0x10002A84
 _DWORD *UNKCALL BNetGW_10002A84(_DWORD *arg, signed int a2) { return 0; }
@@ -203,11 +233,11 @@ LABEL_7:
 // ref: 0x10002AE5
 signed int BNetGW_10002AE5() { return 0; }
 /* {
-	signed int result; // eax
 
-	result = 2139095040;
-	dword_10029478 = 2139095040;
-	return result;
+  dword_10029478 = 0x7F80'0000; // 2139095040 // infinity
+
+	dword_10029478;
+
 } */
 // 10029478: using guessed type int dword_10029478;
 

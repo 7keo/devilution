@@ -136,7 +136,7 @@ void __fastcall SelYesNo_LoadSelYN_GFX(HWND hWnd)
 		Focus_LoadSpinner("ui_art\\focus.pcx");
 	else
 		Focus_ResetSpinToZero();
-	SDlgSetTimer((int)hWnd, 1, 55, 0);
+	SDlgSetTimer( hWnd, 1, 55, NULL );
 	local_DoUiWndProc2(hWnd, (DWORD *)yesno_msgtbl1);
 }
 // 1002A500: using guessed type int yesno_remove_focus;

@@ -16,28 +16,28 @@ typedef const char* CSTRING;
 //----------------------------------------------------------------------------//
 
 typedef struct _POINT {
-  
+
   int w;
   int h;
-  
+
 } ISIZE, SIZEI, IPOINT, POINTI;
 
 //----------------------------------------------------------------------------//
 
 typedef struct _SIZE {
-  
+
   DWORD w;
   DWORD h;
-  
+
 } DSIZE, SIZED, USIZE, SIZEU, UPOINT, POINTU, DPOINT, POINTD;
 
 //----------------------------------------------------------------------------//
 
-// typedef struct _RECT {  
+// typedef struct _RECT {
 //   int left;
 //   int top;
 //   int right;
-//   int bottom;  
+//   int bottom;
 // } IRECT, RECTI;
 
 //----------------------------------------------------------------------------//
@@ -65,6 +65,25 @@ struct ProfFntStruct {
 	int size;
 	char *fontname;
 	int field_8;
+};
+
+//----------------------------------------------------------------------------//
+
+struct UNKNOWN_STRUCT_BNetGW {
+
+  /* [0] */  BYTE v0_byte0;
+             BYTE v0_byte1;
+             BYTE v0_byte2;
+             BYTE v0_byte3;
+
+  /* [1] */  int    v1; // bool ?
+  /* [2] */  _DWORD v2;
+  /* [3] */  DWORD  number;
+  /* [4] */  char*  string;
+  /* [5] */  _DWORD cbData;
+  /* [6] */  DWORD  v6;
+  /* [7] */  BOOL   override_bnet_gateways;
+
 };
 
 //----------------------------------------------------------------------------//
@@ -98,19 +117,19 @@ BOOL __stdcall UiSelHeroMultDialog (
   FNCREATE fncreate,
   FNREMOVE fnremove,
   FNSTATS  fnstats,
-  int*     dlgresult, 
-  int*     a6, 
+  int*     dlgresult,
+  int*     a6,
   char*    name
 );
 
 
 BOOL __stdcall UiSelHeroSingDialog (
   FNINFO   fninfo,
-  FNCREATE fncreate, 
-  FNREMOVE fnremove, 
+  FNCREATE fncreate,
+  FNREMOVE fnremove,
   FNSTATS  fnstats,
-  int*     dlgresult, 
-  char*    name, 
+  int*     dlgresult,
+  char*    name,
   int*     difficulty
 );
 
