@@ -162,13 +162,15 @@ void __cdecl Title_cpp_init()
 // 1002A588: using guessed type int Title_cpp_float;
 
 // ref: 0x100100E7
-void __fastcall Title_KillTitleTimer(HWND hWnd)
-{
-	HWND v1; // esi
+void __fastcall Title_KillTitleTimer(
+  HWND _hWnd
+){
 
-	v1 = hWnd;
-	SDlgKillTimer((int)hWnd, 2);
-	Title_FreeTransMem(v1);
+  HWND temp_hWnd = _hWnd;
+
+	SDlgKillTimer( (int)_hWnd, 2 );
+	Title_FreeTransMem( temp_hWnd );
+
 }
 
 // ref: 0x100100FA

@@ -253,8 +253,11 @@ void __stdcall Focus_SetFocusAndBlit(int hWnd, int a2, int a3, int a4)
 }
 
 // ref: 0x10007818
-void __fastcall Focus_KillFocusTimer(HWND hWnd)
-{
-	SDlgKillTimer((int)hWnd, 1);
+void __fastcall Focus_KillFocusTimer(
+  HWND _hWnd
+){
+
+	SDlgKillTimer( (int)_hWnd, 1 );
 	Focus_DeleteSpinners();
+
 }

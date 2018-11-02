@@ -353,46 +353,58 @@ int SelConn_1000A3FF (){
 //----------------------------------------------------------------------------//
 
 // ref: 0x1000A43A
-void UNKCALL SelConn_1000A43A(HWND hDlg) { return; }
-/* {
-	HWND v1; // esi
-	_DWORD *v2; // eax
+void UNKCALL SelConn_1000A43A (
+  HWND _dialog
+){
 
-	v1 = hDlg;
-	Title_100100E7(hDlg);
-	Focus_10007818(v1);
-	Sbar_10009CD2(v1, 1105);
-	SelConn_1000A4B9((_DWORD *)dword_1002A35C);
-	Doom_10006C53(v1, &dword_10022F18);
-	Doom_10006C53(v1, (int *)&unk_10022F08);
-	Doom_10006C53(v1, (int *)&unk_10022ED8);
-	Doom_10006C53(v1, (int *)&unk_10022EE4);
-	Doom_10006C53(v1, (int *)&unk_10022F00);
-	Doom_10006C53(v1, (int *)&unk_10022EF0);
-	v2 = (_DWORD *)GetWindowLongA(v1, -21);
-	local_10007F72(v2);
-} */
+	HWND temp_dialog = _dialog;
+	Title_KillTitleTimer( _dialog );  /// check if unchanged
+
+	Focus_KillFocusTimer( temp_dialog );
+	Sbar_FreeScrollBar( temp_dialog, 1105 );
+	SelConn_1000A4B9( (DWORD*)dword_1002A35C );
+
+	Doom_DeleteFreeProcs( temp_dialog,  dword_10022F18 );
+
+	Doom_DeleteFreeProcs( temp_dialog,  dword_10022F08 );
+	Doom_DeleteFreeProcs( temp_dialog,  dword_10022F08 );
+	Doom_DeleteFreeProcs( temp_dialog,  dword_10022F08 );
+	Doom_DeleteFreeProcs( temp_dialog,  dword_10022F08 );
+	Doom_DeleteFreeProcs( temp_dialog,  dword_10022F08 );
+
+  DWORD* user_data = (DWORD*)GetWindowLongA( temp_dialog, GWL_USERDATA );
+	local_FreeMemPtr( (HANDLE*)user_data );
+
+}
 // 10022F18: using guessed type int dword_10022F18;
 // 1002A35C: using guessed type int dword_1002A35C;
 
-// ref: 0x1000A4B9
-int __fastcall SelConn_1000A4B9(_DWORD *a1) { return 0; }
-/* {
-	_DWORD *v1; // esi
-	int result; // eax
+//----------------------------------------------------------------------------//
 
-	if ( a1 )
-	{
-		do
-		{
-			v1 = (_DWORD *)*a1;
-			result = SelConn_1000A4CD(a1);
-			a1 = v1;
-		}
-		while ( v1 );
-	}
-	return result;
-} */
+// ref: 0x1000A4B9
+void __fastcall SelConn_1000A4B9(
+  DWORD* _a1
+){
+
+
+  if ( _a1 == NULL )
+    return;
+
+
+  DWORD* v1 = (DWORD*)(*_a1);
+  while ( v1 != NULL ){
+
+    SelConn_1000A4CD( _a1 );
+
+    _a1 = v1;
+    v1  = (DWORD*)(*_a1);
+
+  }
+
+
+}
+
+//----------------------------------------------------------------------------//
 
 // ref: 0x1000A4CD
 int UNKCALL SelConn_1000A4CD(void *arg) { return 0; }
@@ -404,6 +416,8 @@ int UNKCALL SelConn_1000A4CD(void *arg) { return 0; }
 	return result;
 } */
 // 10010340: using guessed type int __stdcall SMemFree(_DWORD, _DWORD, _DWORD, _DWORD);
+
+//----------------------------------------------------------------------------//
 
 // ref: 0x1000A4E4
 // HWND UNKCALL SelConn_1000A4E4(HWND hWnd, char *a2, int a3) { return 0; }
