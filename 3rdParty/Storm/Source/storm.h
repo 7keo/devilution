@@ -463,7 +463,12 @@ BOOL STORMAPI SNetGetPlayerNames(char **names);
 int  STORMAPI SNetLeagueLogout(char *bnetName);
 int  STORMAPI SNetGetLeaguePlayerName(char *curPlayerLeageName, size_t nameSize);
 
-HGDIOBJ STORMAPI SDlgDefDialogProc(HWND hDlg, signed int DlgType, HDC textLabel, HWND hWnd);
+HGDIOBJ STORMAPI SDlgDefDialogProc(
+  HWND hDlg,
+  int  DlgType,
+  HDC  textLabel,
+  HWND hWnd
+);
 
 HANDLE STORMAPI SDlgDialogBoxIndirectParam(HMODULE hModule, LPCSTR lpName, HWND hWndParent, LPVOID lpParam, LPARAM lParam);
 

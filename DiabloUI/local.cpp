@@ -465,16 +465,25 @@ void __fastcall local_FreeMemPtr(void **p)
 }
 
 // ref: 0x10007FA4
-void __fastcall local_SetWndLongStr(int WndLongData, const char *pszStr)
-{
-	if (WndLongData) {
-		if (pszStr) {
-			strncpy((char *)(WndLongData + 16), pszStr, 0xFFu);
-			*(_BYTE *)(WndLongData + 271) = 0;
-		} else {
-			*(_BYTE *)(WndLongData + 16) = 0;
-		}
-	}
+void __fastcall local_SetWndLongStr (
+        DWORD _WndLongData,
+  const char* _pszStr
+){
+
+
+	if ( not _WndLongData )
+    return;
+
+  char* const string = (char*)( _WndLongData + 16 );
+
+  if ( _pszStr ){
+    strncpy( string, _pszStr, 255 );
+
+    (*(char*)( _WndLongData + 271 )) = '\0';
+  } else
+    (*(char*)( _WndLongData +  16 )) = '\0';
+
+
 }
 
 // ref: 0x10007FD0

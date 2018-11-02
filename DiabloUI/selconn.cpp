@@ -24,10 +24,32 @@ HANDLE SelConn_Allocate_1000A082 (){
 HANDLE __stdcall SelConn_1000A0A6 (  // return int
   HWND   _window,
   UINT   _message,
-  WPARAM _wparam,
-  DWORD  _lparam
+  WPARAM _wparam,  // (HDC)
+  DWORD  _lparam   // (HWND)
 ){
 
+  //--------------------------------------------------------------------------//
+
+  if ( _message == 2024 ){
+    if ( not Fade_CheckRange5() ){
+      // char* v7;
+      // Fade_SetFadeTimer( _window, (int)v7 );
+      Fade_SetFadeTimer( _window );
+    }
+    return NULL;
+  }
+
+  //--------------------------------------------------------------------------//
+
+	if ( _message == 272 ){
+		BNetGW_100028C2( &dword_10029480 );
+    // int v8;
+    // char* v7;
+		// SelConn_1000A4E4( _window, v7, v8 );
+		SelConn_1000A4E4( _window );
+		PostMessageA( _window, 0x7E8u, 0, 0 );
+		return NULL;
+	}
 
   //--------------------------------------------------------------------------//
 
@@ -37,7 +59,7 @@ HANDLE __stdcall SelConn_1000A0A6 (  // return int
     if ( Sbar_CheckIfNextHero(v6) )
       SelConn_1000A3E2( _window );
 
-    return SDlgDefDialogProc( _window, _message, (HDC)_wparam, (HWND)_lparam );
+    goto Return;
 
   }
 
@@ -52,27 +74,16 @@ HANDLE __stdcall SelConn_1000A0A6 (  // return int
       _lparam >> 16
     );
 
-    return SDlgDefDialogProc( _window, _message, (HDC)_wparam, (HWND)_lparam );
+    goto Return;
 
 	}
-
-  //--------------------------------------------------------------------------//
-
-  if ( _message == 2024 ){
-    if ( not Fade_CheckRange5() ){
-      // char* v7;
-      // Fade_SetFadeTimer( _window, (int)v7 );
-      Fade_SetFadeTimer( _window );
-    }
-    return 0;
-  }
 
   //--------------------------------------------------------------------------//
 
 	if ( _message == 2 ){
 		SelConn_1000A43A( _window );
 		BNetGW_10002A07( &dword_10029480 );
-		return SDlgDefDialogProc( _window, _message, (HDC)_wparam, (HWND)_lparam );
+		goto Return;
 	}
 
   //--------------------------------------------------------------------------//
@@ -81,19 +92,7 @@ HANDLE __stdcall SelConn_1000A0A6 (  // return int
 	or   _message == 261 ){
 		HWND v4 = (HWND)SDrawGetFrameWindow();
 		SendMessageA( v4, _message, _wparam, _lparam );
-		return SDlgDefDialogProc( _window, _message, (HDC)_wparam, (HWND)_lparam );
-	}
-
-  //--------------------------------------------------------------------------//
-
-	if ( _message == 272 ){
-		BNetGW_100028C2( &dword_10029480 );
-    // int v8;
-    // char* v7;
-		// SelConn_1000A4E4( _window, v7, v8 );
-		SelConn_1000A4E4( _window );
-		PostMessageA( _window, 0x7E8u, 0, 0 );
-		return 0;
+		goto Return;
 	}
 
   //--------------------------------------------------------------------------//
@@ -102,7 +101,7 @@ HANDLE __stdcall SelConn_1000A0A6 (  // return int
 
 		if ( HIWORD(_wparam) == 7 ){
 			Focus_CenterSpinFromSide( _window );
-			return SDlgDefDialogProc( _window, _message, (HDC)_wparam, (HWND)_lparam );
+			goto Return;
 		}
 
     if ( HIWORD(_wparam) == 6 ){
@@ -112,8 +111,7 @@ HANDLE __stdcall SelConn_1000A0A6 (  // return int
       SelConn_1000A226( _window, (unsigned short)_wparam );
       SelConn_1000A3E2( _window );
 
-
-      return SDlgDefDialogProc( _window, _message, (HDC)_wparam, (HWND)_lparam );
+      goto Return;
 
     }
 
@@ -124,12 +122,13 @@ HANDLE __stdcall SelConn_1000A0A6 (  // return int
     if ( (_WORD)_wparam == 2 )
       SelConn_1000AC07( (int)_window, 2);
 
-    return SDlgDefDialogProc( _window, _message, (HDC)_wparam, (HWND)_lparam );
+    goto Return;
 
 	}
 
   //--------------------------------------------------------------------------//
 
+  Return:
   return SDlgDefDialogProc( _window, _message, (HDC)_wparam, (HWND)_lparam );
 
 }
@@ -139,106 +138,152 @@ HANDLE __stdcall SelConn_1000A0A6 (  // return int
 //----------------------------------------------------------------------------//
 
 // ref: 0x1000A226
-HWND __fastcall SelConn_1000A226(HWND hDlg, int nIDDlgItem) { return 0; }
-/* {
-	HWND v2; // edi
-	HWND result; // eax
-	int v4; // ebx
-	int v5; // eax
-	HWND v6; // ebp
-	unsigned int v7; // eax
-	int v8; // eax
-	const char *v9; // ebx
-	int v10; // eax
-	HWND v11; // eax
-	HWND v12; // eax
-	HWND v13; // eax
-	HWND v14; // eax
-	HWND v15; // eax
-	HWND v16; // eax
-	HWND v17; // eax
-	HWND v18; // eax
-	HWND hWnd; // [esp+10h] [ebp-8Ch]
-	CHAR Buffer; // [esp+14h] [ebp-88h]
+void __fastcall SelConn_1000A226 (
+  HWND _dialog,
+  int _dialog_item_id
+){
+
+	//--------------------------------------------------------------------------//
+
+  HWND window;  /// window that contains the dialog item
+
+  //--------------------------------------------------------------------------//
+
+	window = GetDlgItem( _dialog, _dialog_item_id );
+  if ( window == NULL)
+    return;
+
+  //--------------------------------------------------------------------------//
+
+  DWORD window_id;
+
+  //--------------------------------------------------------------------------//
+
+  window_id = (DWORD)GetWindowLongA( window, GWL_ID );
+  if ( window_id == NULL )
+    return;
+
+  //--------------------------------------------------------------------------//
+
+  int v4 = *(_DWORD*)(window_id+3);
+  if ( v4 == 0 )
+    return;
+
+  //--------------------------------------------------------------------------//
+
+  window = GetDlgItem( _dialog, 1081 );
+  if ( window == NULL )
+    return;
+
+  //--------------------------------------------------------------------------//
+
+  window_id = (DWORD)GetWindowLongA( window, GWL_ID );
+
+  local_SetWndLongStr( window_id, (const char*)(v4+0x90) );
+  window = GetDlgItem( _dialog, 1076 );
+  if ( window == NULL )
+    return;
+
+  //--------------------------------------------------------------------------//
+  //--------------------------------------------------------------------------//
+
+  CHAR buffer [64]; // = {0};
 	CHAR v21; // [esp+54h] [ebp-48h]
 
-	v2 = hDlg;
-	result = GetDlgItem(hDlg, nIDDlgItem);
-	if ( result )
-	{
-		result = (HWND)GetWindowLongA(result, -21);
-		if ( result )
-		{
-			v4 = *((_DWORD *)result + 3);
-			if ( v4 )
-			{
-				result = GetDlgItem(v2, 1081);
-				if ( result )
-				{
-					v5 = GetWindowLongA(result, -21);
-					local_10007FA4(v5, (const char *)(v4 + 144));
-					result = GetDlgItem(v2, 1076);
-					v6 = result;
-					if ( result )
-					{
-						LoadStringA(hInstance, 0x21u, &Buffer, 63);
-						if ( dword_1002A370 )
-						{
-							v7 = *(_DWORD *)(dword_1002A370 + 24);
-							if ( v7 >= *(_DWORD *)(v4 + 12) )
-								v7 = *(_DWORD *)(v4 + 12);
-							wsprintfA(&v21, &Buffer, v7);
-						}
-						else
-						{
-							wsprintfA(&v21, &Buffer, *(_DWORD *)(v4 + 12));
-						}
-						v8 = GetWindowLongA(v6, -21);
-						local_10007FA4(v8, &v21);
-						if ( *(_DWORD *)(v4 + 8) == 1112425812 )
-						{
-							hWnd = GetDlgItem(v2, 1144);
-							v9 = BNetGW_10002B21(&dword_10029480, dword_1002948C);
-							if ( !v9 )
-								v9 = &byte_10029448;
-							if ( hWnd )
-							{
-								v10 = GetWindowLongA(hWnd, -21);
-								local_10007FA4(v10, v9);
-							}
-							v11 = GetDlgItem(v2, 1143);
-							ShowWindow(v11, 5);
-							v12 = GetDlgItem(v2, 1147);
-							ShowWindow(v12, 0);
-							v13 = GetDlgItem(v2, 1144);
-							ShowWindow(v13, 5);
-							v14 = GetDlgItem(v2, 1145);
-							ShowWindow(v14, 5);
-							dword_1002A354 = 1;
-						}
-						else
-						{
-							v15 = GetDlgItem(v2, 1143);
-							ShowWindow(v15, 0);
-							v16 = GetDlgItem(v2, 1147);
-							ShowWindow(v16, 5);
-							v17 = GetDlgItem(v2, 1144);
-							ShowWindow(v17, 0);
-							v18 = GetDlgItem(v2, 1145);
-							ShowWindow(v18, 0);
-							dword_1002A354 = 0;
-						}
-						result = (HWND)Doom_10006A13(v2, (int *)&unk_10022EF0, 1);
-					}
-				}
-			}
-		}
-	}
-	return result;
-} */
+  DWORD string_id = 0x21u;
+  LoadStringA( ghUiInst, string_id, buffer, 63 );
+
+  DWORD temp = *(DWORD*)(v4+12);
+  if ( dword_1002A370 ){
+    DWORD temp_b = *(DWORD*)(dword_1002A370+24);
+    if (  temp_b < temp )
+      temp = temp_b;
+  }
+
+  wsprintfA( &v21, buffer, temp );
+
+  //--------------------------------------------------------------------------//
+
+  window_id = (DWORD)GetWindowLongA( window, GWL_ID );
+  local_SetWndLongStr( window_id, &v21 );
+
+  DWORD const mode = *(DWORD*)(v4+8);
+  const DWORD BNET = 0x424E4554;
+  if ( mode == BNET ){
+
+    window = GetDlgItem( _dialog, 1144 );
+    const char* v9 = (const char*)BNetGW_10002B21( (_DWORD*)&dword_10029480, dword_1002948C );
+
+    if ( v9 == NULL )
+      v9 = &nullcharacter;
+
+    if ( window ){
+      DWORD window_id = (DWORD)GetWindowLongA( window, GWL_ID );
+      local_SetWndLongStr( window_id, v9 );
+    }
+
+    //------------------------------------------------------------------------//
+
+    ShowWindow(
+      GetDlgItem( _dialog, 1143 ),
+      SW_SHOW );
+
+    ShowWindow(
+      GetDlgItem( _dialog, 1144 ),
+      SW_SHOW );
+
+    ShowWindow(
+      GetDlgItem( _dialog, 1145 ),
+      SW_SHOW );
+
+
+    ShowWindow(
+      GetDlgItem( _dialog, 1147 ),
+      SW_HIDE );
+
+
+    dword_1002A354 = 1;
+
+  }
+
+  else {
+
+    ShowWindow(
+      GetDlgItem( _dialog, 1143 ),
+      SW_HIDE );
+
+    ShowWindow(
+      GetDlgItem( _dialog, 1144 ),
+      SW_HIDE );
+
+    ShowWindow(
+      GetDlgItem( _dialog, 1145 ),
+      SW_HIDE );
+
+
+    ShowWindow(
+      GetDlgItem( _dialog, 1147 ),
+      SW_SHOW );
+
+
+    dword_1002A354 = 0;
+
+  }
+
+  //--------------------------------------------------------------------------//
+
+  // window = (HWND)Doom_ParseWndProc4( _dialog, dword_10022EF0, 1 );
+  // return window;
+
+  Doom_ParseWndProc4( _dialog, dword_10022EF0, 1 );
+  return;
+
+}
 // 1002948C: using guessed type int dword_1002948C;
 // 1002A354: using guessed type int dword_1002A354;
 // 1002A370: using guessed type int dword_1002A370;
+
+//----------------------------------------------------------------------------//
 
 // ref: 0x1000A3E2
 HWND UNKCALL SelConn_1000A3E2(HWND hDlg) { return 0; }

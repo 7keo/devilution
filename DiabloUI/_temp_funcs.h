@@ -291,7 +291,7 @@ LRESULT          __stdcall  local_PostUiWndProc2(HWND hWnd, UINT uMsg, WPARAM wP
 BOOL             __fastcall local_DisableKeyWaitMouse(HWND hWnd);
 DWORD*           __cdecl    local_AllocWndLongData();
 void             __fastcall local_FreeMemPtr(void **p);
-void             __fastcall local_SetWndLongStr(int WndLongData, const char *pszStr);
+void             __fastcall local_SetWndLongStr( DWORD  WndLongData, const char *pszStr);
 void             __cdecl    local_LoadArtCursor();
 void             __cdecl    local_InitArtCursor();
 void             __cdecl    local_FreeArtCursor();
@@ -382,7 +382,7 @@ void __cdecl SelClass_cpp_init();
 void *SelConn_Allocate_1000A082();
 int SelConn_Set_And_Get_dword_1002A350_To_Infinity();
 int __stdcall SelConn_1000A0A6(HWND hWnd, UINT Msg, WPARAM wParam, unsigned int lParam);
-HWND __fastcall SelConn_1000A226(HWND hDlg, int nIDDlgItem);
+void __fastcall SelConn_1000A226(HWND hDlg, int nIDDlgItem);
 HWND UNKCALL SelConn_1000A3E2(HWND hDlg);
 int SelConn_1000A3FF();
 void UNKCALL SelConn_1000A43A(HWND hDlg);
