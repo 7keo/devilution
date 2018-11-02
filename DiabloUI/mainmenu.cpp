@@ -132,7 +132,7 @@ void __fastcall MainMenu_LoadMenuGFX(HWND hWnd)
 		v5 = "ui_art\\swmmenu.pcx";
 		if (v4)
 			v5 = "ui_art\\mainmenu.pcx";
-		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, v5, (BYTE **)v2, v2 + 1, 0);
+		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, v5, (BYTE**)v2, (_SIZE*)(v2 + 1), 0);
 		Fade_NoInputAndArt(hWnd, 1);
 	}
 	v6 = GetDlgItem(hWnd, 1042);

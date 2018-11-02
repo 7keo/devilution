@@ -5,7 +5,7 @@ EXPORTS
   SNetDestroy                   @102 NONAME
   ;SNetEnumDevices               @103 NONAME
   ;SNetEnumGames                 @104 NONAME
-  ;SNetEnumProviders             @105 NONAME
+  SNetEnumProviders             @105 NONAME
   SNetDropPlayer                @106 NONAME
   SNetGetGameInfo               @107 NONAME
   ;SNetGetNetworkLatency         @108 NONAME
@@ -57,7 +57,7 @@ EXPORTS
   ;SDlgCreateDialogIndirectParam @204 NONAME
   ;SDlgCreateDialogParam         @205 NONAME
   SDlgDefDialogProc             @206 NONAME
-  
+
   SDlgDialogBoxIndirectParam    @208 NONAME
   SDlgDialogBoxParam            @209 NONAME
   SDlgDrawBitmap                @210 NONAME
@@ -145,7 +145,7 @@ EXPORTS
 
   SCodeCompile                  @331 NONAME
   SCodeDelete                   @332 NONAME
-  
+
   SCodeExecute                  @334 NONAME
   ;SCodeGetPseudocode            @335 NONAME
 
@@ -192,7 +192,7 @@ EXPORTS
   Ordinal393                    @393 NONAME
 
   ;SMem399                       @399 NONAME
-  
+
   SMemAlloc                     @401 NONAME
   ;SMemDestroy                   @402 NONAME
   SMemFree                      @403 NONAME
@@ -223,7 +223,7 @@ EXPORTS
   STransBltUsingMask            @432 NONAME
   STransCreateI                 @433 NONAME
   STransDelete                  @434 NONAME
-  
+
   STransDuplicate               @436 NONAME
   STransIntersectDirtyArray     @437 NONAME
   STransInvertMask              @438 NONAME

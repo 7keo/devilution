@@ -71,7 +71,8 @@ void __fastcall disclaim_LoadDisclaimGFX(HWND hWnd)
 	v2 = local_AllocWndLongData();
 	if (v2) {
 		SetWindowLongA(hWnd, -21, (LONG)v2);
-		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\disclaim.pcx", (BYTE **)v2, v2 + 1, 0);
+    
+		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\disclaim.pcx", (BYTE **)v2, (_SIZE*)(v2 + 1), 0);
 		Fade_NoInputAndArt(hWnd, 0);
 	}
 	Doom_ParseWndProc3(hWnd, disclaim_msgtbl1, 5);

@@ -6,8 +6,8 @@ EXPORTS
   SNetDestroy                   @102 NONAME
   SNetDestroy@0                 @102 NONAME
   ;SNetEnumDevices               @103 NONAME
-  ;SNetEnumGames                 @104 NONAME
-  ;SNetEnumProviders             @105 NONAME
+  SNetEnumGames                 @104 NONAME
+  SNetEnumProviders             @105 NONAME
   SNetDropPlayer                @106 NONAME
   SNetDropPlayer@8              @106 NONAME
   SNetGetGameInfo               @107 NONAME

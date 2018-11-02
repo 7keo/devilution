@@ -425,55 +425,71 @@ void UNKCALL SelConn_1000A4CD (
 
 // ref: 0x1000A4E4
 // HWND UNKCALL SelConn_1000A4E4(HWND hWnd, char *a2, int a3) { return 0; }
-HWND UNKCALL SelConn_1000A4E4( HWND hWnd ) { return 0; }
-/* {
-	HWND v3; // esi
-	HWND v4; // ST1C_4
-	int v5; // eax
-	int *v6; // edi
-	HWND result; // eax
-	HWND v8; // eax
-	HWND v9; // [esp+0h] [ebp-Ch]
+void UNKCALL SelConn_1000A4E4 (
+  HWND _hWnd
+){
 
-	v3 = hWnd;
-	SelConn_1000A6EC(hWnd);
-	Focus_100077E9((int)v3, "ui_art\\focus16.pcx", v9);
-	Title_1001009E(v3, (int)"ui_art\\smlogo.pcx", v4);
-	v5 = local_10007F46();
-	v6 = (int *)v5;
-	if ( v5 )
-	{
-		SetWindowLongA(v3, -21, v5);
-		local_10007944((int)v3, 0, &byte_10029448, -1, 1, (int)"ui_art\\selconn.pcx", v6, v6 + 1, 0);
-		Fade_100073C5(v3, 1);
+  HWND temp_hwnd = _hWnd;
+
+	SelConn_1000A6EC( _hWnd );
+	Focus_SetFocusTimer(   _hWnd, "ui_art\\focus16.pcx" ); /// menu focus pentagram
+	Title_LoadImgSetTimer( _hWnd, "ui_art\\smlogo.pcx"  );  /// diablo fire logo
+
+  DWORD* window_data = local_AllocWndLongData();
+  _SIZE* size = (_SIZE*)(window_data+1);
+
+  if ( window_data != NULL ){
+
+		SetWindowLongA( temp_hwnd, GWL_USERDATA, *window_data );
+
+		local_LoadArtWithPal(
+      temp_hwnd,              // HWND        hWnd,
+      0,                      // int         a2,
+      &nullcharacter,         // char*       src,
+      -1,                     // int         mask,
+      1,                      // int         flags,
+      "ui_art\\selconn.pcx",  // const char* pszFileName,
+      (BYTE**)window_data,    // BYTE**      pBuffer,
+      size,                   // DWORD*      pdwSize,
+      false                   // BOOL        _clear_palette
+    );
+
+		Fade_NoInputAndArt( temp_hwnd, 1 );
+
 	}
-	Doom_100068AB(v3, (int *)&unk_10022EF0, 1);
-	Doom_100068AB(v3, (int *)&unk_10022F00, 1);
-	Doom_100068AB(v3, (int *)&unk_10022ED8, 5);
-	Doom_100068AB(v3, (int *)&unk_10022EE4, 3);
-	Doom_1000658C(v3, (int *)&unk_10022F08, 4, 0);
-	Doom_1000658C(v3, &dword_10022F18, 0, 1);
+
+
+	Doom_ParseWndProc3( temp_hwnd, dword_10022EF0, 1 );
+	Doom_ParseWndProc3( temp_hwnd, dword_10022EF0, 1 );
+	Doom_ParseWndProc3( temp_hwnd, dword_10022EF0, 5 );
+	Doom_ParseWndProc3( temp_hwnd, dword_10022EF0, 3 );
+	Doom_ParseWndProcs( temp_hwnd, dword_10022EF0, 4, 0 );
+	Doom_ParseWndProcs( temp_hwnd, dword_10022F18, 0, 1 );
+
 	dword_1002A360 = 0;
 	dword_1002A368 = dword_10029488;
 	dword_1002A35C = 0;
-	SNetEnumProviders(0, SelConn_1000A5F3);
-	SelConn_1000A670(v3, (const char *)dword_1002A35C);
-	result = Sbar_10009BF1(v3, 1105);
-	if ( dword_1002A360 <= 6 )
-	{
-		v8 = GetDlgItem(v3, 1105);
-		result = (HWND)ShowWindow(v8, 0);
+	SNetEnumProviders( 0, SelConn_1000A5F3 );
+	SelConn_1000A670( temp_hwnd, (const char*)dword_1002A35C );
+
+  Sbar_LoadScrBarGFX( temp_hwnd, 1105 );
+
+  if ( dword_1002A360 <= 6 ){
+		HWND temp = GetDlgItem( temp_hwnd, 1105);
+	  ShowWindow( temp, SW_HIDE );
 	}
-	return result;
-} */
+
+}
 // 10010472: using guessed type int __stdcall SNetEnumProviders(_DWORD, _DWORD);
 // 10022F18: using guessed type int dword_10022F18;
 // 10029488: using guessed type int dword_10029488;
 // 1002A35C: using guessed type int dword_1002A35C;
 // 1002A368: using guessed type int dword_1002A368;
 
+//----------------------------------------------------------------------------//
+
 // ref: 0x1000A5F3
-signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, int a4) { return 0; }
+signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, void* a4) { return 0; }
 /* {
 	int v4; // esi
 	int v6; // edx
@@ -538,12 +554,13 @@ int __fastcall SelConn_1000A670(HWND a1, const char *a2) { return 0; }
 		}
 		while ( *v3 );
 	}
-	return Doom_1000680A(hDlg, &dword_10022F18, 0, 1);
+	// return
+  Doom_1000680A(hDlg, &dword_10022F18, 0, 1);
 } */
 // 10022F18: using guessed type int dword_10022F18;
 
 // ref: 0x1000A6EC
-void UNKCALL SelConn_1000A6EC(HWND hDlg) { return; }
+void UNKCALL SelConn_1000A6EC( const HWND hDlg) { return; }
 /* {
 	HWND v1; // ebx
 	int *v2; // edi

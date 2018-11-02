@@ -767,7 +767,7 @@ void __fastcall SelHero_LoadHeroGFX(HWND hWnd)
 	v12 = local_AllocWndLongData();
 	if (v12) {
 		SetWindowLongA(hWnd, -21, (LONG)v12);
-		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\selhero.pcx", (BYTE **)v12, v12 + 1, 0);
+		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\selhero.pcx", (BYTE **)v12, (_SIZE*)(v12 + 1), 0);
 		Fade_NoInputAndArt(hWnd, 1);
 	}
 	local_LoadArtImage("ui_art\\heros.pcx", &selhero_buffer, (_SIZE*)selhero_sizedata);

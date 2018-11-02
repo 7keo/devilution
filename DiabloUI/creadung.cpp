@@ -115,8 +115,8 @@ void __fastcall CreaDung_LoadDungGFX(HWND hWnd)
 	SDlgSetTimer( hWnd, 1, 55, NULL );
 	v2 = local_AllocWndLongData();
 	if (v2) {
-		SetWindowLongA(hWnd, -21, (LONG)v2);
-		local_LoadArtWithPal(hWnd, 0, "popup", -1, 1, "ui_art\\seldiff.pcx", (BYTE **)v2, v2 + 1, 0);
+		SetWindowLongA(hWnd, -21, (LONG)v2 );
+		local_LoadArtWithPal(hWnd, 0, "popup", -1, 1, "ui_art\\seldiff.pcx", (BYTE**)v2, (_SIZE*)(v2+1), 0);
 	}
 	local_DoUiWndProc(hWnd, (DWORD *)creadung_msgtbl5);
 	Doom_ParseWndProc3(hWnd, creadung_msgtbl1, 5);

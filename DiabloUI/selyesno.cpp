@@ -125,7 +125,7 @@ void __fastcall SelYesNo_LoadSelYN_GFX(HWND hWnd)
 		} else {
 			v5 = "ui_art\\black.pcx";
 		}
-		local_LoadArtWithPal(hWnd, 0, "Popup", -1, 1, v5, (BYTE **)v4, v4 + 1, 1);
+		local_LoadArtWithPal(hWnd, 0, "Popup", -1, 1, v5, (BYTE **)v4, (_SIZE*)(v4 + 1), 1);
 	}
 	v6 = yesno_dialog_string;
 	v7 = GetDlgItem(hWnd, 1026);

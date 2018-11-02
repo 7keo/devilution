@@ -8,6 +8,16 @@
 BOOL STORMAPI SNetCreateGame(const char *pszGameName, const char *pszGamePassword, const char *pszGameStatString, DWORD dwGameType, char *GameTemplateData, int GameTemplateSize, int playerCount, char *creatorName, char *a11, int *playerID) rBool;
 BOOL STORMAPI SNetDestroy() rBool;
 
+// BOOL STORMAPI SNetEnumProviders (
+//   DWORD a1,
+//   int (__stdcall* a2 )(int a1, char *a2, char *a3, int a4)
+// );
+
+BOOL STORMAPI SNetEnumProviders (
+  HANDLE a1,
+  BOOL (__stdcall* a2)(int, char*, char*, void*)
+) rBool;
+
 BOOL STORMAPI SNetDropPlayer(int playerid, DWORD flags) rBool;
 BOOL STORMAPI SNetGetGameInfo(int type, void *dst, size_t length, size_t *byteswritten) rBool;
 

@@ -198,11 +198,11 @@ BOOL __fastcall cr8game_LoadCreaGFX(HWND hWnd)
 	id[0] = 0;
 	id[0] = 1;
 	id[1] = 2;
-	local_LoadArtWithPal(hWnd, 0, "Dialog", -1, 1, "ui_art\\creat_bg.pcx", &cr8_creat_bg_ptr, a8, 1);
+	local_LoadArtWithPal(hWnd, 0, "Dialog", -1, 1, "ui_art\\creat_bg.pcx", &cr8_creat_bg_ptr, (_SIZE*)a8, 1);
 	local_LoadArtImage("ui_art\\but_xsm.pcx", &cr8_but_xsm_ptr, (_SIZE*)a3);
 	SDlgSetControlBitmaps(hWnd, id, 0, (char *)cr8_but_xsm_ptr, (char *)a3, 1, -1);
 	local_LoadArtImage("ui_art\\diffbtns.pcx", &cr8_diffbtns_ptr, (_SIZE*)cr8diffbtns_size);
-	local_SetStaticBmp(hWnd, 1040, cr8_creat_bg_ptr, a8);
+	local_SetStaticBmp(hWnd, 1040, cr8_creat_bg_ptr, (_SIZE*)a8);
 	return 1;
 }
 

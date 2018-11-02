@@ -121,7 +121,7 @@ void __fastcall credits_LoadImgCreditTxt(HWND hWnd, LPARAM lParam)
 	v6              = v5;
 	if (v5) {
 		SetWindowLongA(hWnd, -21, (LONG)v5);
-		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\credits.pcx", (BYTE **)v6, v6 + 1, 0);
+		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\credits.pcx", (BYTE **)v6, (_SIZE*)(v6 + 1), 0);
 		Fade_NoInputAndArt(hWnd, 0);
 	}
 	v13 = GetDlgItem(hWnd, 1000);

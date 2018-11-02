@@ -257,7 +257,7 @@ void __fastcall Title_LoadAllTitleImgs(HWND hWnd, int time)
 	v4 = local_AllocWndLongData();
 	SetWindowLongA(hWnd, -21, (LONG)v4);
 	if (v4) {
-		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\title.pcx", (BYTE **)v4, v4 + 1, 0);
+		local_LoadArtWithPal(hWnd, 0, &nullcharacter, -1, 1, "ui_art\\title.pcx", (BYTE**)v4, (_SIZE*)(v4 + 1), 0);
 		Fade_NoInputAndArt(hWnd, 0);
 	}
 	Doom_ParseWndProc3(hWnd, titlemsgtbl, 3);

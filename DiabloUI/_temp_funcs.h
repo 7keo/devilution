@@ -274,9 +274,19 @@ tagPALETTEENTRY* __fastcall local_GetArtPalEntry(int entry);
 void             __fastcall local_ClearPalette(PALETTEENTRY *pPal);
 void             __cdecl    local_ClearSurface();
 BOOL             __fastcall local_LoadArtImage( const char* _filename, BYTE** pBuffer, _SIZE* pdwSize );
-BOOL             __fastcall local_LoadArtWithPal(HWND hWnd, int a2, char *src, int mask, int flags, const char *pszFileName, BYTE **pBuffer, DWORD *pdwSize, BOOL a9);
+BOOL             __fastcall local_LoadArtWithPal (
+  HWND        hWnd,
+  int         a2,
+  char*       src,
+  int         mask,
+  int         flags,
+  const char* pszFileName,
+  BYTE**      pBuffer,
+  _SIZE*      _size,
+  BOOL        _clear_palette
+);
 void             __fastcall local_AdjustRectSize(tagRECT *pRect, int a2, int a3);
-BOOL             __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, DWORD *pdwSize);
+BOOL             __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, _SIZE* _size );
 void             __cdecl    j_local_cpp_init();
 void             __cdecl    local_cpp_init();
 BOOL             __fastcall local_SetButtonBmp(HWND hWnd, int flags, int a7, void *pBuffer, DWORD *pdwSize);
@@ -388,8 +398,8 @@ int SelConn_1000A3FF();
 void UNKCALL SelConn_1000A43A(HWND hDlg);
 void __fastcall SelConn_1000A4B9(DWORD* a1);
 void UNKCALL SelConn_1000A4CD(void *location);
-HWND UNKCALL SelConn_1000A4E4( HWND hWnd );  // , char *a2, int a3
-signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, int a4);
+void UNKCALL SelConn_1000A4E4( HWND hWnd );  // , char *a2, int a3
+signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, void* a4);
 int __fastcall SelConn_1000A670(HWND a1, const char *a2);
 void UNKCALL SelConn_1000A6EC(HWND hDlg);
 LRESULT __stdcall SelConn_1000A73E(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);

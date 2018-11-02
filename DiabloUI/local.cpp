@@ -36,20 +36,21 @@ tagPALETTEENTRY *__fastcall local_GetArtPalEntry(int entry)
 }
 
 // ref: 0x1000789D
-void __fastcall local_ClearPalette(PALETTEENTRY *pPal)
-{
-	BYTE *v1;      // eax
-	signed int v2; // ecx
+void __fastcall local_ClearPalette(
+  PALETTEENTRY* _palette_colors
+){
 
-	v1 = &pPal->peBlue;
-	v2 = 256;
-	do {
-		*(v1 - 2) = 0;
-		*(v1 - 1) = 0;
-		*v1       = 0;
-		v1 += 4;
-		--v2;
-	} while (v2);
+  for (  int n=0;  n<256;  n+=1  )
+    *(DWORD*)(&_palette_colors[n]) &= 0xFF000000;
+
+// 	BYTE* channel = &(_palette_colors->peBlue);
+//   for (  int n=0;  n<256;  n+=1  ){
+// 		*( v1 - 2 ) = 0;
+// 		*( v1 - 1 ) = 0;
+// 		*( v1     ) = 0;
+// 		v1 += 4;
+//   }
+
 }
 
 // ref: 0x100078B6
@@ -120,40 +121,59 @@ BOOL __fastcall local_LoadArtImage (
 
 
 // ref: 0x10007944
-BOOL __fastcall local_LoadArtWithPal(HWND hWnd, int a2, char *src, int mask, int flags, const char *pszFileName, BYTE **pBuffer, DWORD *pdwSize, BOOL a9)
-{
-	BYTE *v10;                        // eax
-	DWORD v11;                        // ST18_4
-	HPALETTE v13;                     // edi
-	tagPALETTEENTRY pPalEntries[256]; // [esp+Ch] [ebp-40Ch]
+BOOL __fastcall local_LoadArtWithPal (
+  HWND        hWnd,
+  int         a2,
+  char*       src,
+  int         mask,
+  int         flags,
+  const char* pszFileName,
+  BYTE**      pBuffer,
+  _SIZE*      _size,
+  BOOL        _clear_palette
+){
+
 	DWORD pdwWidth;                   // [esp+410h] [ebp-8h]
 	DWORD dwHeight;                   // [esp+414h] [ebp-4h]
 
-	if (!SBmpLoadImage(pszFileName, 0, 0, 0, &pdwWidth, &dwHeight, 0))
+	if ( not SBmpLoadImage( pszFileName, 0, 0, 0, &pdwWidth, &dwHeight, 0 ) )
 		return 0;
-	v10      = (BYTE *)SMemAlloc(dwHeight * pdwWidth, "C:\\Src\\Diablo\\DiabloUI\\local.cpp", 129, 0);
-	v11      = dwHeight * pdwWidth;
-	*pBuffer = v10;
-	if (!SBmpLoadImage(pszFileName, pPalEntries, v10, v11, 0, 0, 0)
-	    || !SDlgSetBitmapI(hWnd, a2, src, mask, flags, *pBuffer, 0, pdwWidth, dwHeight, -1)) {
+
+
+	(*pBuffer) = (BYTE*)SMemAlloc( dwHeight * pdwWidth, "C:\\Src\\Diablo\\DiabloUI\\local.cpp", 129, 0 );
+  DWORD size = ( dwHeight * pdwWidth );
+
+  tagPALETTEENTRY pPalEntries[256]; // [esp+Ch] [ebp-40Ch]
+
+	if ( not SBmpLoadImage( pszFileName, pPalEntries, *pBuffer, size, 0, 0, 0 )
+  or   not SDlgSetBitmapI( hWnd, a2, src, mask, flags, *pBuffer, 0, pdwWidth, dwHeight, -1 ) )
 		return 0;
-	}
-	if (!src || !*src) {
-		v13 = (HPALETTE)GetStockObject(15);
-		GetPaletteEntries(v13, 0, 0xAu, pPalEntries);
-		GetPaletteEntries(v13, 0xAu, 0xAu, &pPalEntries[246]);
-		memcpy(artpal, pPalEntries, 0x400u);
-		if (a9) {
-			SDrawUpdatePalette(0, 255, artpal, 1);
-		} else {
-			local_ClearPalette(pPalEntries);
-			SDrawUpdatePalette(0, 256, pPalEntries, 1);
+
+
+	if ( not  src
+  or   not *src ){
+
+		HPALETTE palette = (HPALETTE)GetStockObject( DEFAULT_PALETTE );
+
+		GetPaletteEntries( palette,  0, 10, &pPalEntries[  0] );
+		GetPaletteEntries( palette, 10, 10, &pPalEntries[246] );
+
+		memcpy( artpal, pPalEntries, 0x400u );
+
+		if ( _clear_palette )
+			SDrawUpdatePalette( 0, 255, artpal, 1);
+		else {
+			local_ClearPalette( pPalEntries );
+			SDrawUpdatePalette( 0, 256, pPalEntries, 1);
 		}
+
 	}
-	if (pdwSize) {
-		*pdwSize   = pdwWidth;
-		pdwSize[1] = dwHeight;
+
+	if ( _size != NULL ){
+		_size->w = pdwWidth;
+		_size->h = dwHeight;
 	}
+
 	return 1;
 }
 // 100103FA: using guessed type int __stdcall SDrawUpdatePalette(_DWORD, _DWORD, _DWORD, _DWORD);
@@ -173,7 +193,7 @@ void __fastcall local_AdjustRectSize(tagRECT *pRect, int a2, int a3)
 }
 
 // ref: 0x10007A85
-BOOL __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, DWORD *pdwSize)
+BOOL __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, _SIZE* _size )
 {
 	HWND v4;             // edi
 	HWND v5;             // ebx
@@ -184,7 +204,7 @@ BOOL __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, DWO
 	GetWindowRect(v5, &Rect);
 	ScreenToClient(v4, (LPPOINT)&Rect);
 	ScreenToClient(v4, (LPPOINT)&Rect.right);
-	SDlgSetBitmapI(v5, 0, "Static", -1, 1, pBuffer, (int)&Rect, *pdwSize, pdwSize[1], -1);
+	SDlgSetBitmapI(v5, 0, "Static", -1, 1, pBuffer, (int)&Rect, _size->w, _size->h, -1);
 	return 1;
 }
 
@@ -439,7 +459,7 @@ BOOL __fastcall local_DisableKeyWaitMouse(HWND hWnd)
 }
 
 // ref: 0x10007F46
-DWORD *__cdecl local_AllocWndLongData()
+DWORD* __cdecl local_AllocWndLongData()
 {
 	DWORD *result; // eax
 

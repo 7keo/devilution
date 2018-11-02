@@ -82,6 +82,16 @@ extern "C" {
 BOOL STORMAPI SNetCreateGame(const char *pszGameName, const char *pszGamePassword, const char *pszGameStatString, DWORD dwGameType, char *GameTemplateData, int GameTemplateSize, int playerCount, char *creatorName, char *a11, int *playerID);
 BOOL STORMAPI SNetDestroy();
 
+// BOOL STORMAPI SNetEnumProviders (
+//   DWORD a1,
+//   int (__stdcall* a2 )(int a1, char *a2, char *a3, int a4)
+// );
+
+BOOL STORMAPI SNetEnumProviders (
+  HANDLE a1,
+  BOOL (__stdcall* a2)(int, char*, char*, void*)
+);
+
 /*  SNetDropPlayer @ 106
  *
  *  Drops a player from the current game.
@@ -1369,6 +1379,7 @@ BOOL __stdcall SDlgKillTimer(int a1, int a2);
 BOOL __stdcall SDlgDrawBitmap(HWND hWnd, int a2, int a3, int a4, int a5, int a6, int a7);
 BOOL __stdcall SDlgDialogBoxParam(HINSTANCE hInst, char *szDialog, int a3, WNDPROC func, int a5);
 BOOL __stdcall SGdiTextOut(void *pBuffer, int x, int y, int mask, char *str, int len);
+
 
 #ifdef __GNUC__
 }
