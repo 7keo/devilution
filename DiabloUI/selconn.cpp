@@ -407,14 +407,18 @@ void __fastcall SelConn_1000A4B9(
 //----------------------------------------------------------------------------//
 
 // ref: 0x1000A4CD
-int UNKCALL SelConn_1000A4CD(void *arg) { return 0; }
-/* {
-	int result; // eax
+void UNKCALL SelConn_1000A4CD (
+  HANDLE _handle
+){
 
-	if ( arg )
-		result = SMemFree(arg, "C:\\Src\\Diablo\\DiabloUI\\SelConn.cpp", 130, 0);
-	return result;
-} */
+	if ( _handle == NULL )
+    return;
+
+  char* const this_file = "C:\\Src\\Diablo\\DiabloUI\\SelConn.cpp";
+  const int   this_line = 130;
+  SMemFree( _handle, this_file, this_line, 0x00 );
+
+}
 // 10010340: using guessed type int __stdcall SMemFree(_DWORD, _DWORD, _DWORD, _DWORD);
 
 //----------------------------------------------------------------------------//

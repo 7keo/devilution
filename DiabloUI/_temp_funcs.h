@@ -387,7 +387,7 @@ void UNKCALL SelConn_1000A3E2(HWND hDlg);
 int SelConn_1000A3FF();
 void UNKCALL SelConn_1000A43A(HWND hDlg);
 void __fastcall SelConn_1000A4B9(DWORD* a1);
-BOOL UNKCALL SelConn_1000A4CD(void *location);
+void UNKCALL SelConn_1000A4CD(void *location);
 HWND UNKCALL SelConn_1000A4E4( HWND hWnd );  // , char *a2, int a3
 signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, int a4);
 int __fastcall SelConn_1000A670(HWND a1, const char *a2);
