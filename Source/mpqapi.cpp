@@ -139,7 +139,7 @@ bool __fastcall mpqapi_reg_store_modification_time(char *pbData, int dwLen)
 			--v5;
 		} while (v5);
 	}
-	return SRegSaveData("Diablo", "Video Player ", 0, (unsigned char *)v3, v2);
+	return SRegSaveData("Diablo", "Video Player ", 0, (char*)v3, v2);
 }
 
 void __fastcall mpqapi_remove_hash_entry(const char *pszName)

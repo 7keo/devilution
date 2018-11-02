@@ -510,54 +510,65 @@ void __fastcall diablo_reload_process(HMODULE hModule)
 		if (*i == '\\')
 			*i = '/';
 	}
+
 	GetSystemInfo(&sinf);
 	dwSize = sinf.dwPageSize;
 	if (sinf.dwPageSize < 4096)
 		dwSize = 4096;
 	hMap = CreateFileMapping((HANDLE)0xFFFFFFFF, NULL, SEC_COMMIT | PAGE_READWRITE, 0, dwSize, Name);
 	v3 = GetLastError() != ERROR_ALREADY_EXISTS;
-	if (hMap) {
-		v4 = (unsigned int *)MapViewOfFile(hMap, FILE_MAP_ALL_ACCESS, 0, 0, dwSize);
-		v5 = v4;
-		if (v4) {
-			if (v3) {
-				*v4 = -1;
-				v4[1] = 0;
-				memset(&si, 0, sizeof(si));
-				si.cb = sizeof(si);
-				CreateProcess(Filename, NULL, NULL, NULL, FALSE, CREATE_NEW_PROCESS_GROUP, NULL, NULL, &si, &pi);
-				WaitForInputIdle(pi.hProcess, 0xFFFFFFFF);
-				CloseHandle(pi.hThread);
-				CloseHandle(pi.hProcess);
-				while (*v5 < 0)
-					Sleep(1000);
-				UnmapViewOfFile(v5);
-				CloseHandle(hMap);
-				ExitProcess(0);
-			}
-			if (InterlockedIncrement((long *)v4)) {
-				v6 = GetForegroundWindow();
-				do {
-					hWnd = v6;
-					v6 = GetWindow(v6, 3u);
-				} while (v6);
-				while (1) {
-					GetWindowThreadProcessId(hWnd, &dwProcessId);
-					if (dwProcessId == v5[1])
-						break;
-					hWnd = GetWindow(hWnd, 2u);
-					if (!hWnd)
-						goto LABEL_23;
-				}
-				SetForegroundWindow(hWnd);
-			LABEL_23:
-				UnmapViewOfFile(v5);
-				CloseHandle(hMap);
-				ExitProcess(0);
-			}
-			v5[1] = GetCurrentProcessId();
-		}
-	}
+
+  if ( not hMap )
+    return;
+
+  v4 = (unsigned int *)MapViewOfFile(hMap, FILE_MAP_ALL_ACCESS, 0, 0, dwSize);
+  v5 = v4;
+  if ( not v4 )
+    return;
+
+  if (v3) {
+    *v4 = -1;
+    v4[1] = 0;
+    memset(&si, 0, sizeof(si));
+    si.cb = sizeof(si);
+    CreateProcess(Filename, NULL, NULL, NULL, FALSE, CREATE_NEW_PROCESS_GROUP, NULL, NULL, &si, &pi);
+    WaitForInputIdle(pi.hProcess, 0xFFFFFFFF);
+    CloseHandle(pi.hThread);
+    CloseHandle(pi.hProcess);
+    while (*v5 < 0)
+      Sleep(1000);
+    UnmapViewOfFile(v5);
+    CloseHandle(hMap);
+    ExitProcess(0);
+  }
+
+
+  if (InterlockedIncrement((long *)v4)) {
+    v6 = GetForegroundWindow();
+
+    do {
+      hWnd = v6;
+      v6 = GetWindow(v6, 3u);
+    } while (v6);
+
+    while (1) {
+      GetWindowThreadProcessId(hWnd, &dwProcessId);
+      if (dwProcessId == v5[1])
+        break;
+      hWnd = GetWindow(hWnd, 2u);
+      if (!hWnd)
+        goto LABEL_23;
+    }
+    SetForegroundWindow(hWnd);
+  LABEL_23:
+    UnmapViewOfFile(v5);
+    CloseHandle(hMap);
+    ExitProcess(0);
+  }
+
+
+  v5[1] = GetCurrentProcessId();
+
 }
 
 int __cdecl PressEscKey()
