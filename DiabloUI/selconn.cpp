@@ -286,49 +286,71 @@ void __fastcall SelConn_1000A226 (
 //----------------------------------------------------------------------------//
 
 // ref: 0x1000A3E2
-HWND UNKCALL SelConn_1000A3E2(HWND hDlg) { return 0; }
-/* {
-	HWND v1; // esi
-	int v2; // eax
+void UNKCALL SelConn_1000A3E2 (
+  HWND _dialog
+){
 
-	v1 = hDlg;
-	v2 = SelConn_1000A3FF();
-	return Sbar_10009A99(v1, 1105, dword_1002A360, v2);
-} */
+	// HWND temp_dialog = _dialog; /// should be unchanged
+	int  v2 = SelConn_1000A3FF();
+
+	Sbar_DrawScrollBar(
+    _dialog,  /// should be unchanged
+    1105,  /// magic number
+    dword_1002A360,
+    v2
+  );
+
+  return;
+
+}
+
+//----------------------------------------------------------------------------//
 
 // ref: 0x1000A3FF
-int SelConn_1000A3FF() { return 0; }
-/* {
-	HWND v0; // eax
-	LONG v1; // eax
-	_DWORD *v2; // ecx
-	_DWORD *v3; // eax
-	int v5; // edx
+int SelConn_1000A3FF (){
 
-	v0 = GetFocus();
-	if ( !v0 )
+
+	HWND focus = GetFocus();
+	if ( not focus )
 		return 0;
-	v1 = GetWindowLongA(v0, -21);
-	if ( !v1 )
+
+
+	LONG user_data = GetWindowLongA( focus, GWL_USERDATA );
+	if ( user_data )
 		return 0;
-	v2 = (_DWORD *)dword_1002A35C;
-	if ( !dword_1002A35C )
+
+
+	DWORD* ptr = (DWORD*)dword_1002A35C;
+	if ( dword_1002A35C == NULL )
 		return 0;
-	v3 = *(_DWORD **)(v1 + 12);
-	if ( !v3 )
+
+
+	DWORD* data_ptr = *(DWORD**)(user_data + 12);
+	if ( data_ptr == NULL )
 		return 0;
-	v5 = 0;
-	do
-	{
-		if ( v2 == v3 )
+
+  //--------------------------------------------------------------------------//
+
+	int count = 0;
+	do {  /// find ?
+
+    if ( ptr == data_ptr )
 			break;
-		v2 = (_DWORD *)*v2;
-		++v5;
+
+		ptr    = (DWORD*)(*ptr);
+		count += 1;
+
 	}
-	while ( v2 );
-	return v5;
-} */
+  while ( ptr != NULL );
+
+
+	return count;
+
+
+}
 // 1002A35C: using guessed type int dword_1002A35C;
+
+//----------------------------------------------------------------------------//
 
 // ref: 0x1000A43A
 void UNKCALL SelConn_1000A43A(HWND hDlg) { return; }

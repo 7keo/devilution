@@ -383,7 +383,7 @@ void *SelConn_Allocate_1000A082();
 int SelConn_Set_And_Get_dword_1002A350_To_Infinity();
 int __stdcall SelConn_1000A0A6(HWND hWnd, UINT Msg, WPARAM wParam, unsigned int lParam);
 void __fastcall SelConn_1000A226(HWND hDlg, int nIDDlgItem);
-HWND UNKCALL SelConn_1000A3E2(HWND hDlg);
+void UNKCALL SelConn_1000A3E2(HWND hDlg);
 int SelConn_1000A3FF();
 void UNKCALL SelConn_1000A43A(HWND hDlg);
 BOOL __fastcall SelConn_1000A4B9(_DWORD *a1);
