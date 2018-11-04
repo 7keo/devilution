@@ -53,7 +53,7 @@ int __stdcall DirLink_10005D63(HWND hWnd, UINT Msg, WPARAM wParam, unsigned int 
 				DirLink_10006359(hWnd, (unsigned short)lParam, lParam >> 16);
 				break;
 			case 0x7E8u:
-				if ( !Fade_CheckRange5() )
+				if ( Fade_CheckRange5() == 0 )
 					Fade_SetFadeTimer(hWnd, v6);
 				return 0;
 		}

@@ -179,7 +179,7 @@ void __fastcall SelConn_1000A226 (
 
   window_id = (DWORD)GetWindowLongA( window, GWL_ID );
 
-  local_SetWndLongStr( window_id, (const char*)(v4+0x90) );
+  local_SetWndLongStr( window_id, (const char*)( v4 + 0x90 ) );
   window = GetDlgItem( _dialog, 1076 );
   if ( window == NULL )
     return;
@@ -193,9 +193,9 @@ void __fastcall SelConn_1000A226 (
   DWORD string_id = 0x21u;
   LoadStringA( ghUiInst, string_id, buffer, 63 );
 
-  DWORD temp = *(DWORD*)(v4+12);
+  DWORD temp = *(DWORD*)( v4 + 12 );
   if ( dword_1002A370 ){
-    DWORD temp_b = *(DWORD*)(dword_1002A370+24);
+    DWORD temp_b = *(DWORD*)( dword_1002A370 + 24 );
     if (  temp_b < temp )
       temp = temp_b;
   }
@@ -488,49 +488,31 @@ void UNKCALL SelConn_1000A4E4 (
 
 //----------------------------------------------------------------------------//
 
-struct SELCONN_STRUCT {
-  int   a;
-  DWORD b;
-  DWORD c;
-  DWORD d;
-  char  e [128];
-  char  f [128];
-};
-
 // ref: 0x1000A5F3
-int __stdcall SelConn_1000A5F3 (
-  int    _a1,
-  char*  _a2,
-  char*  _a3,
-  HANDLE _a4
-){
+signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, int a4) { return 0; }
+/* {
+	int v4; // esi
+	int v6; // edx
+	_DWORD *v7; // eax
 
-	SELCONN_STRUCT* data = SelConn_Allocate_1000A082();
-
-	if (  v4 == NULL
-  or   _a1 != 0x424E4554  /// BNET
-  and  not dword_1002A368 )
+	v4 = SelConn_1000A082();
+	if ( !v4 || a1 == 1112425812 && !dword_1002A368 )
 		return 0;
-
-  int v6 = *( DWORD(_a4) + 4 );
-
-  data->a =   0;
-	data->b = (v6 & 2);
-	data->c = _a1;
-	data->d = *(DWORD*)(_a4 + 16);
-
-	strcpy( (char*)(data->e), _a2 );
-	strcpy( (char*)(v4 + 144), _a3 );
-
-  DWORD* v7 = SelRegn_1000EF56( dword_1002A35C, (_DWORD *)v4 );
+	*(_DWORD *)v4 = 0;
+	v6 = *(_DWORD *)(a4 + 4);
+	*(_DWORD *)(v4 + 8) = a1;
+	*(_DWORD *)(v4 + 4) = v6 & 2;
+	*(_DWORD *)(v4 + 12) = *(_DWORD *)(a4 + 16);
+	strcpy((char *)(v4 + 16), a2);
+	strcpy((char *)(v4 + 144), a3);
+	v7 = SelRegn_1000EF56(dword_1002A35C, (_DWORD *)v4);
 	++dword_1002A360;
 	dword_1002A35C = (int)v7;
-
 	return 1;
-
-}
+} */
 // 1002A35C: using guessed type int dword_1002A35C;
 // 1002A368: using guessed type int dword_1002A368;
+
 
 //----------------------------------------------------------------------------//
 

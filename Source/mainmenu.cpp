@@ -32,9 +32,7 @@ void __cdecl mainmenu_Refresh_Music (){
 
 
 }
-
 //----------------------------------------------------------------------------//
-
 void __stdcall mainmenu_Create_Hero (
   char* _name_1,
   char* _name_2
@@ -268,8 +266,8 @@ void __cdecl mainmenu_play_intro (){
 
   music_stop();
 
-  char* const intro_move_filename = "gendata\\diablo1.smk";
-  const BOOL  allow_skip          = true;
+  const char intro_move_filename [] = "gendata\\diablo1.smk";  /// make global ?
+  const BOOL allow_skip            = true;
 
 	play_movie( intro_move_filename, allow_skip );
 

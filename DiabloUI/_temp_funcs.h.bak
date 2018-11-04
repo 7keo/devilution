@@ -2,12 +2,15 @@
 //----------------------------------------------------------------------------//
 
 /// put these inside a artfont.h ?
+void __cdecl artfont_cpp_init();
+void __cdecl j_artfont_cpp_init();
+
 void __cdecl    Font_Init             ();
 
 void __cdecl    Font_Init_All         ();
 
 void __fastcall Font_Deallocate       ( FONT* );
-  
+
 void __cdecl    Font_Deallocate_All   ();
 
 BOOL __cdecl    Font_Load_All         ();
@@ -21,7 +24,7 @@ int __fastcall  Font_Calc_Line_Width  ( CSTRING );
 int __fastcall  Font_Find_Linebreak   ( CSTRING );
 
 void __cdecl    Font_Delete_Operator  ( HANDLE );
-void __fastcall Font_Print_String     ( CSTRING, DRAW_SURFACE*, int, int );
+void __fastcall Font_Print_Text       ( CSTRING, DRAW_SURFACE*, int, int );
 
 //----------------------------------------------------------------------------//
 
@@ -67,7 +70,9 @@ void UNKCALL bn_prof_10002890(_DWORD *arg);
 
 void UNKCALL BNetGW_100028C2(_DWORD *arg);
 void UNKCALL BNetGW_100029BF(_DWORD *arg, int a2);
-void *UNKCALL BNetGW_10002A07(_DWORD *arg);
+
+HANDLE UNKCALL BNetGW_10002A07 ( _DWORD* _arg );
+
 _DWORD *UNKCALL BNetGW_10002A84(_DWORD *arg, signed int a2);
 signed int BNetGW_10002AE5();
 int UNKCALL BNetGW_10002AF0(_DWORD *arg, char *a2);
@@ -242,7 +247,7 @@ BOOL __cdecl Fade_CheckRange5();
 void __cdecl Fade_Range5SetZero();
 void __fastcall Fade_NoInputAndArt(HWND hWnd, BOOL bShowCurs);
 void __fastcall Fade_SetInputWindow(HWND hWnd);
-void __fastcall Fade_SetFadeTimer(int nTime);
+void __fastcall Fade_SetFadeTimer( HWND _window );
 void __stdcall Fade_TimerFunctionDlg(int a1, int a2, int a3, int a4);
 void __cdecl j_Fade_cpp_init();
 void __cdecl Fade_cpp_init();
@@ -269,9 +274,19 @@ tagPALETTEENTRY* __fastcall local_GetArtPalEntry(int entry);
 void             __fastcall local_ClearPalette(PALETTEENTRY *pPal);
 void             __cdecl    local_ClearSurface();
 BOOL             __fastcall local_LoadArtImage( const char* _filename, BYTE** pBuffer, _SIZE* pdwSize );
-BOOL             __fastcall local_LoadArtWithPal(HWND hWnd, int a2, char *src, int mask, int flags, const char *pszFileName, BYTE **pBuffer, DWORD *pdwSize, BOOL a9);
+BOOL             __fastcall local_LoadArtWithPal (
+  HWND        hWnd,
+  int         a2,
+  char*       src,
+  int         mask,
+  int         flags,
+  const char* pszFileName,
+  BYTE**      pBuffer,
+  _SIZE*      _size,
+  BOOL        _clear_palette
+);
 void             __fastcall local_AdjustRectSize(tagRECT *pRect, int a2, int a3);
-BOOL             __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, DWORD *pdwSize);
+BOOL             __fastcall local_SetStaticBmp(HWND hWnd, int nIDDlgItem, BYTE *pBuffer, _SIZE* _size );
 void             __cdecl    j_local_cpp_init();
 void             __cdecl    local_cpp_init();
 BOOL             __fastcall local_SetButtonBmp(HWND hWnd, int flags, int a7, void *pBuffer, DWORD *pdwSize);
@@ -286,7 +301,7 @@ LRESULT          __stdcall  local_PostUiWndProc2(HWND hWnd, UINT uMsg, WPARAM wP
 BOOL             __fastcall local_DisableKeyWaitMouse(HWND hWnd);
 DWORD*           __cdecl    local_AllocWndLongData();
 void             __fastcall local_FreeMemPtr(void **p);
-void             __fastcall local_SetWndLongStr(int WndLongData, const char *pszStr);
+void             __fastcall local_SetWndLongStr( DWORD  WndLongData, const char *pszStr);
 void             __cdecl    local_LoadArtCursor();
 void             __cdecl    local_InitArtCursor();
 void             __cdecl    local_FreeArtCursor();
@@ -374,17 +389,17 @@ void __fastcall SelClass_CheckClassSpawn(HWND hWnd, int a2);
 void __cdecl j_SelClass_cpp_init();
 void __cdecl SelClass_cpp_init();
 
-void *SelConn_1000A082();
-signed int SelConn_1000A09B();
+void *SelConn_Allocate_1000A082();
+int SelConn_Set_And_Get_dword_1002A350_To_Infinity();
 int __stdcall SelConn_1000A0A6(HWND hWnd, UINT Msg, WPARAM wParam, unsigned int lParam);
-HWND __fastcall SelConn_1000A226(HWND hDlg, int nIDDlgItem);
-HWND UNKCALL SelConn_1000A3E2(HWND hDlg);
+void __fastcall SelConn_1000A226(HWND hDlg, int nIDDlgItem);
+void UNKCALL SelConn_1000A3E2(HWND hDlg);
 int SelConn_1000A3FF();
 void UNKCALL SelConn_1000A43A(HWND hDlg);
-BOOL __fastcall SelConn_1000A4B9(_DWORD *a1);
-BOOL UNKCALL SelConn_1000A4CD(void *location);
-HWND UNKCALL SelConn_1000A4E4(HWND hWnd, char *a2, int a3);
-signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, int a4);
+void __fastcall SelConn_1000A4B9(DWORD* a1);
+void UNKCALL SelConn_1000A4CD(void *location);
+void UNKCALL SelConn_1000A4E4( HWND hWnd );  // , char *a2, int a3
+signed int __stdcall SelConn_1000A5F3(int a1, char *a2, char *a3, void* a4);
 int __fastcall SelConn_1000A670(HWND a1, const char *a2);
 void UNKCALL SelConn_1000A6EC(HWND hDlg);
 LRESULT __stdcall SelConn_1000A73E(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
@@ -441,7 +456,17 @@ BOOL __fastcall SelHero_IsNameReserved(char *name);
 void __fastcall SelHero_SetLastNamePos(char *name);
 BOOL __fastcall SelHero_NameHasChar(char *name, char *illegalchrs);
 BOOL __fastcall UiValidPlayerName(char *name);
-BOOL __stdcall UiSelHeroMultDialog(BOOL(__stdcall *fninfo)(BOOL(__stdcall *fninfofunc)(_uiheroinfo *)), BOOL(__stdcall *fncreate)(_uiheroinfo *), BOOL(__stdcall *fnremove)(_uiheroinfo *), BOOL(__stdcall *fnstats)(int, _uidefaultstats *), int *dlgresult, int *a6, char *name);
+
+BOOL __stdcall UiSelHeroMultDialog (
+  FNINFO   _fninfo,
+  FNCREATE _fncreate,
+  FNREMOVE _fnremove,
+  FNSTATS  _fnstats,
+  int*     _dlgresult,
+  int*     _selhero_is_created,
+  char*    _name
+);
+
 LRESULT __stdcall SelHero_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 void __fastcall SelHero_DoStuffWithStrings(HWND hWnd);
 _uiheroinfo *__fastcall SelHero_GetNextHeroFromStr(_uiheroinfo *pInfo, char *name);
@@ -455,7 +480,7 @@ void __fastcall SelHero_DoSelLoad(HWND hWnd);
 void __fastcall SelHero_DoSelDiff(HWND hWnd);
 void __fastcall SelHero_DeleteAndFree(HWND hWnd);
 void __fastcall SelHero_FreeAllHeroes(_uiheroinfo *pInfo);
-void __fastcall SelHero_DoHeroEndFade(HWND hWnd, int a2);
+void __fastcall SelHero_DoHeroEndFade ( HWND hWnd, HANDLE _result );
 void __fastcall SelHero_LoadHeroGFX(HWND hWnd);
 void __fastcall SelHero_SelectHeroRegion(HWND hWnd);
 BOOL __stdcall SelHero_GetHeroInfo(_uiheroinfo *pInfo);

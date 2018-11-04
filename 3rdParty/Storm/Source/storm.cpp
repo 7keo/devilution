@@ -59,18 +59,25 @@ int STORMAPI SNetGetLeaguePlayerName(char *curPlayerLeageName, size_t nameSize) 
 
 //----------------------------------------------------------------------------//
 
-HGDIOBJ STORMAPI SDlgDefDialogProc (
+HGDIOBJ 
+STORMAPI 
+SDlgDefDialogProc (
   HWND  _dialog,
-   int  _dialog_type,
-   HDC  _text_label,
-   HWND _window
+  int  _dialog_type,
+  HDC  _text_label,
+  HWND _window
  ) rPVoid;
 
  //----------------------------------------------------------------------------//
 
 HANDLE STORMAPI SDlgDialogBoxIndirectParam(HMODULE hModule, LPCSTR lpName, HWND hWndParent, LPVOID lpParam, LPARAM lParam) rPVoid;
 
-BOOL STORMAPI SDlgEndDialog ( HWND hDlg, HANDLE nResult ) rBool;
+BOOL 
+STORMAPI 
+SDlgEndDialog ( 
+  HWND   hDlg, 
+  HANDLE nResult
+) rBool;
 
 BOOL STORMAPI SDlgSetControlBitmaps(HWND parentwindow, int *id, int a3, char *buffer2, char *buffer, int flags, int mask) rBool;
 
@@ -92,12 +99,12 @@ BOOL STORMAPI SFileDdaInitialize(HANDLE directsound) rBool;
 BOOL STORMAPI SFileDdaSetVolume(HANDLE directsound, signed int bigvolume, signed int volume) rBool;
 BOOL STORMAPI SFileDestroy() rBool;
 
-BOOL  STORMAPI SFileGetFileArchive(HANDLE hFile, HANDLE archive) rBool;
-LONG STORMAPI SFileGetFileSize ( HANDLE hFile, LPDWORD lpFileSizeHigh ) rInt;
-BOOL  STORMAPI SFileOpenArchive(const char *szMpqName, DWORD dwPriority, DWORD dwFlags, HANDLE *phMpq) rBool;
-BOOL  STORMAPI SFileOpenFile(const char *filename, HANDLE *phFile) rBool;
-BOOL  STORMAPI SFileOpenFileEx(HANDLE hMpq, const char *szFileName, DWORD dwSearchScope, HANDLE *phFile) rBool;
-BOOL  STORMAPI SFileReadFile(HANDLE hFile, void *buffer, DWORD nNumberOfBytesToRead, DWORD *read, LONG lpDistanceToMoveHigh) rBool;
+BOOL STORMAPI SFileGetFileArchive(HANDLE hFile, HANDLE archive) rBool;
+LONG STORMAPI SFileGetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh) rInt;
+BOOL STORMAPI SFileOpenArchive(const char *szMpqName, DWORD dwPriority, DWORD dwFlags, HANDLE *phMpq) rBool;
+BOOL STORMAPI SFileOpenFile(const char *filename, HANDLE *phFile) rBool;
+BOOL STORMAPI SFileOpenFileEx(HANDLE hMpq, const char *szFileName, DWORD dwSearchScope, HANDLE *phFile) rBool;
+BOOL STORMAPI SFileReadFile(HANDLE hFile, void *buffer, DWORD nNumberOfBytesToRead, DWORD *read, LONG lpDistanceToMoveHigh) rBool;
 
 void STORMAPI SFileSetLocale(LCID lcLocale) rVoid;
 
@@ -161,17 +168,23 @@ BOOL STORMAPI SGdiSetPitch(int pitch) rBool;
 
 BOOL STORMAPI Ordinal393(char *string, int, int) rBool;
 
-BYTE* STORMAPI SMemAlloc (
+HANDLE
+STORMAPI 
+SMemAlloc (
   SIZE_T num_bytes,
   char*  logfilename,  /// change to const CSTRING
   int    logline,
-  char   defaultValue ) rPVoid;
+  char   defaultValue 
+) rPVoid;
 
-BOOL STORMAPI SMemFree(
+BOOL 
+STORMAPI 
+SMemFree(
   HANDLE pointer,
   char*  logfilename,   /// change to const CSTRING
   int    logline,
-  char   defaultValue ) rBool;
+  char   defaultValue
+) rBool;
 
 void* STORMAPI SMemReAlloc(void *location, size_t amount, char *logfilename, int logline, char defaultValue) rPVoid;
 
@@ -192,14 +205,25 @@ BOOL STORMAPI SRegSaveValue(const char *keyname, const char *valuename, BYTE fla
 
 BOOL STORMAPI SRegDeleteValue(const char *keyname, const char *valuename, BYTE flags) rBool;
 
-BOOL STORMAPI STransBlt (
+BOOL 
+STORMAPI 
+STransBlt (
   HANDLE lpSurface,
   int    x,
   int    y,
   int    width,
-  HANDLE hTrans ) rBool;
+  HANDLE hTrans  /// texture ?
+) rBool;
 
-BOOL STORMAPI STransBltUsingMask( HANDLE lpSurface, void *lpSource, int pitch, int width, HANDLE hTrans) rBool;
+BOOL 
+STORMAPI 
+STransBltUsingMask ( 
+  HANDLE lpSurface, 
+  void*  lpSource, 
+  int    pitch, 
+  int    width, 
+  HANDLE hTrans
+) rBool;
 
 BOOL STORMAPI STransDelete(HANDLE hTrans) rBool;
 
@@ -213,14 +237,15 @@ BOOL STORMAPI STransPointInMask(HANDLE hTrans, int x, int y) rBool;
 BOOL STORMAPI STransCombineMasks(HANDLE hTransA, HANDLE hTransB, int left, int top, int flags, HANDLE * phTransResult) rBool;
 
 BOOL STORMAPI STransCreateE(void *pBuffer, int width, int height, int bpp, int a5, int bufferSize, HANDLE *phTransOut) rBool;
-BOOL STORMAPI STransCreateI(
+BOOL STORMAPI STransCreateI (
   HANDLE  pBuffer,
   int     width,
   int     height,
   int     bpp,
-  _RECT*  rect,
+  HANDLE  rect,  /// _RECT*
   int     bufferSize,
-  HANDLE* phTransOut ) rBool;
+  HANDLE* phTransOut 
+) rBool;
 
 BOOL STORMAPI SVidDestroy() rBool;
 BOOL STORMAPI SVidGetSize(HANDLE video, int width, int height, int zero) rBool;
@@ -300,11 +325,13 @@ void __stdcall SDlgEndPaint(HWND hWnd, char *a2) rVoid;
 void __stdcall SDlgSetSystemCursor(BYTE *a1, BYTE *a2, int *a3, int a4) rVoid;
 void __stdcall SDlgSetCursor(HWND hWnd, HCURSOR a2, int a3, int *a4) rVoid;
 
-BOOL __stdcall SDlgSetTimer (
+BOOL 
+STORMAPI 
+SDlgSetTimer (
   HWND _window,
   int  a2,
-  int  a3,  // milliseconds
-  void (__stdcall* _function)( int, int, int, int )
+  int  a3,  // milliseconds ?
+  void (__stdcall* _callback)( int, int, int, int )
   ) rBool;
 
 BOOL __stdcall SDlgKillTimer(int a1, int a2) rBool;

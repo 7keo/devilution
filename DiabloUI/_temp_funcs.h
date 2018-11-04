@@ -1,7 +1,7 @@
 
 //----------------------------------------------------------------------------//
 
-/// put these inside a artfont.h ?
+/// put these inside artfont.h ?
 void __cdecl artfont_cpp_init();
 void __cdecl j_artfont_cpp_init();
 

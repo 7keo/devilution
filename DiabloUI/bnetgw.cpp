@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------------//
 
 // ref: 0x100028C2
-void UNKCALL BNetGW_100028C2( UNKNOWN_STRUCT_BNetGW* arg ){ return; }
+void UNKCALL BNetGW_100028C2( HANDLE arg ){ return; }
 /* {
 	_DWORD *v1; // esi
 	bool v2; // zf
@@ -115,60 +115,65 @@ void UNKCALL BNetGW_100029BF(_DWORD *arg, int a2) { return; }
 
 //----------------------------------------------------------------------------//
 
+// struct DWORD* _arg {
+//   [0]
+//   [1]
+//   [2]
+//   [3] int
+//   [4] char* text
+//   [5] DWORD cbdata
+//   [6]
+//   [7]
+// };
+
 // ref: 0x10002A07
-HANDLE UNKCALL BNetGW_10002A07( UNKNOWN_STRUCT_BNetGW* _arg ) { return 0; }
-/* {
+HANDLE UNKCALL BNetGW_10002A07( 
+  DWORD* _arg  /// if changed to HANDLE multiply offsets by 4
+){
 
+  
+  if ( _arg[4] == NULL )
+    return NULL;
+  
+  
+  if ( _arg[1] != 0 {
 
-	if ( _arg->v1    != 0
-  and _arg->string != NULL ){
+    char* text = _arg[4];     
+    int n = SStrLen( text );
 
-    /// 2 digit number to string
-    DWORD offset = SStrLen( _arg->string ) + 1;
-    _arg->string[offset+0] = ( _arg->number / 10 ) + '0';  // 0x...9x
-    _arg->string[offset+1] = ( _arg->number % 10 ) + '0';  // x0...x9
+    text[n+1] = ( (int)_arg[3] / 10 ) + '0';
+    text[n+2] = ( (int)_arg[3] % 10 ) + '0';
 
-    const int   size    = 0x82u;  // 130
-    char* const keyname = "Configuration";
-    const char* valuename;
-    if ( _arg->override_bnet_gateways )
+    const char* valuename; // eax
+    if ( _arg[7] == 0 )
       valuename = "Override Battle.net gateways";
     else
       valuename = "Battle.net gateways";
 
     SRegSaveData(
-      keyname,
+      "Configuration",
       valuename,
-      size,
-      _arg->string,
-      _arg->cbData
+      130,  /// size
+      text,
+      _arg[5]
     );
 
   }
+  
 
-	if ( _arg->string == NULL )
-    return 0;
-
-
-  /// delete string
-  int result = 0;
-
-  char* const this_file = "C:\\Src\\Diablo\\DiabloUI\\BNetGW.cpp";
-  const int   this_line = 152;
-
-  result = SMemFree(
-    _arg->string,
-    this_file,
-    this_line,
+  BOOL result = SMemFree(
+    _arg[4],
+    "C:\\Src\\Diablo\\DiabloUI\\BNetGW.cpp",  /// this_file
+    152,                                      /// this_line
     0x00
   );
 
-  _arg->string = NULL;
-  _arg->cbData = 0;
+  _arg[4] = NULL;
+  _arg[5] = 0;
 
 	return result;
 
-} */
+}
 // 10010340: using guessed type int __stdcall SMemFree(_DWORD, _DWORD, _DWORD, _DWORD);
 // 100103A0: using guessed type int __stdcall SStrLen(_DWORD);
 // 100103D0: using guessed type int __stdcall SRegSaveData(const char *, const char *, unsigned int, void *, unsigned int);
@@ -234,9 +239,8 @@ LABEL_7:
 signed int BNetGW_10002AE5() { return 0; }
 /* {
 
-  dword_10029478 = 0x7F80'0000; // 2139095040 // infinity
-
-	dword_10029478;
+	float_10029478 = infinity;
+	return float_10029478;
 
 } */
 // 10029478: using guessed type int dword_10029478;

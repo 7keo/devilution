@@ -486,22 +486,24 @@ void __fastcall local_FreeMemPtr(void **p)
 
 // ref: 0x10007FA4
 void __fastcall local_SetWndLongStr (
-        DWORD _WndLongData,
-  const char* _pszStr
+        HANDLE _WndLongData,
+  const char*  _pszStr
 ){
 
 
-	if ( not _WndLongData )
+	if ( _WndLongData == NULL )
     return;
 
-  char* const string = (char*)( _WndLongData + 16 );
+  char* string = _WndLongData[16];
 
-  if ( _pszStr ){
-    strncpy( string, _pszStr, 255 );
+  if ( _pszStr == NULL ){
+    string[0] = '\0';
+    return;
+  }
 
-    (*(char*)( _WndLongData + 271 )) = '\0';
-  } else
-    (*(char*)( _WndLongData +  16 )) = '\0';
+    
+  strncpy( string, _pszStr, 255 );
+  string[255] = '\0'; 
 
 
 }

@@ -45,8 +45,8 @@ typedef struct _SIZE {
 struct FONT {
 	BYTE   default_width;
 	BYTE   line_height;
-	BYTE   glyph_widths [256];
-	HANDLE fonttrans    [256];  /// DRAW_SURFACE pointers
+	BYTE   glyph_widths   [256];
+	HANDLE glyph_textures [256];  /// DRAW_SURFACE pointers
 	BOOL   active;
 };
 

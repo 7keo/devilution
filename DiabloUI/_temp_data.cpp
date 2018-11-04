@@ -146,32 +146,63 @@ void *dword_1002942C;                                           // idb
 int(__stdcall *dword_10029430)(_DWORD, _DWORD, _DWORD, _DWORD); // weak
 void *dword_10029434;                                           // idb
 int dword_10029438[4];                                          // weak
+
 char nullcharacter;   // byte_10029448                          /* check */
+char byte_10029449;   /// missing ?
+
 HGDIOBJ dword_10029450;                                         // idb
 int dword_10029454;                                             // weak
 int dword_10029458;                                             // weak
 int dword_10029460[3];                                          // idb
-int dword_1002946C;                                             // weak
-HGDIOBJ dword_10029470;                                         // idb
 
-/// it looks like this region is used as a buffer
-int dword_10029478;  // float                                   // weak
-/// size conflict, 2 bytes overlap
-UNKNOWN_STRUCT_BNetGW dword_10029480;                                          // weak int
-// int dword_10029484;  /// guessed missing                        // weak
-int dword_10029488;                                             // weak
-int dword_1002948C;                                             // weak
-int Connect_cpp_float;                                          // weak
-int special_frames;                                             // weak
-DWORD heroport_data[2];
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
 
-char connect_categorystr[128];
-char connect_plrinfostr[128];
-int heronum_frames2; // weak
-DWORD special_data[2];
-int heroport_frames; // weak
-DWORD heronum_data[2];
-int heronum_frames;      // idb
+/// UiProfileCallback_100014F9 ()
+int     dword_1002946C;  /// bn_prof_100022A2(), bn_prof_10002456()                                            // weak
+HGDIOBJ dword_10029470;  /// bn_prof_100022A2(), bn_prof_10002456(), bn_proff_100023D8()  // idb
+     // dword_10029474   /// missing
+
+//----------------------------------------------------------------------------//
+
+/// BNetGW_10002AE5 ()
+float    float_10029478;
+// DOWRD dword_1002947C;  /// missing
+
+//----------------------------------------------------------------------------//
+
+/// UiSelectProvider ()
+UNKNOWN_STRUCT_BNetGW
+    dword_10029480;  /// SelConn_1000A226(), SelRegn_1000F2ED(), SelConn_1000AC9E(), SelRegn_1000F8F6(), SelConn_1000A0A6()
+//  dword_10029484;  /// guessed missing   // weak
+int dword_10029488;  /// SelConn_1000A4E4(), SelRegn_1000F2ED()
+int dword_1002948C;  /// SelConn_1000A226(), UiSelectRegion_1000F9F7()
+int dword_10029490;  /// char*
+int dword_10029494;
+int dword_1002949C;
+
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+
+/// Connect_Cpp_Init ()
+int Connect_cpp_float;   /// 100294A0
+
+//----------------------------------------------------------------------------//
+
+/// UiInitialize (), UiDrawDescCallback ()
+int   special_frames;            /// 100294A4
+DWORD heroport_data[2];          /// 100294A8  DWORD { w, h }
+
+char connect_categorystr [128];  /// 100294B0
+char connect_plrinfostr  [128];  /// 10029530
+
+int   heronum_frames2; // weak
+DWORD special_data[2];            /// DWORD { w, h }
+
+int   heroport_frames;  // weak
+DWORD heronum_data[2];  /// DWORD { w, h }
+int   heronum_frames;   // idb
+
 int connect_draw_height; // idb
 BYTE *connect_data1;     // idb
 BYTE *connect_data2;     // idb
@@ -179,6 +210,7 @@ BYTE *connect_data3;     // idb
 void *connect_data4;     // idb
 HANDLE connect_trans[10];
 char *connect_charname;
+
 int connect_color_text;    // weak
 HGLOBAL copyprot_popupart; // idb
 HGLOBAL copyprot_artpal;   // idb
@@ -311,21 +343,21 @@ int dword_1002A34C;          // idb
 
 int dword_1002A350;          // weak  // float ?
 
-int dword_1002A354;          // weak
-char *dword_1002A358;        // idb
-int dword_1002A35C;          // weak
-int dword_1002A360;          // idb
-int dword_1002A364;          // weak
-int dword_1002A368;          // weak
-int dword_1002A36C;          // weak
-int dword_1002A370;          // weak
-int dword_1002A374;          // weak
-char *dword_1002A378;        // idb
-int dword_1002A37C;          // weak
-char byte_1002A380[128];     // weak
-int dword_1002A400;          // weak
-int dword_1002A404;          // weak
-int dword_1002A408;          // weak
+int   dword_1002A354;          // weak
+char* dword_1002A358;        // idb
+int   dword_1002A35C;          // pointer
+int   dword_1002A360;          // idb
+int   dword_1002A364;          // weak
+int   dword_1002A368;          // weak
+int   dword_1002A36C;          // weak
+int   dword_1002A370;          // weak
+int   dword_1002A374;          // weak
+char* dword_1002A378;          // idb
+int   dword_1002A37C;          // weak
+char  byte_1002A380 [128];     // weak
+int   dword_1002A400;          // weak
+int   dword_1002A404;          // weak
+int   dword_1002A408;          // weak
 BOOL(__stdcall *selhero_fnstats)
 (unsigned int, _uidefaultstats *);
 int SelHero_cpp_float;     // weak

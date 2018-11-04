@@ -87,8 +87,10 @@ BOOL STORMAPI SNetDestroy();
 //   int (__stdcall* a2 )(int a1, char *a2, char *a3, int a4)
 // );
 
-BOOL STORMAPI SNetEnumProviders (
-  HANDLE a1,
+BOOL 
+STORMAPI 
+SNetEnumProviders (
+  HANDLE           a1,
   BOOL (__stdcall* a2)(int, char*, char*, void*)
 );
 
@@ -473,7 +475,9 @@ BOOL STORMAPI SNetGetPlayerNames(char **names);
 int  STORMAPI SNetLeagueLogout(char *bnetName);
 int  STORMAPI SNetGetLeaguePlayerName(char *curPlayerLeageName, size_t nameSize);
 
-HGDIOBJ STORMAPI SDlgDefDialogProc(
+HGDIOBJ 
+STORMAPI 
+SDlgDefDialogProc(
   HWND hDlg,
   int  DlgType,
   HDC  textLabel,
@@ -820,12 +824,14 @@ BOOL STORMAPI Ordinal393(char *pszString, int, int);
  *  Returns a pointer to the allocated memory. This pointer does NOT include
  *  the additional storm header.
  */
-BYTE* STORMAPI
+HANDLE 
+STORMAPI
 SMemAlloc(
   SIZE_T num_bytes,
   char*  logfilename,  /// change to const CSTRING  // char* logfilename,
   int    logline,
-  char   defaultValue = 0 );
+  char   defaultValue = 0 
+);
 
 #define SMAlloc(amount) SMemAlloc((amount), __FILE__, __LINE__)
 
@@ -846,9 +852,10 @@ BOOL
 STORMAPI
 SMemFree(
   HANDLE location,
-  char*  logfilename,  // char* logfilename,   /// change to const CSTRING
+  char*  logfilename,  /// change to const CSTRING
   int    logline,
-  char   defaultValue = 0 );
+  char   defaultValue = 0 
+);
 
 #define SMFree(loc) SMemFree((loc), __FILE__, __LINE__)
 
@@ -892,7 +899,9 @@ BOOL STORMAPI SRegLoadData(const char *keyname, const char *valuename, int size,
 BOOL STORMAPI SRegLoadString(const char *keyname, const char *valuename, BYTE flags, char *buffer, size_t buffersize);
 BOOL STORMAPI SRegLoadValue(const char *keyname, const char *valuename, BYTE flags, int *value);
 
-BOOL STORMAPI SRegSaveData (
+BOOL 
+STORMAPI 
+SRegSaveData (
   const char* keyname,
   const char* valuename,
         int   size,
@@ -903,7 +912,9 @@ BOOL STORMAPI SRegSaveData (
 BOOL STORMAPI SRegSaveString(const char *keyname, const char *valuename, BYTE flags, char *string);
 BOOL STORMAPI SRegSaveValue(const char *keyname, const char *valuename, BYTE flags, DWORD result);
 
-BOOL STORMAPI SRegDeleteValue(
+BOOL 
+STORMAPI 
+SRegDeleteValue (
   const char* keyname,
   const char* valuename,
         BYTE  flags
@@ -919,14 +930,25 @@ BOOL STORMAPI SRegDeleteValue(
 #define SREG_EXCLUDE_CURRENT_USER   0x00000004  // excludes checking the HKEY_CURRENT_USER hive
 #define SREG_ABSOLUTE               0x00000010  // specifies that the key is not a relative key
 
-BOOL STORMAPI STransBlt (
+BOOL 
+STORMAPI 
+STransBlt (
   HANDLE lpSurface,
   int    x,
   int    y,
   int    width,
-  HANDLE hTrans );
+  HANDLE hTrans
+);
 
-BOOL STORMAPI STransBltUsingMask( HANDLE lpDest, HANDLE lpSource, int pitch, int width, HANDLE hTrans);
+BOOL 
+STORMAPI 
+STransBltUsingMask( 
+  HANDLE lpDest, 
+  HANDLE lpSource, 
+  int    pitch, 
+  int    width, 
+  HANDLE hTrans
+);
 
 BOOL STORMAPI STransDelete(HANDLE hTrans);
 
@@ -944,18 +966,20 @@ BOOL STORMAPI STransCreateE(
   int     width,
   int     height,
   int     bpp,
-  HANDLE  rect,
+  HANDLE  rect,   /// change to _RECT* ?
   int     bufferSize,
-  HANDLE* phTransOut );
+  HANDLE* phTransOut 
+);
 
 BOOL STORMAPI STransCreateI(
   HANDLE  pBuffer,
   int     width,
   int     height,
   int     bpp,
-  _RECT*  rect,
+  HANDLE  rect,   /// change to _RECT* ?
   int     bufferSize,
-  HANDLE* phTransOut );
+  HANDLE* phTransOut 
+);
 
 BOOL STORMAPI SVidDestroy();
 BOOL STORMAPI SVidGetSize(HANDLE video, int width, int height, int zero);
@@ -1368,11 +1392,13 @@ void __stdcall SDlgEndPaint(HWND hWnd, char *a2);
 void __stdcall SDlgSetSystemCursor(BYTE *a1, BYTE *a2, int *a3, int a4);
 void __stdcall SDlgSetCursor(HWND hWnd, HCURSOR a2, int a3, int *a4);
 
-BOOL __stdcall SDlgSetTimer (
+BOOL 
+STORMAPI 
+SDlgSetTimer (
   HWND _window,
   int  a2,
   int  a3,  // milliseconds
-  void (__stdcall* _function)( int, int, int, int )
+  void (__stdcall* _callback)( int, int, int, int )
 );
 
 BOOL __stdcall SDlgKillTimer(int a1, int a2);
